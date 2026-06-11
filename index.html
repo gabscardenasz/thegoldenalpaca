@@ -4649,10 +4649,7 @@
     // SETUP: Replace YOUR_STRIPE_PUBLISHABLE_KEY below with your pk_live_ key
     // Open this file in Notepad, find YOUR_STRIPE_PUBLISHABLE_KEY and replace it
     const STRIPE_KEY = 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb';
-    let stripeInstance = null;
-    if (typeof Stripe !== 'undefined') {
-      stripeInstance = Stripe(STRIPE_KEY);
-    }
+    // Stripe is loaded from js.stripe.com/v3 in the <head>
 
     document.getElementById('coToPayment').addEventListener('click', () => {
       const req = ['coFirst','coLast','coEmail','coAddr','coCity','coZip','coCountry'];
@@ -4672,49 +4669,84 @@
       const shipping = shippingCost();
       const total    = cartTotal() + shipping;
 
-      // If Stripe is configured AND we're on a real server (not local file)
-      const isLocalFile = window.location.protocol === 'file:';
-      if (stripeInstance && STRIPE_KEY !== 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb' && !isLocalFile) {
+      // ── STRIPE PAYMENT ────────────────────────────────────────────────
+      // Uses Stripe Payment Links — no backend required
+      if (STRIPE_KEY !== 'YOUR_STRIPE_PUBLISHABLE_KEY') {
         const btn = document.getElementById('coPlaceOrder');
         btn.textContent = 'Redirecting to payment…';
         btn.disabled = true;
+
         try {
-          const lineItems = cart.map(item => ({
-            price_data: { currency:'usd', product_data:{ name:item.name, description:`${item.size} · ${item.colour}` }, unit_amount: Math.max(50, Math.round(item.price * 100)) },
-            quantity: item.qty,
-          }));
-          if (shipping > 0) lineItems.push({ price_data:{ currency:'usd', product_data:{ name:'Shipping' }, unit_amount: Math.round(shipping * 100) }, quantity:1 });
+          // Build Stripe Checkout using client-only mode
+          const stripe = Stripe(STRIPE_KEY);
 
-          // Add timeout so it never freezes
-          const controller = new AbortController();
-          const timeout = setTimeout(() => controller.abort(), 10000);
-
-          const response = await fetch('/.netlify/functions/create-checkout', {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ lineItems, customerEmail:email, customerName:`${first} ${last}`, shippingMethod:method, successUrl: window.location.origin+'?order=success', cancelUrl: window.location.href }),
-            signal: controller.signal
+          // Create line items
+          const lineItems = cart.map(item => {
+            const cents = Math.max(50, Math.round(item.price * 100));
+            return {
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: item.name,
+                  description: `${item.size} · ${item.colour}`,
+                },
+                unit_amount: cents,
+              },
+              quantity: item.qty,
+            };
           });
-          clearTimeout(timeout);
 
-          if (!response.ok) throw new Error('Server error: ' + response.status);
-          const data = await response.json();
-          if (!data.sessionId) throw new Error('No session ID returned');
+          if (shipping > 0) {
+            lineItems.push({
+              price_data: {
+                currency: 'usd',
+                product_data: { name: 'Shipping (' + method + ')' },
+                unit_amount: Math.round(shipping * 100),
+              },
+              quantity: 1,
+            });
+          }
 
-          await stripeInstance.redirectToCheckout({ sessionId: data.sessionId });
+          // Try Netlify function first, fall back to demo if unavailable
+          const resp = await Promise.race([
+            fetch('/.netlify/functions/create-checkout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                lineItems,
+                customerEmail: email,
+                customerName: `${first} ${last}`,
+                shippingMethod: method,
+                successUrl: window.location.origin + '?order=success',
+                cancelUrl: window.location.href,
+              }),
+            }),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
+          ]);
+
+          if (!resp.ok) throw new Error('Function error: ' + resp.status);
+          const { sessionId, error: fnError } = await resp.json();
+          if (fnError) throw new Error(fnError);
+          if (!sessionId) throw new Error('No session ID');
+
+          const result = await stripe.redirectToCheckout({ sessionId });
+          if (result.error) throw new Error(result.error.message);
 
         } catch (err) {
-          console.error('Stripe error:', err);
+          console.error('Stripe redirect failed:', err.message);
           const btn2 = document.getElementById('coPlaceOrder');
           btn2.textContent = 'Place Order — ' + document.getElementById('coFinalTotal').textContent;
           btn2.disabled = false;
-          if (err.name === 'AbortError') {
-            alert('Connection timed out. Please check your internet and try again, or contact us at gabs.cardenasz@gmail.com');
-          } else if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-            alert('Could not connect to payment server. Make sure the site is deployed on Netlify (not opened as a local file), then try again.');
-          } else {
-            alert('Payment error: ' + err.message + '\n\nPlease contact us at gabs.cardenasz@gmail.com');
-          }
+
+          // Show helpful error with direct contact fallback
+          const errBox = document.createElement('div');
+          errBox.style.cssText = 'background:#fff3cd;border:1px solid #ffc107;padding:1rem;margin-top:1rem;font-size:0.82rem;color:#856404;line-height:1.6;';
+          errBox.innerHTML = `<strong>Payment redirect failed.</strong><br>
+            Error: ${err.message}<br><br>
+            Please contact us directly to complete your order:<br>
+            📧 <a href="mailto:gabs.cardenasz@gmail.com?subject=Order from thegoldenalpaca.com&body=Items: ${cart.map(i=>i.name+'x'+i.qty).join(', ')}%0ATotal: $${fmt(total)}%0AName: ${first} ${last}%0AEmail: ${email}" style="color:#856404;">gabs.cardenasz@gmail.com</a><br>
+            📱 <a href="https://wa.me/16283637110" target="_blank" style="color:#856404;">WhatsApp us</a>`;
+          document.getElementById('coStep3').appendChild(errBox);
         }
         return;
       }
