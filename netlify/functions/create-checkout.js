@@ -1,73 +1,68 @@
-// Netlify Serverless Function — creates a Stripe Checkout session
-// IMPORTANT: Add STRIPE_SECRET_KEY in Netlify → Site configuration → Environment variables
-
 exports.handler = async (event) => {
-  // Only allow POST
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type' } };
+  }
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  // Check secret key exists
-  if (!process.env.STRIPE_SECRET_KEY) {
-    console.error('STRIPE_SECRET_KEY not set in environment variables');
-    return {
-      statusCode: 500,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ error: 'Stripe secret key not configured' })
-    };
+  const secretKey = process.env.STRIPE_SECRET_KEY;
+  if (!secretKey) {
+    console.error('STRIPE_SECRET_KEY not set');
+    return { statusCode: 500, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ error: 'STRIPE_SECRET_KEY not configured' }) };
   }
 
   try {
-    // Load Stripe inside the handler (Netlify bundles it from root package.json)
     const Stripe = require('stripe');
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const stripe = new Stripe(secretKey, { apiVersion: '2023-10-16' });
+    const { lineItems, customerEmail, customerName, shippingMethod, successUrl, cancelUrl } = JSON.parse(event.body);
 
-    const {
-      lineItems,
-      customerEmail,
-      customerName,
-      shippingMethod,
-      successUrl,
-      cancelUrl,
-    } = JSON.parse(event.body);
+    console.log('Request:', JSON.stringify({ customerEmail, shippingMethod, itemCount: lineItems.length, successUrl, cancelUrl }));
+
+    // Ensure all unit_amounts are valid integers >= 50 cents
+    const validatedItems = lineItems.map(item => ({
+      ...item,
+      price_data: {
+        ...item.price_data,
+        unit_amount: Math.max(50, Math.round(Number(item.price_data.unit_amount)))
+      }
+    }));
 
     const sessionParams = {
       payment_method_types: ['card'],
-      line_items: lineItems,
+      line_items: validatedItems,
       mode: 'payment',
-      customer_email: customerEmail,
       success_url: successUrl,
       cancel_url: cancelUrl,
-      metadata: {
-        customer_name: customerName,
-        shipping_method: shippingMethod,
-      },
+      metadata: { customer_name: customerName || '', shipping_method: shippingMethod || '' },
     };
 
-    // Only add shipping collection if not in-store pickup
+    if (customerEmail && customerEmail.includes('@')) {
+      sessionParams.customer_email = customerEmail;
+    }
+
     if (shippingMethod !== 'pickup') {
       sessionParams.shipping_address_collection = {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'ES', 'MX', 'AR', 'CO', 'PE'],
+        allowed_countries: ['US','CA','GB','AU','ES','MX','AR','CO','PE'],
       };
     }
 
+    console.log('Creating session with params:', JSON.stringify(sessionParams));
     const session = await stripe.checkout.sessions.create(sessionParams);
+    console.log('Session created successfully:', session.id);
 
     return {
       statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       body: JSON.stringify({ sessionId: session.id }),
     };
 
   } catch (err) {
-    console.error('Stripe error:', err.message);
+    console.error('Stripe error:', err.type, err.message, err.param);
     return {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ error: err.message }),
+      body: JSON.stringify({ error: err.message, type: err.type, param: err.param }),
     };
   }
 };
