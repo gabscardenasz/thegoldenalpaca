@@ -4665,6 +4665,8 @@
       const first    = document.getElementById('coFirst').value;
       const last     = document.getElementById('coLast').value;
       const email    = document.getElementById('coEmail').value;
+      const city     = document.getElementById('coCity').value;
+      const country  = document.getElementById('coCountry').value;
       const method   = document.querySelector('input[name="shipping"]:checked').value;
       const shipping = shippingCost();
       const total    = cartTotal() + shipping;
@@ -4674,85 +4676,42 @@
         const btn = document.getElementById('coPlaceOrder');
         btn.textContent = 'Redirecting to payment…';
         btn.disabled = true;
-
         try {
-          // Build line items for Stripe
           const lineItems = cart.map(item => ({
-            price_data: {
-              currency: 'usd',
-              product_data: {
-                name: item.name,
-                description: `${item.size} · ${item.colour}`,
-              },
-              unit_amount: item.price * 100, // cents
-            },
+            price_data: { currency:'usd', product_data:{ name:item.name, description:`${item.size} · ${item.colour}` }, unit_amount: item.price * 100 },
             quantity: item.qty,
           }));
-
-          // Add shipping as a line item if applicable
-          if (shipping > 0) {
-            lineItems.push({
-              price_data: {
-                currency: 'usd',
-                product_data: { name: 'Shipping' },
-                unit_amount: shipping * 100,
-              },
-              quantity: 1,
-            });
-          }
-
-          // NOTE: Stripe Checkout requires a backend to create a session.
-          // Once you have a Netlify Function set up, replace this URL:
+          if (shipping > 0) lineItems.push({ price_data:{ currency:'usd', product_data:{ name:'Shipping' }, unit_amount: shipping * 100 }, quantity:1 });
           const response = await fetch('/.netlify/functions/create-checkout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              lineItems,
-              customerEmail: email,
-              customerName: `${first} ${last}`,
-              shippingMethod: method,
-              successUrl: window.location.origin + '?order=success',
-              cancelUrl: window.location.href,
-            }),
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ lineItems, customerEmail:email, customerName:`${first} ${last}`, shippingMethod:method, successUrl: window.location.origin+'?order=success', cancelUrl: window.location.href }),
           });
-
           const { sessionId } = await response.json();
           await stripeInstance.redirectToCheckout({ sessionId });
-
         } catch (err) {
-          btn.textContent = 'Place Order — ' + document.getElementById('coFinalTotal').textContent;
-          btn.disabled = false;
+          const btn2 = document.getElementById('coPlaceOrder');
+          btn2.textContent = 'Place Order — ' + document.getElementById('coFinalTotal').textContent;
+          btn2.disabled = false;
           alert('Payment error. Please try again or contact us at gabs.cardenasz@gmail.com');
         }
         return;
       }
 
-      // ── DEMO MODE (no Stripe key yet) ─────────────────────────────
-      // Shows confirmation screen without charging anything
-
-      const first = document.getElementById('coFirst').value;
-      const last  = document.getElementById('coLast').value;
-      const city  = document.getElementById('coCity').value;
-      const country = document.getElementById('coCountry').value;
-      const method = document.querySelector('input[name="shipping"]:checked').value;
+      // ── DEMO MODE ────────────────────────────────────────────────────
       const orderNum = 'TGA-' + Math.floor(10000 + Math.random()*90000);
-      const isPickup = method === 'pickup';
+      const isPickup  = method === 'pickup';
       const isExpress = method === 'express';
       const deliveryLabel = isPickup ? 'Ready for pickup · San Francisco store'
         : (isExpress ? '2–3' : '5–10') + ' business days · by ' + (() => {
             const d = new Date(); d.setDate(d.getDate() + (isExpress ? 3 : 10));
             return d.toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
           })();
-
-      document.getElementById('coConfirmSub').textContent = 'Your order has been received and is being prepared by our artisan team in Peru.';
-      document.getElementById('coConfirmNum').textContent = orderNum;
-      document.getElementById('coConfirmAddr').textContent = isPickup ? 'In-store pickup · San Francisco, CA' : `${first} ${last}, ${city}, ${country}`;
+      document.getElementById('coConfirmSub').textContent      = 'Your order has been received and is being prepared by our artisan team in Peru.';
+      document.getElementById('coConfirmNum').textContent      = orderNum;
+      document.getElementById('coConfirmAddr').textContent     = isPickup ? 'In-store pickup · San Francisco, CA' : `${first} ${last}, ${city}, ${country}`;
       document.getElementById('coConfirmDelivery').textContent = deliveryLabel;
-      document.getElementById('coConfirmTotal2').textContent = '$' + (cartTotal() + shippingCost()).toFixed(0);
-
-      // Store for receipt
-      window._lastOrder = { orderNum, cart: [...cart], total: cartTotal() + shippingCost(), addr: document.getElementById('coConfirmAddr').textContent, delivery: deliveryLabel };
-
+      document.getElementById('coConfirmTotal2').textContent   = '$' + total.toFixed(0);
+      window._lastOrder = { orderNum, cart:[...cart], total, addr: document.getElementById('coConfirmAddr').textContent, delivery: deliveryLabel };
       cart = []; window.cartRef = [];
       renderCart(); updateNavCount();
       goToStep(4);
