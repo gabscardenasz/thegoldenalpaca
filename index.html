@@ -188,17 +188,16 @@
 
     /* HERO */
     .hero {
-      min-height: 100vh;
+      min-height: 60vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 136px;
     }
 
     .hero-left {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 6rem 4rem 6rem 5rem;
+      justify-content: flex-start;
+      padding: 4.5rem 3rem 1.5rem 4rem;
       position: relative;
     }
 
@@ -207,7 +206,7 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--camel);
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.4rem;
     }
 
     .hero-title {
@@ -216,7 +215,7 @@
       font-weight: 300;
       line-height: 1.05;
       color: var(--espresso);
-      margin-bottom: 1.8rem;
+      margin-bottom: 0.6rem;
     }
 
     .hero-title em {
@@ -229,7 +228,7 @@
       line-height: 1.8;
       color: var(--mid);
       max-width: 380px;
-      margin-bottom: 2.8rem;
+      margin-bottom: 1rem;
     }
 
     .hero-actions {
@@ -427,8 +426,8 @@
 
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.2rem;
     }
 
     .product-card {
@@ -436,7 +435,7 @@
     }
 
     .product-image {
-      aspect-ratio: 1/1;
+      aspect-ratio: 3/4;
       background: var(--parchment);
       position: relative;
       overflow: hidden;
@@ -484,11 +483,11 @@
 
     .product-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.05rem;
       font-weight: 400;
       color: var(--espresso);
       margin-top: 0;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
     .product-meta {
@@ -498,7 +497,7 @@
     }
 
     .product-material {
-      font-size: 0.73rem;
+      font-size: 0.62rem;
       letter-spacing: 0.08em;
       color: var(--camel);
       text-transform: uppercase;
@@ -506,7 +505,7 @@
 
     .product-price {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
+      font-size: 1rem;
       font-weight: 500;
       color: var(--espresso);
     }
@@ -801,7 +800,7 @@
       .hero-right { min-height: 50vw; }
       .hero-left { padding: 4rem 2rem; }
       .products { padding: 4rem 2rem; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+      .product-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
       .story { grid-template-columns: 1fr; }
       .story-visual { min-height: 300px; }
       .story-text { padding: 3rem 2rem; }
@@ -825,11 +824,11 @@
       .nav-desktop-only { display: none !important; }
       .nav-logo svg { height: 52px !important; }
       .strip { top: 64px; }
-      .hero { padding-top: 106px; }
+      .hero { padding-top: 0; }
 
       /* Hero */
-      .hero { padding-top: 70px; }
-      .hero-left { padding: 2.5rem 1.2rem 2rem; }
+      .hero { padding-top: 0; }
+      .hero-left { padding: 2rem 1.5rem; }
       .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); }
       .hero-body { font-size: 0.85rem; }
       .hero-actions { flex-direction: column; gap: 0.75rem; }
@@ -844,7 +843,7 @@
 
       /* Products */
       .products { padding: 3rem 1rem; }
-      .product-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
       .product-name { font-size: 1rem; }
       .product-price { font-size: 1rem; }
       .product-add { padding: 0.7rem; font-size: 0.65rem; }
@@ -885,7 +884,8 @@
 
       /* Modal */
       .modal { grid-template-columns: 1fr; }
-      .modal-image { min-height: 220px; }
+      .modal-image { min-height: 160px !important; max-height: 190px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+      .modal-image svg { width: 38% !important; height: auto; position:static !important; transform:none !important; }
       .modal-body { padding: 1.5rem 1rem; }
       .modal-specs { grid-template-columns: 1fr 1fr; }
 
@@ -905,7 +905,7 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      z-index: 500;
+      z-index: 1000;
       background: rgba(44, 24, 16, 0.55);
       backdrop-filter: blur(4px);
       display: flex;
@@ -1130,7 +1130,8 @@
 
     @media (max-width: 700px) {
       .modal { grid-template-columns: 1fr; }
-      .modal-image { min-height: 260px; }
+      .modal-image { min-height: 180px; max-height: 210px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+      .modal-image svg { width: 40% !important; height: auto; position:static !important; transform:none !important; }
       .modal-body { padding: 2rem 1.5rem; }
       .modal-specs { grid-template-columns: 1fr 1fr; }
     }
@@ -1144,7 +1145,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});if(window.closeAllProducts)window.closeAllProducts();if(window.closeCartDrawer)window.closeCartDrawer();if(window.closeCheckout)window.closeCheckout();" class="nav-logo" style="display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;" title="Home">
+    <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});if(window.closeAllProducts)window.closeAllProducts();if(window.closeCartDrawer)window.closeCartDrawer();if(window.closeCheckout)window.closeCheckout();if(window.closeMobileMenu)window.closeMobileMenu();" class="nav-logo" style="display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;" title="Home">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" style="height:clamp(52px,8vw,110px);width:auto;">
 <style>
     .gm { fill: #D4A843; }
@@ -1256,11 +1257,11 @@
         <div class="nav-dropdown-menu" id="shopDropMenu">
           <button class="nav-dropdown-item" onclick="openAllProducts('throws')">
             <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><rect x="2" y="4" width="16" height="12" rx="2"/><line x1="2" y1="8" x2="18" y2="8"/></svg>
-            <span id="dd_throws">Throws &amp; Blankets</span>
+            <span id="dd_throws">Throws &amp; Sofa Blankets</span>
           </button>
           <button class="nav-dropdown-item" onclick="openAllProducts('bed')">
             <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M2 14v-4a2 2 0 012-2h12a2 2 0 012 2v4"/><line x1="2" y1="14" x2="18" y2="14"/><path d="M2 10V7a2 2 0 012-2h12a2 2 0 012 2v3"/></svg>
-            <span id="dd_bed">Bed Collection</span>
+            <span id="dd_bed">Bed Blankets (Queen &amp; King)</span>
           </button>
           <button class="nav-dropdown-item" onclick="openAllProducts('hats')">
             <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M10 3C6 3 3 6 3 9h14c0-3-3-6-7-6z"/><rect x="1" y="9" width="18" height="3" rx="1"/></svg>
@@ -1270,13 +1271,47 @@
             <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M15 9V5a2 2 0 00-4 0v4M11 5V3a2 2 0 00-4 0v6M7 4V3a2 2 0 00-4 0v7l-1-1a2 2 0 00-3 3l4 4a5 5 0 0010 0v-5a2 2 0 00-4 0v3" stroke-linejoin="round"/></svg>
             <span id="dd_gloves">Gloves</span>
           </button>
+          <button class="nav-dropdown-item" onclick="scrollToSection('scarves')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M7 2 Q6 2 6 4 L5 17 Q5 18 7 18 L8 18 Q9 18 9 17 L10 4 Q10 2 9 2 Z"/><path d="M11 2 Q10 2 10 4 L9 17 Q9 18 11 18 L12 18 Q13 18 13 17 L14 4 Q14 2 13 2 Z"/><line x1="5" y1="18" x2="4" y2="20"/><line x1="6.5" y1="18" x2="6" y2="20"/><line x1="8" y1="18" x2="7.5" y2="20"/><line x1="9" y1="18" x2="9" y2="20"/><line x1="11" y1="18" x2="10.5" y2="20"/><line x1="12.5" y1="18" x2="12.5" y2="20"/><line x1="14" y1="18" x2="14" y2="20"/></svg>
+            <span id="dd_scarves">Scarves</span>
+          </button>
           <div style="height:1px;background:var(--light-camel);margin:4px 0;"></div>
           <button class="nav-dropdown-viewall" onclick="openAllProducts('all')">
             <span id="dd_all">View all products</span> →
           </button>
         </div>
       </li>
-      <li><button class="nav-link-btn" onclick="document.getElementById('bed-collection').scrollIntoView({behavior:'smooth'})">Bed Collection</button></li>
+      <li class="nav-dropdown">
+        <button class="nav-link-btn" id="goodsDropBtn">
+          Alpaca Goods <svg viewBox="0 0 12 8" style="width:10px;height:7px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;vertical-align:middle;margin-left:2px;"><polyline points="1,1 6,7 11,1"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" id="goodsDropMenu">
+          <button class="nav-dropdown-item" onclick="scrollToSection('products')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><rect x="2" y="4" width="16" height="12" rx="2"/><line x1="2" y1="8" x2="18" y2="8"/></svg>
+            <span>Throws &amp; Sofa Blankets</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="scrollToSection('bed-collection')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M2 14v-4a2 2 0 012-2h12a2 2 0 012 2v4"/><line x1="2" y1="14" x2="18" y2="14"/><path d="M2 10V7a2 2 0 012-2h12a2 2 0 012 2v3"/></svg>
+            <span>Bed Blankets (Queen &amp; King)</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="scrollToSection('hats')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M10 3C6 3 3 6 3 9h14c0-3-3-6-7-6z"/><rect x="1" y="9" width="18" height="3" rx="1"/></svg>
+            <span>Hats</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="scrollToSection('gloves')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M15 9V5a2 2 0 00-4 0v4M11 5V3a2 2 0 00-4 0v6M7 4V3a2 2 0 00-4 0v7l-1-1a2 2 0 00-3 3l4 4a5 5 0 0010 0v-5a2 2 0 00-4 0v3" stroke-linejoin="round"/></svg>
+            <span>Gloves</span>
+          </button>
+          <button class="nav-dropdown-item" onclick="scrollToSection('scarves')">
+            <svg viewBox="0 0 20 20" style="width:14px;height:14px;stroke:var(--camel);fill:none;stroke-width:1.5;flex-shrink:0;"><path d="M7 2 Q6 2 6 4 L5 17 Q5 18 7 18 L8 18 Q9 18 9 17 L10 4 Q10 2 9 2 Z"/><path d="M11 2 Q10 2 10 4 L9 17 Q9 18 11 18 L12 18 Q13 18 13 17 L14 4 Q14 2 13 2 Z"/><line x1="5" y1="18" x2="4" y2="20"/><line x1="6.5" y1="18" x2="6" y2="20"/><line x1="8" y1="18" x2="7.5" y2="20"/><line x1="9" y1="18" x2="9" y2="20"/><line x1="11" y1="18" x2="10.5" y2="20"/><line x1="12.5" y1="18" x2="12.5" y2="20"/><line x1="14" y1="18" x2="14" y2="20"/></svg>
+            <span>Scarves</span>
+          </button>
+          <div style="height:1px;background:var(--light-camel);margin:4px 0;"></div>
+          <button class="nav-dropdown-viewall" onclick="openAllProducts('all')">
+            View all products →
+          </button>
+        </div>
+      </li>
       <li><button class="nav-link-btn" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">Our Story</button></li>
       <li><button class="nav-link-btn" onclick="document.getElementById('care').scrollIntoView({behavior:'smooth'})">Care Guide</button></li>
       <li><button class="nav-link-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="nav_contact">Contact Us</button></li>
@@ -1293,15 +1328,25 @@
   </nav>
 
   <!-- MOBILE MENU -->
-  <div id="mobileMenu" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--fleece);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:2rem;padding:2rem;">
-    <button onclick="closeMobileMenu()" style="position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--espresso);">✕</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('products')">Shop</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('bed-collection')">Bed Collection</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('hats')">Hats</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('gloves')">Gloves</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('story')">Our Story</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('care')">Care Guide</button>
-    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('contact')">Contact Us</button>
+  <div id="mobileMenu" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--fleece);z-index:200;overflow-y:auto;">
+    <!-- Close button row -->
+    <div style="display:flex;justify-content:flex-end;padding:1.2rem 1.2rem 0;">
+      <button onclick="closeMobileMenu()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--espresso);line-height:1;padding:0.25rem 0.5rem;">✕</button>
+    </div>
+    <!-- Menu links centered -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.6rem;padding:1.5rem 2rem 3rem;">
+      <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:0.4rem;">Shop</p>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;background:var(--espresso);color:var(--fleece);border:none;" onclick="closeMobileMenu();setTimeout(()=>openAllProducts('all'),150)">View All Products</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('products')">Throws &amp; Sofa Blankets</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('bed-collection')">Bed Blankets (Queen &amp; King)</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('hats')">Hats</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('gloves')">Gloves</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('scarves')">Scarves</button>
+      <div style="width:60px;height:1px;background:var(--light-camel);margin:0.6rem 0;"></div>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('story')">Our Story</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('care')">Care Guide</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('contact')">Contact Us</button>
+    </div>
   </div>
 
   <script>
@@ -1309,7 +1354,10 @@
     const mobileMenu = document.getElementById('mobileMenu');
     function openMobileMenu() { mobileMenu.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
     function closeMobileMenu() { mobileMenu.style.display = 'none'; document.body.style.overflow = ''; }
-    hamburgerBtn.addEventListener('click', openMobileMenu);
+    window.closeMobileMenu = closeMobileMenu;
+    hamburgerBtn.addEventListener('click', () => {
+      if (mobileMenu.style.display === 'flex') { closeMobileMenu(); } else { openMobileMenu(); }
+    });
 
     // Scroll to section with correct offset for fixed nav + strip
     function scrollToSection(id) {
@@ -1341,7 +1389,9 @@
       const navH = nav.getBoundingClientRect().height;
       strip.style.top = navH + 'px';
       const stripH = strip.getBoundingClientRect().height;
-      hero.style.paddingTop = (navH + stripH + 8) + 'px';
+      // Use margin-top on hero so internal padding is not overridden
+      hero.style.paddingTop = '0';
+      hero.style.marginTop = (navH + stripH) + 'px';
     }
     requestAnimationFrame(fixLayout);
     setTimeout(fixLayout, 100);
@@ -1375,20 +1425,6 @@
       <div class="hero-actions">
         <button onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})" class="btn-primary" data-i18n="hero_cta">Shop Blankets</button>
         <button onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})" class="btn-secondary">Our craft</button>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-number">340</span>
-          <span class="stat-label" data-i18n="stat_artisans">Artisan families</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">12</span>
-          <span class="stat-label" data-i18n="stat_patterns">Andean patterns</span>
-        </div>
-        <div class="stat">
-          <span class="stat-number">4×</span>
-          <span class="stat-label" data-i18n="stat_warm">Warmer than wool</span>
-        </div>
       </div>
     </div>
     <div class="hero-right">
@@ -1518,7 +1554,10 @@
     </div>
 
     <div class="section-header">
-      <h2 class="section-title" data-i18n="section_collection">The<br/><em>Collection</em></h2>
+      <div>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Living Room · Sofa</p>
+        <h2 class="section-title" data-i18n="section_collection">Throws &amp;<br/><em>Blankets</em></h2>
+      </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
     </div>
 
@@ -2027,12 +2066,15 @@
     </div>
   </section>
 
-  <!-- BED COLLECTION: QUEEN & KING -->
+
+  <hr style="border:none;border-top:2px solid var(--camel);opacity:0.18;margin:0;"/>  <!-- BED COLLECTION: QUEEN   <div style="height:4px;background:linear-gradient(to right,var(--camel),transparent);opacity:0.3;"></div>
+
+  <!-- BED COLLECTION: QUEEN & KING --> KING -->
   <section class="products" id="bed-collection" style="background: var(--parchment);">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">New · Bed Collection</p>
-        <h2 class="section-title" data-i18n="section_bed">Queen &amp; King<br/><em>Blankets</em></h2>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Bedroom · Full Size</p>
+        <h2 class="section-title" data-i18n="section_bed">Queen &amp; King<br/><em>Bed Blankets</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
     </div>
@@ -2318,11 +2360,14 @@
     </div>
   </section>
 
+  <hr style="border:none;border-top:2px solid var(--camel);opacity:0.18;margin:0;"/>
+  <div style="height:4px;background:linear-gradient(to right,var(--camel),transparent);opacity:0.3;"></div>
+
   <!-- HATS SECTION -->
   <section class="products" id="hats">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories · Head</p>
         <h2 class="section-title" data-i18n="section_hats">Alpaca<br/><em>Hats</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -2623,11 +2668,13 @@
     </div>
   </section>
 
+  <div style="height:4px;background:linear-gradient(to right,var(--camel),transparent);opacity:0.3;"></div>
+
   <!-- GLOVES SECTION -->
   <section class="products" id="gloves" style="background:var(--parchment);">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories · Hands</p>
         <h2 class="section-title" data-i18n="section_gloves">Alpaca<br/><em>Gloves</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -3013,6 +3060,326 @@
     </div>
   </section>
 
+  <div style="height:4px;background:linear-gradient(to right,var(--camel),transparent);opacity:0.3;"></div>
+
+  <!-- SCARVES SECTION -->
+  <section class="products" id="scarves">
+    <div class="section-header">
+      <div>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories</p>
+        <h2 class="section-title">Alpaca<br/><em>Scarves</em></h2>
+      </div>
+      <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
+    </div>
+
+    <!-- Scarf size guide -->
+    <div style="margin-bottom:3rem;">
+      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;">Size Guide — Scarves</p>
+      <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--camel);">
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Style</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Width</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Length</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Best for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--light-camel);">
+              <td style="padding:0.5rem 0.75rem;">Classic Wrap</td>
+              <td style="padding:0.5rem 0.75rem;">12 in / 30 cm</td>
+              <td style="padding:0.5rem 0.75rem;">72 in / 183 cm</td>
+              <td style="padding:0.5rem 0.75rem;">Everyday wear</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--light-camel);">
+              <td style="padding:0.5rem 0.75rem;">Infinity Loop</td>
+              <td style="padding:0.5rem 0.75rem;">14 in / 36 cm</td>
+              <td style="padding:0.5rem 0.75rem;">60 in / 152 cm (loop)</td>
+              <td style="padding:0.5rem 0.75rem;">Casual, travel</td>
+            </tr>
+            <tr>
+              <td style="padding:0.5rem 0.75rem;">Shawl Wrap</td>
+              <td style="padding:0.5rem 0.75rem;">28 in / 71 cm</td>
+              <td style="padding:0.5rem 0.75rem;">80 in / 203 cm</td>
+              <td style="padding:0.5rem 0.75rem;">Evenings, layering</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- Baby Alpaca Scarves -->
+      <div class="product-card" data-fiber="baby" data-id="cusco-scarf">
+        <div class="product-image">
+          <span class="product-badge">Bestseller</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <!-- Scarf draped shape -->
+            <path d="M110,30 Q100,30 95,50 L85,370 Q85,385 100,385 L115,385 Q128,385 128,370 L138,50 Q138,30 125,30 Z" fill="#D4B896" opacity="0.9"/>
+            <path d="M162,30 Q150,30 148,50 L138,370 Q138,385 152,385 L167,385 Q180,385 180,370 L190,50 Q190,30 178,30 Z" fill="#C4A882" opacity="0.85"/>
+            <!-- Diamond weave pattern -->
+            <g stroke="#6B5B47" stroke-width="1.2" fill="none" opacity="0.4">
+              <polygon points="111,80 121,100 111,120 101,100"/>
+              <polygon points="111,130 121,150 111,170 101,150"/>
+              <polygon points="111,180 121,200 111,220 101,200"/>
+              <polygon points="111,230 121,250 111,270 101,250"/>
+              <polygon points="111,280 121,300 111,320 101,300"/>
+              <polygon points="165,80 175,100 165,120 155,100"/>
+              <polygon points="165,130 175,150 165,170 155,150"/>
+              <polygon points="165,180 175,200 165,220 155,200"/>
+              <polygon points="165,230 175,250 165,270 155,250"/>
+              <polygon points="165,280 175,300 165,320 155,300"/>
+            </g>
+            <!-- Fringe at bottom -->
+            <g stroke="#C4A882" stroke-width="1.2" opacity="0.8">
+              <line x1="88" y1="383" x2="85" y2="400"/><line x1="93" y1="384" x2="91" y2="400"/><line x1="98" y1="385" x2="96" y2="400"/><line x1="103" y1="385" x2="102" y2="400"/><line x1="108" y1="385" x2="107" y2="400"/><line x1="113" y1="385" x2="113" y2="400"/>
+              <line x1="140" y1="383" x2="138" y2="400"/><line x1="146" y1="384" x2="144" y2="400"/><line x1="152" y1="385" x2="151" y2="400"/><line x1="158" y1="385" x2="157" y2="400"/><line x1="164" y1="385" x2="164" y2="400"/><line x1="170" y1="385" x2="171" y2="400"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Cusco Classic Scarf</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
+          <span class="product-material">100% Baby Alpaca · 72 in</span>
+          <span class="product-price">$118</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="baby" data-id="andes-infinity-scarf">
+        <div class="product-image">
+          <span class="product-badge">New</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <!-- Infinity scarf loop shape -->
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#8B7B6B" stroke-width="36" opacity="0.85"/>
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#C4A882" stroke-width="2" opacity="0.5"/>
+            <!-- Stripe pattern on loop -->
+            <g stroke="#6B5B47" stroke-width="1" fill="none" opacity="0.35">
+              <ellipse cx="150" cy="200" rx="100" ry="130" stroke-dasharray="8,6"/>
+              <ellipse cx="150" cy="200" rx="88" ry="118" stroke-dasharray="8,6"/>
+            </g>
+            <!-- Andean pattern band -->
+            <g stroke="#EDE3D2" stroke-width="1.4" fill="none" opacity="0.5">
+              <ellipse cx="150" cy="200" rx="100" ry="130" stroke-dasharray="4,12"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Andes Infinity Loop</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
+          <span class="product-material">100% Baby Alpaca · Loop</span>
+          <span class="product-price">$98</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="baby" data-id="titicaca-shawl">
+        <div class="product-image">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <!-- Wide shawl draped -->
+            <path d="M30,60 Q30,50 50,50 L250,50 Q270,50 270,60 L240,360 Q240,375 225,375 L75,375 Q60,375 60,360 Z" fill="#D4B896" opacity="0.85"/>
+            <!-- Herringbone pattern -->
+            <g stroke="#6B5B47" stroke-width="1" fill="none" opacity="0.3">
+              <line x1="80" y1="80" x2="100" y2="110"/><line x1="100" y1="80" x2="80" y2="110"/>
+              <line x1="120" y1="80" x2="140" y2="110"/><line x1="140" y1="80" x2="120" y2="110"/>
+              <line x1="160" y1="80" x2="180" y2="110"/><line x1="180" y1="80" x2="160" y2="110"/>
+              <line x1="200" y1="80" x2="220" y2="110"/><line x1="220" y1="80" x2="200" y2="110"/>
+              <line x1="80" y1="130" x2="100" y2="160"/><line x1="100" y1="130" x2="80" y2="160"/>
+              <line x1="120" y1="130" x2="140" y2="160"/><line x1="140" y1="130" x2="120" y2="160"/>
+              <line x1="160" y1="130" x2="180" y2="160"/><line x1="180" y1="130" x2="160" y2="160"/>
+              <line x1="200" y1="130" x2="220" y2="160"/><line x1="220" y1="130" x2="200" y2="160"/>
+            </g>
+            <!-- Border stripe -->
+            <rect x="30" y="50" width="240" height="8" fill="#C4A882" opacity="0.5"/>
+            <rect x="60" y="370" width="180" height="8" fill="#C4A882" opacity="0.5"/>
+            <!-- Fringe -->
+            <g stroke="#C4A882" stroke-width="1.1" opacity="0.7">
+              <line x1="65" y1="378" x2="62" y2="396"/><line x1="76" y1="379" x2="74" y2="397"/><line x1="87" y1="380" x2="86" y2="397"/><line x1="98" y1="380" x2="97" y2="397"/><line x1="109" y1="380" x2="109" y2="397"/><line x1="120" y1="380" x2="120" y2="397"/><line x1="131" y1="380" x2="131" y2="397"/><line x1="142" y1="380" x2="142" y2="397"/><line x1="153" y1="380" x2="153" y2="397"/><line x1="164" y1="380" x2="164" y2="397"/><line x1="175" y1="380" x2="175" y2="397"/><line x1="186" y1="380" x2="186" y2="397"/><line x1="197" y1="380" x2="197" y2="397"/><line x1="208" y1="379" x2="209" y2="397"/><line x1="219" y1="378" x2="220" y2="396"/><line x1="230" y1="378" x2="232" y2="395"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Titicaca Shawl Wrap</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
+          <span class="product-material">100% Baby Alpaca · 80 in</span>
+          <span class="product-price">$158</span>
+        </div>
+      </div>
+
+      <!-- 100% Alpaca Scarves -->
+      <div class="product-card" data-fiber="alpaca" data-id="cusco-scarf-alpaca">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--espresso);">100% Alpaca</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <path d="M110,30 Q100,30 95,50 L85,370 Q85,385 100,385 L115,385 Q128,385 128,370 L138,50 Q138,30 125,30 Z" fill="#8B7B6B" opacity="0.9"/>
+            <path d="M162,30 Q150,30 148,50 L138,370 Q138,385 152,385 L167,385 Q180,385 180,370 L190,50 Q190,30 178,30 Z" fill="#6B5B47" opacity="0.85"/>
+            <g stroke="#5A4A35" stroke-width="1.2" fill="none" opacity="0.4">
+              <polygon points="111,80 121,100 111,120 101,100"/>
+              <polygon points="111,150 121,170 111,190 101,170"/>
+              <polygon points="111,220 121,240 111,260 101,240"/>
+              <polygon points="111,290 121,310 111,330 101,310"/>
+              <polygon points="165,80 175,100 165,120 155,100"/>
+              <polygon points="165,150 175,170 165,190 155,170"/>
+              <polygon points="165,220 175,240 165,260 155,240"/>
+              <polygon points="165,290 175,310 165,330 155,310"/>
+            </g>
+            <g stroke="#8B7B6B" stroke-width="1.2" opacity="0.7">
+              <line x1="88" y1="383" x2="85" y2="400"/><line x1="95" y1="384" x2="93" y2="400"/><line x1="102" y1="385" x2="100" y2="400"/><line x1="109" y1="385" x2="108" y2="400"/><line x1="116" y1="385" x2="115" y2="400"/>
+              <line x1="142" y1="383" x2="140" y2="400"/><line x1="149" y1="384" x2="147" y2="400"/><line x1="156" y1="385" x2="155" y2="400"/><line x1="163" y1="385" x2="162" y2="400"/><line x1="170" y1="385" x2="169" y2="400"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Cusco Classic Scarf</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
+          <span class="product-material">Standard Alpaca · 72 in</span>
+          <span class="product-price">$78</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="alpaca" data-id="andes-infinity-scarf-alpaca">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--espresso);">100% Alpaca</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#6B5B47" stroke-width="36" opacity="0.85"/>
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#8B7B6B" stroke-width="2" opacity="0.5"/>
+            <g stroke="#5A4A35" stroke-width="1" fill="none" opacity="0.35">
+              <ellipse cx="150" cy="200" rx="100" ry="130" stroke-dasharray="8,6"/>
+              <ellipse cx="150" cy="200" rx="88" ry="118" stroke-dasharray="8,6"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Andes Infinity Loop</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
+          <span class="product-material">Standard Alpaca · Loop</span>
+          <span class="product-price">$62</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="alpaca" data-id="titicaca-shawl-alpaca">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--espresso);">100% Alpaca</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <path d="M30,60 Q30,50 50,50 L250,50 Q270,50 270,60 L240,360 Q240,375 225,375 L75,375 Q60,375 60,360 Z" fill="#8B7B6B" opacity="0.85"/>
+            <g stroke="#5A4A35" stroke-width="1" fill="none" opacity="0.3">
+              <line x1="80" y1="80" x2="100" y2="110"/><line x1="100" y1="80" x2="80" y2="110"/>
+              <line x1="120" y1="80" x2="140" y2="110"/><line x1="140" y1="80" x2="120" y2="110"/>
+              <line x1="160" y1="80" x2="180" y2="110"/><line x1="180" y1="80" x2="160" y2="110"/>
+              <line x1="200" y1="80" x2="220" y2="110"/><line x1="220" y1="80" x2="200" y2="110"/>
+              <line x1="80" y1="140" x2="100" y2="170"/><line x1="100" y1="140" x2="80" y2="170"/>
+              <line x1="120" y1="140" x2="140" y2="170"/><line x1="140" y1="140" x2="120" y2="170"/>
+              <line x1="160" y1="140" x2="180" y2="170"/><line x1="180" y1="140" x2="160" y2="170"/>
+              <line x1="200" y1="140" x2="220" y2="170"/><line x1="220" y1="140" x2="200" y2="170"/>
+            </g>
+            <rect x="30" y="50" width="240" height="8" fill="#6B5B47" opacity="0.5"/>
+            <g stroke="#8B7B6B" stroke-width="1.1" opacity="0.7">
+              <line x1="65" y1="378" x2="62" y2="396"/><line x1="76" y1="379" x2="74" y2="397"/><line x1="87" y1="380" x2="86" y2="397"/><line x1="98" y1="380" x2="97" y2="397"/><line x1="109" y1="380" x2="109" y2="397"/><line x1="120" y1="380" x2="120" y2="397"/><line x1="131" y1="380" x2="131" y2="397"/><line x1="142" y1="380" x2="142" y2="397"/><line x1="153" y1="380" x2="153" y2="397"/><line x1="164" y1="380" x2="164" y2="397"/><line x1="175" y1="380" x2="175" y2="397"/><line x1="186" y1="380" x2="186" y2="397"/><line x1="197" y1="380" x2="197" y2="397"/><line x1="208" y1="379" x2="209" y2="397"/><line x1="219" y1="378" x2="220" y2="396"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Titicaca Shawl Wrap</h3>
+        <div class="product-meta">
+          <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
+          <span class="product-material">Standard Alpaca · 80 in</span>
+          <span class="product-price">$108</span>
+        </div>
+      </div>
+
+      <!-- 50/50 Blended Scarves -->
+      <div class="product-card" data-fiber="blended" data-id="cusco-scarf-blend">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--mid);">50/50 Blend</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <path d="M110,30 Q100,30 95,50 L85,370 Q85,385 100,385 L115,385 Q128,385 128,370 L138,50 Q138,30 125,30 Z" fill="#B8C4B0" opacity="0.9"/>
+            <path d="M162,30 Q150,30 148,50 L138,370 Q138,385 152,385 L167,385 Q180,385 180,370 L190,50 Q190,30 178,30 Z" fill="#8FA888" opacity="0.85"/>
+            <g stroke="#5A7A5A" stroke-width="1.2" fill="none" opacity="0.4">
+              <polygon points="111,90 121,115 111,140 101,115"/>
+              <polygon points="111,160 121,185 111,210 101,185"/>
+              <polygon points="111,240 121,265 111,290 101,265"/>
+              <polygon points="165,90 175,115 165,140 155,115"/>
+              <polygon points="165,160 175,185 165,210 155,185"/>
+              <polygon points="165,240 175,265 165,290 155,265"/>
+            </g>
+            <g stroke="#7A8F72" stroke-width="1.2" opacity="0.7">
+              <line x1="88" y1="383" x2="85" y2="400"/><line x1="95" y1="384" x2="93" y2="400"/><line x1="102" y1="385" x2="100" y2="400"/><line x1="109" y1="385" x2="108" y2="400"/><line x1="116" y1="385" x2="115" y2="400"/>
+              <line x1="142" y1="383" x2="140" y2="400"/><line x1="149" y1="384" x2="147" y2="400"/><line x1="156" y1="385" x2="155" y2="400"/><line x1="163" y1="385" x2="162" y2="400"/><line x1="170" y1="385" x2="169" y2="400"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Cusco Classic Scarf</h3>
+        <div class="product-meta">
+          <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
+          <span class="product-material">Alpaca &amp; Cotton · 72 in</span>
+          <span class="product-price">$48</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="blended" data-id="andes-infinity-scarf-blend">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--mid);">50/50 Blend</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#8FA888" stroke-width="36" opacity="0.85"/>
+            <ellipse cx="150" cy="200" rx="100" ry="130" fill="none" stroke="#7A8F72" stroke-width="2" opacity="0.5"/>
+            <g stroke="#5A7A5A" stroke-width="1" fill="none" opacity="0.35">
+              <ellipse cx="150" cy="200" rx="100" ry="130" stroke-dasharray="8,6"/>
+              <ellipse cx="150" cy="200" rx="88" ry="118" stroke-dasharray="8,6"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Andes Infinity Loop</h3>
+        <div class="product-meta">
+          <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
+          <span class="product-material">Alpaca &amp; Cotton · Loop</span>
+          <span class="product-price">$38</span>
+        </div>
+      </div>
+
+      <div class="product-card" data-fiber="blended" data-id="titicaca-shawl-blend">
+        <div class="product-image">
+          <span class="product-badge" style="background:var(--mid);">50/50 Blend</span>
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0;">
+            <rect width="300" height="400" fill="#EDE3D2"/>
+            <path d="M30,60 Q30,50 50,50 L250,50 Q270,50 270,60 L240,360 Q240,375 225,375 L75,375 Q60,375 60,360 Z" fill="#B8C4B0" opacity="0.85"/>
+            <g stroke="#5A7A5A" stroke-width="1" fill="none" opacity="0.3">
+              <line x1="80" y1="80" x2="100" y2="110"/><line x1="100" y1="80" x2="80" y2="110"/>
+              <line x1="120" y1="80" x2="140" y2="110"/><line x1="140" y1="80" x2="120" y2="110"/>
+              <line x1="160" y1="80" x2="180" y2="110"/><line x1="180" y1="80" x2="160" y2="110"/>
+              <line x1="200" y1="80" x2="220" y2="110"/><line x1="220" y1="80" x2="200" y2="110"/>
+              <line x1="80" y1="140" x2="100" y2="170"/><line x1="100" y1="140" x2="80" y2="170"/>
+              <line x1="120" y1="140" x2="140" y2="170"/><line x1="140" y1="140" x2="120" y2="170"/>
+              <line x1="160" y1="140" x2="180" y2="170"/><line x1="180" y1="140" x2="160" y2="170"/>
+              <line x1="200" y1="140" x2="220" y2="170"/><line x1="220" y1="140" x2="200" y2="170"/>
+            </g>
+            <rect x="30" y="50" width="240" height="8" fill="#7A8F72" opacity="0.5"/>
+            <g stroke="#8FA888" stroke-width="1.1" opacity="0.7">
+              <line x1="65" y1="378" x2="62" y2="396"/><line x1="76" y1="379" x2="74" y2="397"/><line x1="87" y1="380" x2="86" y2="397"/><line x1="98" y1="380" x2="97" y2="397"/><line x1="109" y1="380" x2="109" y2="397"/><line x1="120" y1="380" x2="120" y2="397"/><line x1="131" y1="380" x2="131" y2="397"/><line x1="142" y1="380" x2="142" y2="397"/><line x1="153" y1="380" x2="153" y2="397"/><line x1="164" y1="380" x2="164" y2="397"/><line x1="175" y1="380" x2="175" y2="397"/><line x1="186" y1="380" x2="186" y2="397"/>
+            </g>
+          </svg>
+        </div><button class="product-add" type="button">Add to Bag</button>
+        <h3 class="product-name">Titicaca Shawl Wrap</h3>
+        <div class="product-meta">
+          <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
+          <span class="product-material">Alpaca &amp; Cotton · 80 in</span>
+          <span class="product-price">$68</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--light-camel);">
+      <button onclick="openAllProducts('scarves')" style="background:var(--espresso);color:var(--fleece);border:none;padding:0.85rem 2.5rem;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='var(--mid)'" onmouseout="this.style.background='var(--espresso)'">View all</button>
+    </div>
+  </section>
+
   <!-- CARE GUIDE SECTION -->
   <section id="care" style="background:var(--espresso);padding:5rem 3rem;">
     <div style="max-width:1000px;margin:0 auto;">
@@ -3020,7 +3387,24 @@
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:300;color:var(--fleece);line-height:1.15;margin-bottom:1rem;">How to care for your <em style="font-style:italic;color:var(--camel);">alpaca</em></h2>
       <p style="font-size:0.88rem;color:rgba(247,240,230,0.55);line-height:1.8;max-width:540px;margin-bottom:3.5rem;">Alpaca fiber is naturally resilient and low-maintenance. With the right care your blanket, hat or gloves will last decades and grow softer with each wash.</p>
 
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:3.5rem;">
+      <style>
+        #care-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+          margin-bottom: 3.5rem;
+        }
+        @media (max-width: 900px) {
+          #care-grid { grid-template-columns: repeat(2, 1fr); }
+          #care { padding: 3rem 1.5rem !important; }
+        }
+        @media (max-width: 480px) {
+          #care-grid { grid-template-columns: 1fr; gap: 1rem; }
+          #care { padding: 2.5rem 1rem !important; }
+        }
+      </style>
+
+      <div id="care-grid">
 
         <div style="background:rgba(247,240,230,0.05);border:1px solid rgba(196,168,130,0.25);padding:1.8rem;">
           <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--fleece);margin-bottom:1rem;">Washing</p>
@@ -3189,7 +3573,20 @@
 
   <!-- CONTACT US -->
   <section id="contact" style="background:var(--fleece);padding:5rem 3rem;">
-    <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+    <style>
+      #contact-inner { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; max-width:900px; margin:0 auto; }
+      #contact-name-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+      @media(max-width:900px) {
+        #contact-inner { grid-template-columns:1fr; gap:2.5rem; }
+        #contact { padding:3rem 1.5rem !important; }
+      }
+      @media(max-width:480px) {
+        #contact-inner { gap:2rem; }
+        #contact { padding:2.5rem 1rem !important; }
+        #contact-name-row { grid-template-columns:1fr; }
+      }
+    </style>
+    <div id="contact-inner">
 
       <!-- Left: info -->
       <div>
@@ -3224,7 +3621,7 @@
       <div>
         <p style="font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1rem;" data-i18n="contact_form_label">Send a Message</p>
         <div style="display:flex;flex-direction:column;gap:1rem;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div id="contact-name-row">
             <div style="display:flex;flex-direction:column;gap:0.3rem;">
               <label style="font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);" data-i18n="contact_name">Name</label>
               <input id="ctName" type="text" style="padding:0.75rem 0.9rem;border:1px solid var(--camel);background:var(--white);font-family:'Inter',sans-serif;font-size:0.88rem;color:var(--espresso);outline:none;transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--espresso)'" onblur="this.style.borderColor='var(--camel)'"/>
@@ -3874,17 +4271,18 @@
   .ap-filter-btn.active,.ap-filter-btn:hover { background:var(--espresso);color:var(--fleece);border-color:var(--espresso); }
   .ap-card { cursor:pointer;transition:transform 0.25s; }
   .ap-card:hover { transform:translateY(-4px); }
-  .ap-card-img { aspect-ratio:2/3;background:var(--parchment);position:relative;overflow:hidden;margin-bottom:1rem; transition:box-shadow 0.25s; }
+  .ap-card-img { aspect-ratio:3/4;background:var(--parchment);position:relative;overflow:hidden;margin-bottom:0.6rem; transition:box-shadow 0.25s; }
   .ap-card:hover .ap-card-img { box-shadow:0 12px 32px rgba(44,24,16,0.12); }
-  .ap-card-img svg { width:100%;height:100%;position:absolute;top:0;left:0; }
-  .ap-card-badge { position:absolute;top:0.8rem;left:0.8rem;background:var(--espresso);color:var(--fleece);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.6rem;z-index:2; }
-  .ap-card-add { position:absolute;bottom:0;left:0;right:0;background:var(--espresso);color:var(--fleece);text-align:center;padding:0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;transform:translateY(100%);transition:transform 0.22s;border:none;cursor:pointer;font-family:'Inter',sans-serif;width:100%; }
+  .ap-card-img svg { width:70%;height:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%); }
+  .ap-card-badge { position:absolute;top:0.5rem;left:0.5rem;background:var(--espresso);color:var(--fleece);font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.45rem;z-index:2; }
+  .ap-card-add { position:absolute;bottom:0;left:0;right:0;background:var(--espresso);color:var(--fleece);text-align:center;padding:0.55rem;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;transform:translateY(100%);transition:transform 0.22s;border:none;cursor:pointer;font-family:"Inter",sans-serif;width:100%; }
   .ap-card:hover .ap-card-add { transform:translateY(0); }
-  .ap-card-name { font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--espresso);margin-bottom:0.3rem; }
-  .ap-card-meta { display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:var(--camel); }
-  .ap-card-price { font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--espresso); }
-  @media(max-width:600px){ #apGrid{grid-template-columns:1fr 1fr;gap:1rem;padding:1.2rem;} }
-  @media(max-width:390px){ #apGrid{grid-template-columns:1fr;} }
+  .ap-card-name { font-family:"Cormorant Garamond",serif;font-size:0.9rem;color:var(--espresso);margin-bottom:0.2rem; }
+  .ap-card-meta { display:flex;justify-content:space-between;align-items:center;font-size:0.62rem;color:var(--camel); }
+  .ap-card-price { font-family:"Cormorant Garamond",serif;font-size:0.9rem;color:var(--espresso); }
+  @media(max-width:900px){ #apGrid{grid-template-columns:repeat(3,1fr);gap:0.8rem;padding:1.5rem;} }
+  @media(max-width:600px){ #apGrid{grid-template-columns:1fr 1fr;gap:0.6rem;padding:1rem;} }
+  @media(max-width:390px){ #apGrid{grid-template-columns:1fr 1fr;gap:0.5rem;padding:0.75rem;} }
   </style>
 
   <!-- ALL PRODUCTS OVERLAY -->
@@ -3894,7 +4292,10 @@
         <button onclick="closeAllProducts()" style="background:none;border:none;cursor:pointer;color:var(--mid);display:inline-flex;align-items:center;gap:0.5rem;font-family:'Inter',sans-serif;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.2s;" onmouseover="this.style.color='var(--espresso)'" onmouseout="this.style.color='var(--mid)'">← <span id="apBackLabel">Back</span></button>
         <h1 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--espresso);margin:0;" id="apTitle">All Products</h1>
       </div>
-      <span style="font-size:0.75rem;color:var(--camel);letter-spacing:0.08em;" id="apCount"></span>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <span style="font-size:0.75rem;color:var(--camel);letter-spacing:0.08em;" id="apCount"></span>
+        <button class="nav-cart" onclick="if(window.openCartDrawer)window.openCartDrawer()" id="apCartBtn">Bag (0)</button>
+      </div>
     </div>
     <div style="padding:1.2rem 2.5rem;border-bottom:1px solid var(--light-camel);display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
       <span style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--camel);margin-right:0.5rem;">Filter:</span>
@@ -3903,13 +4304,14 @@
       <button class="ap-filter-btn" data-cat="bed" onclick="applyFilter('bed')">Bed</button>
       <button class="ap-filter-btn" data-cat="hats" onclick="applyFilter('hats')">Hats</button>
       <button class="ap-filter-btn" data-cat="gloves" onclick="applyFilter('gloves')">Gloves</button>
+      <button class="ap-filter-btn" data-cat="scarves" onclick="applyFilter('scarves')">Scarves</button>
       <div style="width:1px;height:20px;background:var(--light-camel);margin:0 0.5rem;"></div>
       <button class="ap-filter-btn" data-fiber="all" onclick="applyFiber('all')">All Fiber</button>
       <button class="ap-filter-btn" data-fiber="baby" onclick="applyFiber('baby')">Baby Alpaca</button>
       <button class="ap-filter-btn" data-fiber="alpaca" onclick="applyFiber('alpaca')">100% Alpaca</button>
       <button class="ap-filter-btn" data-fiber="blended" onclick="applyFiber('blended')">Blended 50/50</button>
     </div>
-    <div id="apGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.5rem;padding:2.5rem;"></div>
+    <div id="apGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2rem;"></div>
   </div>
 
   <script>
@@ -3939,6 +4341,12 @@
       {id:'inca-full-gloves-alpaca',cat:'gloves',fiber:'alpaca'},
       {id:'andean-mittens-blend',cat:'gloves',fiber:'blended'},{id:'wrist-warmers-blend',cat:'gloves',fiber:'blended'},
       {id:'inca-full-gloves-blend',cat:'gloves',fiber:'blended'},
+      {id:'cusco-scarf',cat:'scarves',fiber:'baby'},{id:'andes-infinity-scarf',cat:'scarves',fiber:'baby'},
+      {id:'titicaca-shawl',cat:'scarves',fiber:'baby'},
+      {id:'cusco-scarf-alpaca',cat:'scarves',fiber:'alpaca'},{id:'andes-infinity-scarf-alpaca',cat:'scarves',fiber:'alpaca'},
+      {id:'titicaca-shawl-alpaca',cat:'scarves',fiber:'alpaca'},
+      {id:'cusco-scarf-blend',cat:'scarves',fiber:'blended'},{id:'andes-infinity-scarf-blend',cat:'scarves',fiber:'blended'},
+      {id:'titicaca-shawl-blend',cat:'scarves',fiber:'blended'},
     ];
 
     // ── Extra product data for new variants ───────────────────────────
@@ -3965,6 +4373,16 @@
       {id:'andean-mittens-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Andean Mittens',price:'$30',desc:'Mittens in 50/50 blend. Lightweight, breathable, machine washable. Great entry-level option.',desc_es:'Manoplas en mezcla 50/50. Ligeras, transpirables, lavables a máquina.',sizes:['XS','S','M','L'],colours:['#8FA888','#B8C4B0','#D4C4A8'],colourNames:['Sage','Mint','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
       {id:'wrist-warmers-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Wrist Warmers',price:'$26',desc:'Fingerless wrist warmers in 50/50 blend. Light, breathable, easy-care.',desc_es:'Calentadores sin dedos en mezcla 50/50. Ligeros, transpirables, fáciles de cuidar.',sizes:['XS','S','M','L'],colours:['#8FA888','#D4C4A8','#B8C4B0'],colourNames:['Sage','Oat','Mint'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
       {id:'inca-full-gloves-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Inca Full Gloves',price:'$42',desc:'Fully articulated gloves in 50/50 blend. Most affordable full-finger option, machine washable.',desc_es:'Guantes articulados en mezcla 50/50. La opción de dedo completo más accesible, lavable a máquina.',sizes:['XS','S','M','L'],colours:['#8FA888','#7A8F72','#D4C4A8'],colourNames:['Sage','Forest','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
+      // Scarves
+      {id:'cusco-scarf',badge:'Bestseller',eyebrow:'Scarves — 100% Baby Alpaca',name:'Cusco Classic Scarf',price:'$118',desc:'A timeless double-strand scarf woven on a traditional floor loom in Cusco. Features the signature diamond motif in fine baby alpaca — feather-light and three times warmer than wool. Finished with hand-knotted fringe.',desc_es:'Bufanda clásica de doble hilo tejida en telar tradicional en Cusco. Motivo de diamante en alpaca bebé fina.',sizes:['Classic Wrap 72in'],colours:['#D4B896','#8B7B6B','#E8D5B7','#2C1810'],colourNames:['Camel','Ash','Ivory','Espresso'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','12 × 72 in / 30 × 183 cm'],['Micron count','Under 22 µm'],['Care','Hand wash cold, lay flat']]},
+      {id:'andes-infinity-scarf',badge:'New',eyebrow:'Scarves — 100% Baby Alpaca',name:'Andes Infinity Loop',price:'$98',desc:'A seamlessly joined infinity loop in baby alpaca. No ends to tuck — just slip over your head and adjust. Woven with a subtle Andean stripe running the length of the loop.',desc_es:'Bucle infinito de alpaca bebé sin costuras. Solo deslízalo sobre la cabeza y ajusta.',sizes:['Infinity Loop'],colours:['#8B7B6B','#6B5B47','#C4A882'],colourNames:['Ash','Earth','Camel'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','14 × 60 in loop / 36 × 152 cm'],['Care','Hand wash cold, lay flat']]},
+      {id:'titicaca-shawl',badge:'New',eyebrow:'Scarves — 100% Baby Alpaca',name:'Titicaca Shawl Wrap',price:'$158',desc:'A generous shawl-width wrap inspired by the vast sky over Lake Titicaca. Versatile as a shawl, wrap, or light blanket. Herringbone weave with hand-knotted fringe on both ends.',desc_es:'Un chal amplio inspirado en el cielo sobre el Lago Titicaca. Versátil como chal, wrap o manta ligera.',sizes:['Shawl Wrap 80in'],colours:['#D4B896','#C4A882','#8B7B6B'],colourNames:['Camel','Gold','Ash'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','28 × 80 in / 71 × 203 cm'],['Care','Hand wash cold, lay flat']]},
+      {id:'cusco-scarf-alpaca',badge:'100% Alpaca',eyebrow:'Scarves — 100% Alpaca',name:'Cusco Classic Scarf',price:'$78',desc:'The Cusco Classic Scarf in standard alpaca. More structured drape and rustic hand-feel. Machine washable on gentle cycle.',desc_es:'La bufanda Cusco Clásica en alpaca estándar. Caída más estructurada. Lavable a máquina suave.',sizes:['Classic Wrap 72in'],colours:['#8B7B6B','#6B5B47','#A0522D'],colourNames:['Ash','Earth','Rust'],specs:[['Fiber','100% Alpaca (standard)'],['Dimensions','12 × 72 in'],['Care','Machine wash gentle, cold']]},
+      {id:'andes-infinity-scarf-alpaca',badge:'100% Alpaca',eyebrow:'Scarves — 100% Alpaca',name:'Andes Infinity Loop',price:'$62',desc:'Infinity loop in standard alpaca. Durable and machine washable — ideal for everyday wear.',desc_es:'Bucle infinito en alpaca estándar. Duradero y lavable a máquina — ideal para uso diario.',sizes:['Infinity Loop'],colours:['#6B5B47','#8B7B6B','#3D3530'],colourNames:['Earth','Ash','Midnight'],specs:[['Fiber','100% Alpaca (standard)'],['Care','Machine wash gentle, cold']]},
+      {id:'titicaca-shawl-alpaca',badge:'100% Alpaca',eyebrow:'Scarves — 100% Alpaca',name:'Titicaca Shawl Wrap',price:'$108',desc:'Wide shawl wrap in standard alpaca. More structured than baby alpaca with excellent warmth. Machine washable.',desc_es:'Chal amplio en alpaca estándar. Más estructurado que la alpaca bebé con excelente calidez. Lavable a máquina.',sizes:['Shawl Wrap 80in'],colours:['#8B7B6B','#6B5B47','#5A4A35'],colourNames:['Ash','Earth','Dark Earth'],specs:[['Fiber','100% Alpaca (standard)'],['Dimensions','28 × 80 in'],['Care','Machine wash gentle, cold']]},
+      {id:'cusco-scarf-blend',badge:'50/50 Blend',eyebrow:'Scarves — 50% Alpaca, 50% Cotton',name:'Cusco Classic Scarf',price:'$48',desc:'The classic scarf silhouette in breathable 50/50 alpaca-cotton. Lighter and more affordable — machine washable.',desc_es:'La silueta clásica de bufanda en 50/50 alpaca-algodón transpirable. Más ligera y accesible — lavable a máquina.',sizes:['Classic Wrap 72in'],colours:['#B8C4B0','#8FA888','#D4C4A8'],colourNames:['Sage','Forest','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold']]},
+      {id:'andes-infinity-scarf-blend',badge:'50/50 Blend',eyebrow:'Scarves — 50% Alpaca, 50% Cotton',name:'Andes Infinity Loop',price:'$38',desc:'Infinity loop in 50/50 blend. Lightweight and breathable, great for spring and autumn. Machine washable.',desc_es:'Bucle infinito en mezcla 50/50. Ligero y transpirable, ideal para primavera y otoño. Lavable a máquina.',sizes:['Infinity Loop'],colours:['#B8C4B0','#8FA888','#7A8F72'],colourNames:['Sage','Forest','Mint'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold']]},
+      {id:'titicaca-shawl-blend',badge:'50/50 Blend',eyebrow:'Scarves — 50% Alpaca, 50% Cotton',name:'Titicaca Shawl Wrap',price:'$68',desc:'Wide shawl wrap in 50/50 blend. The lightest and most breathable option in the shawl range. Machine washable.',desc_es:'Chal amplio en mezcla 50/50. La opción más ligera y transpirable de la gama de chales. Lavable a máquina.',sizes:['Shawl Wrap 80in'],colours:['#B8C4B0','#D4C4A8','#8FA888'],colourNames:['Sage','Oat','Forest'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold']]},
     ];
 
     // Merge with existing products array
@@ -4270,21 +4688,7 @@
       applyLang(lang === 'en' ? 'es' : 'en');
     });
 
-    // Shop dropdown — toggle on click (works on mobile too)
-    const shopBtn = document.getElementById('shopDropBtn');
-    const shopMenu = document.getElementById('shopDropMenu');
-    if (shopBtn && shopMenu) {
-      shopBtn.addEventListener('click', e => {
-        e.stopPropagation();
-        shopMenu.style.opacity = shopMenu.style.opacity === '1' ? '0' : '1';
-        shopMenu.style.pointerEvents = shopMenu.style.opacity === '1' ? 'all' : 'none';
-        shopMenu.style.transform = shopMenu.style.opacity === '1' ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(-4px)';
-      });
-      document.addEventListener('click', () => {
-        shopMenu.style.opacity = '0';
-        shopMenu.style.pointerEvents = 'none';
-      });
-    }
+    // Dropdowns work via CSS :hover — no JS needed
 
   })();
   </script>
@@ -4705,6 +5109,8 @@
     function updateNavCount() {
       const n = cartCount();
       document.getElementById('navCartBtn').textContent = 'Bag (' + n + ')';
+      const apBtn = document.getElementById('apCartBtn');
+      if (apBtn) apBtn.textContent = 'Bag (' + n + ')';
       document.getElementById('cartCountBadge').textContent = n;
     }
 
@@ -4787,6 +5193,7 @@
       document.getElementById('cartDrawer').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
+    window.openCartDrawer = openCartDrawer;
     function closeCartDrawer() {
       document.getElementById('cartOverlay').classList.remove('open');
       document.getElementById('cartDrawer').classList.remove('open');
