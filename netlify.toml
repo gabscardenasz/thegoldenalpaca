@@ -6,6 +6,19 @@
 [functions]
   node_bundler = "nft"
 
+# Force HTTPS
+[[redirects]]
+  from = "http://thegoldenalpaca.com/*"
+  to = "https://thegoldenalpaca.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.thegoldenalpaca.com/*"
+  to = "https://www.thegoldenalpaca.com/:splat"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
