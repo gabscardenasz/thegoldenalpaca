@@ -4648,7 +4648,7 @@
     // ── Stripe Checkout ────────────────────────────────────────────────
     // SETUP: Replace YOUR_STRIPE_PUBLISHABLE_KEY below with your pk_live_ key
     // Open this file in Notepad, find YOUR_STRIPE_PUBLISHABLE_KEY and replace it
-    const STRIPE_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY';
+    const STRIPE_KEY = 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb';
     // Stripe is loaded from js.stripe.com/v3 in the <head>
 
     document.getElementById('coToPayment').addEventListener('click', () => {
@@ -4671,7 +4671,7 @@
 
       // ── STRIPE PAYMENT ────────────────────────────────────────────────
       // Uses Stripe Payment Links — no backend required
-      if (STRIPE_KEY !== 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb') {
+      if (STRIPE_KEY !== 'YOUR_STRIPE_PUBLISHABLE_KEY') {
         const btn = document.getElementById('coPlaceOrder');
         btn.textContent = 'Redirecting to payment…';
         btn.disabled = true;
@@ -4717,8 +4717,8 @@
                 customerEmail: email,
                 customerName: `${first} ${last}`,
                 shippingMethod: method,
-                successUrl: window.location.origin + '?order=success',
-                cancelUrl: window.location.href,
+                successUrl: window.location.origin + '/?order=success',
+                cancelUrl: window.location.origin + '/',
               }),
             }),
             new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000))
