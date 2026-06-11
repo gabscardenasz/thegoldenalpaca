@@ -3665,7 +3665,7 @@
           if (window.addToCart) window.addToCart({
             id:        p.id,
             name:      p.name,
-            price:     parseInt((p.price||'$0').replace(/[^0-9]/g,'')),
+            price:     parseFloat((p.price||'$0').replace(/[^0-9.]/g,'')||0),
             size:      activeSize   ? activeSize.textContent   : (p.sizes?.[0]       || 'One Size'),
             colour:    activeColour ? (p.colourNames?.[colourIdx] || p.colourNames?.[0] || 'Natural') : (p.colourNames?.[0] || 'Natural'),
             colourHex: activeColour ? (p.colours?.[colourIdx]    || p.colours?.[0]    || '#EDE3D2')  : (p.colours?.[0]    || '#EDE3D2'),
@@ -3928,7 +3928,7 @@
           const svgEl = crd.querySelector('.ap-card-img svg');
           if (window.addToCart) window.addToCart({
             id: p.id, name: p.name,
-            price: parseInt(p.price.replace('$','')),
+            price: parseFloat((p.price||'$0').replace(/[^0-9.]/g,'')||0),
             size: p.sizes[0], colour: p.colourNames[0], colourHex: p.colours[0],
             svgHtml: svgEl ? svgEl.outerHTML : ''
           });
@@ -4468,6 +4468,7 @@
     const FREE_SHIPPING = 150;
 
     const cartTotal = () => cart.reduce((s,i) => s + i.price * i.qty, 0);
+    const fmt = (n) => Number.isInteger(n) ? n.toFixed(0) : n.toFixed(2);
     const cartCount = () => cart.reduce((s,i) => s + i.qty, 0);
 
     function updateNavCount() {
@@ -4527,15 +4528,15 @@
             </div>
             <button class="cart-item-remove" data-key="${item.key}">Remove</button>
           </div>
-          <span class="cart-item-line-price">$${(item.price*item.qty).toFixed(0)}</span>
+          <span class="cart-item-line-price">$${(item.price*item.qty).toFixed(2).replace(/\.00$/, '')}</span>
         </div>`).join('');
 
       const total = cartTotal();
-      document.getElementById('cartSubtotal').textContent = '$' + total.toFixed(0);
+      document.getElementById('cartSubtotal').textContent = '$' + fmt(total);
       const gap = FREE_SHIPPING - total;
       const shipNote = document.getElementById('cartShipNote');
       shipNote.style.display = 'block';
-      shipNote.innerHTML = gap > 0 ? 'Add $' + gap.toFixed(0) + ' more for free shipping' : '✓ Free shipping included';
+      shipNote.innerHTML = gap > 0 ? 'Add $' + fmt(gap) + ' more for free shipping' : '✓ Free shipping included';
     }
 
     // Delegated cart item events
@@ -4582,13 +4583,13 @@
         <div class="co-sum-line">
           <div class="co-sum-thumb">${stripSvg(item.svgHtml||'')}</div>
           <div><div class="co-sum-name">${item.name}</div><div class="co-sum-meta">${item.size} · ×${item.qty}</div></div>
-          <span class="co-sum-price">$${(item.price*item.qty).toFixed(0)}</span>
+          <span class="co-sum-price">$${(item.price*item.qty).toFixed(2).replace(/\.00$/, '')}</span>
         </div>`).join('');
       const sub = cartTotal(), ship = shippingCost(), total = sub + ship;
-      document.getElementById('coSumSubtotal').textContent = '$' + sub.toFixed(0);
+      document.getElementById('coSumSubtotal').textContent = '$' + fmt(sub);
       document.getElementById('coSumShipping').textContent = ship === 0 ? 'Free' : '$' + ship;
-      document.getElementById('coSumTotal').textContent = '$' + total.toFixed(0);
-      document.getElementById('coFinalTotal').textContent = '$' + total.toFixed(0);
+      document.getElementById('coSumTotal').textContent = '$' + fmt(total);
+      document.getElementById('coFinalTotal').textContent = '$' + fmt(total);
       document.getElementById('coStdPrice').textContent = cartTotal() >= FREE_SHIPPING ? 'Free' : '$12';
     }
 
@@ -4601,7 +4602,7 @@
             <div style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">${item.name}</div>
             <div style="font-size:0.72rem;color:var(--camel);text-transform:uppercase;letter-spacing:0.06em;">${item.size} · ${item.colour} · ×${item.qty}</div>
           </div>
-          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:var(--espresso);">$${(item.price*item.qty).toFixed(0)}</span>
+          <span style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:500;color:var(--espresso);">$${(item.price*item.qty).toFixed(2).replace(/\.00$/, '')}</span>
         </div>`).join('');
     }
 
@@ -4647,7 +4648,7 @@
     // ── Stripe Checkout ────────────────────────────────────────────────
     // SETUP: Replace YOUR_STRIPE_PUBLISHABLE_KEY below with your pk_live_ key
     // Open this file in Notepad, find YOUR_STRIPE_PUBLISHABLE_KEY and replace it
-    const STRIPE_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY';
+    const STRIPE_KEY = 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb';
     let stripeInstance = null;
     if (typeof Stripe !== 'undefined') {
       stripeInstance = Stripe(STRIPE_KEY);
@@ -4731,7 +4732,7 @@
       document.getElementById('coConfirmNum').textContent      = orderNum;
       document.getElementById('coConfirmAddr').textContent     = isPickup ? 'In-store pickup · San Francisco, CA' : `${first} ${last}, ${city}, ${country}`;
       document.getElementById('coConfirmDelivery').textContent = deliveryLabel;
-      document.getElementById('coConfirmTotal2').textContent   = '$' + total.toFixed(0);
+      document.getElementById('coConfirmTotal2').textContent   = '$' + fmt(total);
       window._lastOrder = { orderNum, cart:[...cart], total, addr: document.getElementById('coConfirmAddr').textContent, delivery: deliveryLabel };
       cart = []; window.cartRef = [];
       renderCart(); updateNavCount();
@@ -4751,7 +4752,7 @@
     document.getElementById('coPrintBtn').addEventListener('click', () => {
       const o = window._lastOrder || {};
       const rows = (o.cart||[]).map(item =>
-        `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;">${item.name}</td><td style="padding:8px;border-bottom:1px solid #eee;color:#888;">${item.size} · ${item.colour}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">×${item.qty}</td><td style="padding:8px 0 8px 12px;border-bottom:1px solid #eee;text-align:right;">$${(item.price*item.qty).toFixed(0)}</td></tr>`
+        `<tr><td style="padding:8px 0;border-bottom:1px solid #eee;">${item.name}</td><td style="padding:8px;border-bottom:1px solid #eee;color:#888;">${item.size} · ${item.colour}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right;">×${item.qty}</td><td style="padding:8px 0 8px 12px;border-bottom:1px solid #eee;text-align:right;">$${(item.price*item.qty).toFixed(2).replace(/\.00$/, '')}</td></tr>`
       ).join('');
       const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><title>Order ${o.orderNum||''}</title>
 <style>body{font-family:Georgia,serif;max-width:600px;margin:48px auto;color:#2C1810;padding:0 24px}.brand{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#C4A882;margin-bottom:8px}h1{font-size:26px;font-weight:300;margin:0 0 8px}.sub{font-size:13px;color:#888;margin-bottom:28px}.lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#C4A882}.val{font-size:20px;margin:4px 0 24px}table{width:100%;border-collapse:collapse;margin:20px 0}th{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#C4A882;text-align:left;padding-bottom:8px;border-bottom:2px solid #C4A882}.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:13px}.row:last-child{border-bottom:none;font-weight:bold;font-size:15px}.footer{margin-top:40px;font-size:11px;color:#bbb;text-align:center;border-top:1px solid #eee;padding-top:16px}</style>
@@ -4763,7 +4764,7 @@
 <table><thead><tr><th>Product</th><th>Details</th><th style="text-align:right">Qty</th><th style="text-align:right;padding-left:12px">Total</th></tr></thead><tbody>${rows}</tbody></table>
 <div class="row"><span style="color:#888">Shipping to</span><span>${o.addr||''}</span></div>
 <div class="row"><span style="color:#888">Estimated delivery</span><span>${o.delivery||''}</span></div>
-<div class="row"><span style="color:#888">Order total</span><span>$${(o.total||0).toFixed(0)}</span></div>
+<div class="row"><span style="color:#888">Order total</span><span>$${(o.total||0).toFixed(2).replace(/\.00$/, '')}</span></div>
 <div class="footer">© 2026 The Golden Alpaca · thegoldenalpaca.com</div>
 </body></html>`;
       const blob = new Blob([html], {type:'text/html'});
@@ -4786,7 +4787,7 @@
         const svgEl    = card.querySelector('.product-image svg');
         const name     = (card.querySelector('.product-name')  || {textContent:id}).textContent.trim();
         const priceRaw = (card.querySelector('.product-price') || {textContent:'$0'}).textContent.trim();
-        const price    = parseInt(priceRaw.replace(/[^0-9]/g,'')) || 0;
+        const price    = parseFloat(priceRaw.replace(/[^0-9.]/g,'')) || 0;
         const allP     = [...(window.productsRef||[]),...(window.extraProducts||[])];
         const p        = allP.find(x => x.id === id);
         addToCart({
@@ -4998,7 +4999,7 @@
           if (item && window.addToCart) {
             window.addToCart({
               id: item.id, name: item.name,
-              price: parseInt((item.price||'$0').replace(/[^0-9]/g,'')),
+              price: parseFloat((item.price||'$0').replace(/[^0-9.]/g,'')||0),
               size: 'One Size', colour: item.colour, colourHex: item.colourHex,
               svgHtml: item.svgHtml || ''
             });
