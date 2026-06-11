@@ -53,6 +53,11 @@
     }
 
     .nav-logo span { color: var(--camel); }
+    .nav-logo { transition: opacity 0.2s; }
+    .nav-logo:hover { opacity: 0.75; }
+
+    section[id] { scroll-margin-top: 116px; }
+    @media (max-width: 480px) { section[id] { scroll-margin-top: 106px; } }
 
     /* Nav link buttons */
     .nav-links { display: flex; gap: 0.2rem; list-style: none; align-items: center; }
@@ -186,7 +191,7 @@
       min-height: 100vh;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      padding-top: 100px;
+      padding-top: 136px;
     }
 
     .hero-left {
@@ -340,8 +345,12 @@
 
     /* STRIP */
     .strip {
+      position: fixed;
+      top: 72px;
+      left: 0; right: 0;
+      z-index: 99;
       background: var(--espresso);
-      padding: 1rem 0;
+      padding: 0.6rem 0;
       overflow: hidden;
     }
 
@@ -424,11 +433,10 @@
 
     .product-card {
       cursor: pointer;
-      group: true;
     }
 
     .product-image {
-      aspect-ratio: 3/4;
+      aspect-ratio: 1/1;
       background: var(--parchment);
       position: relative;
       overflow: hidden;
@@ -460,28 +468,26 @@
       background: var(--espresso);
       color: var(--fleece);
       text-align: center;
-      padding: 0.75rem;
+      padding: 0.85rem;
       font-size: 0.72rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
       font-family: 'Inter', sans-serif;
+      margin-top: 1rem;
       margin-bottom: 1rem;
       transition: background 0.2s;
     }
 
     .product-add:hover { background: var(--mid); }
 
-    @media (hover: none) {
-      .product-add { opacity: 1; transform: translateY(0); }
-    }
-
     .product-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.3rem;
       font-weight: 400;
       color: var(--espresso);
+      margin-top: 0;
       margin-bottom: 0.4rem;
     }
 
@@ -790,6 +796,7 @@
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
+      .nav-dropdown-menu { display: none; }
       .hero { grid-template-columns: 1fr; }
       .hero-right { min-height: 50vw; }
       .hero-left { padding: 4rem 2rem; }
@@ -804,6 +811,89 @@
       footer { padding: 3rem 2rem; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .hero-stats { left: 2rem; gap: 2rem; }
+    }
+
+    /* ── MOBILE (phones up to 480px) ── */
+    @media (max-width: 480px) {
+      /* Nav */
+      nav { padding: 0.6rem 1rem; }
+      .nav-logo svg { height: 70px !important; }
+      .nav-action-btn { padding: 0.45rem 0.6rem; font-size: 0.7rem; }
+      .nav-cart { padding: 0.45rem 0.7rem; font-size: 0.7rem; }
+      .nav-wishlist-btn { padding: 0.45rem 0.6rem; font-size: 0.7rem; }
+      .nav-wishlist-btn .heart { font-size: 1rem; }
+      .nav-desktop-only { display: none !important; }
+      .nav-logo svg { height: 52px !important; }
+      .strip { top: 64px; }
+      .hero { padding-top: 106px; }
+
+      /* Hero */
+      .hero { padding-top: 70px; }
+      .hero-left { padding: 2.5rem 1.2rem 2rem; }
+      .hero-title { font-size: clamp(2.2rem, 10vw, 3rem); }
+      .hero-body { font-size: 0.85rem; }
+      .hero-actions { flex-direction: column; gap: 0.75rem; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary { width: 100%; text-align: center; }
+      .hero-stats { position: static; display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 2rem; padding: 0; background: none; }
+      .hero-right { min-height: 55vw; }
+
+      /* Section headers */
+      .section-header { flex-direction: column; align-items: flex-start; gap: 0.75rem; margin-bottom: 2rem; }
+      .section-title { font-size: clamp(2rem, 9vw, 2.8rem); }
+
+      /* Products */
+      .products { padding: 3rem 1rem; }
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .product-name { font-size: 1rem; }
+      .product-price { font-size: 1rem; }
+      .product-add { padding: 0.7rem; font-size: 0.65rem; }
+
+      /* Filter tabs */
+      .filter-tabs { flex-wrap: wrap; gap: 0.4rem; justify-content: flex-start; }
+      .filter-tab { font-size: 0.65rem; padding: 0.4rem 0.75rem; }
+
+      /* Story */
+      .story { grid-template-columns: 1fr; }
+      .story-visual { min-height: 220px; }
+      .story-text { padding: 2.5rem 1.2rem; }
+      .story-body { max-width: 100%; font-size: 0.85rem; }
+
+      /* Testimonials */
+      .testimonials { padding: 3rem 1rem; }
+      .testimonial-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .testimonial-card { padding: 1.5rem; }
+
+      /* Newsletter */
+      .newsletter { padding: 3rem 1rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-right: 1px solid var(--camel); border-bottom: none; }
+      .newsletter-form button { width: 100%; }
+
+      /* Footer */
+      footer { padding: 2.5rem 1rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+
+      /* Contact */
+      #contact { padding: 3rem 1rem !important; }
+      #contact > div { grid-template-columns: 1fr !important; gap: 2rem !important; }
+
+      /* Care section */
+      #care { padding: 3rem 1rem !important; }
+      #care > div { grid-template-columns: 1fr !important; }
+
+      /* Modal */
+      .modal { grid-template-columns: 1fr; }
+      .modal-image { min-height: 220px; }
+      .modal-body { padding: 1.5rem 1rem; }
+      .modal-specs { grid-template-columns: 1fr 1fr; }
+
+      /* Cart drawer */
+      .cart-drawer { width: 100vw; }
+
+      /* Wishlist drawer */
+      .wishlist-drawer { width: 100vw !important; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1054,8 +1144,8 @@
 
   <!-- NAV -->
   <nav>
-    <a href="#" onclick="event.preventDefault()" class="nav-logo" style="display:inline-flex;align-items:center;text-decoration:none;">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" style="height:80px;width:auto;">
+    <a href="#" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'});if(window.closeAllProducts)window.closeAllProducts();if(window.closeCartDrawer)window.closeCartDrawer();if(window.closeCheckout)window.closeCheckout();" class="nav-logo" style="display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;" title="Home">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" style="height:clamp(52px,8vw,110px);width:auto;">
 <style>
     .gm { fill: #D4A843; }
     .gl { fill: #F0C84A; }
@@ -1066,20 +1156,19 @@
   <!-- Background (transparent) -->
 
   <!-- TEXT -->
-  <text x="16" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="22"
-        font-weight="400" fill="#C4A882" letter-spacing="6">THE</text>
+  <text x="16" y="58" font-family="Georgia, 'Times New Roman', serif" font-size="30"
+        font-weight="400" fill="#C4A882" letter-spacing="8">THE</text>
 
-  <text x="14" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="58"
+  <text x="12" y="112" font-family="Georgia, 'Times New Roman', serif" font-size="76"
         font-weight="400" fill="#2C1810" letter-spacing="1">Golden</text>
 
-  <text x="14" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="46"
+  <text x="12" y="152" font-family="Georgia, 'Times New Roman', serif" font-size="60"
         font-weight="400" fill="#C4A882" letter-spacing="3">Alpaca</text>
 
-  <!-- DIVIDER -->
-  <line x1="310" y1="20" x2="310" y2="150" stroke="#C4A882" stroke-width="0.8" opacity="0.4"/>
+
 
   <!-- ALPACA ILLUSTRATION — positioned right of divider -->
-  <g transform="translate(318, -30) scale(0.88)">
+  <g transform="translate(230, -30) scale(0.88)">
 
     <!-- Shadow -->
     <ellipse cx="92" cy="228" rx="42" ry="5" fill="#2C1810" opacity="0.08"/>
@@ -1193,10 +1282,89 @@
       <li><button class="nav-link-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="nav_contact">Contact Us</button></li>
     </ul>
     <div style="display:flex;align-items:center;gap:0.6rem;margin-left:auto;">
-      <button id="langBtn" class="nav-action-btn">ES</button>
+      <button id="langBtn" class="nav-action-btn nav-desktop-only">ES</button>
       <button class="nav-cart" id="navCartBtn">Bag (0)</button>
+      <button id="hamburgerBtn" aria-label="Menu" style="display:none;background:none;border:1px solid var(--camel);padding:0.45rem 0.6rem;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:4px;">
+        <span style="display:block;width:18px;height:2px;background:var(--espresso);transition:all 0.25s;"></span>
+        <span style="display:block;width:18px;height:2px;background:var(--espresso);transition:all 0.25s;"></span>
+        <span style="display:block;width:18px;height:2px;background:var(--espresso);transition:all 0.25s;"></span>
+      </button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--fleece);z-index:99;flex-direction:column;justify-content:center;align-items:center;gap:2rem;padding:2rem;">
+    <button onclick="closeMobileMenu()" style="position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--espresso);">✕</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('products')">Shop</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('bed-collection')">Bed Collection</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('hats')">Hats</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('gloves')">Gloves</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('story')">Our Story</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('care')">Care Guide</button>
+    <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('contact')">Contact Us</button>
+  </div>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function openMobileMenu() { mobileMenu.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function closeMobileMenu() { mobileMenu.style.display = 'none'; document.body.style.overflow = ''; }
+    hamburgerBtn.addEventListener('click', openMobileMenu);
+
+    // Scroll to section with correct offset for fixed nav + strip
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const nav = document.querySelector('nav');
+      const strip = document.querySelector('.strip');
+      const navH = nav ? nav.getBoundingClientRect().height : 0;
+      const stripH = strip ? strip.getBoundingClientRect().height : 0;
+      const offset = navH + stripH + 8;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+    window.scrollToSection = scrollToSection;
+
+    // Show hamburger only on mobile
+    function checkHamburger() {
+      hamburgerBtn.style.display = window.innerWidth <= 900 ? 'flex' : 'none';
+    }
+    checkHamburger();
+    window.addEventListener('resize', checkHamburger);
+
+    // Dynamically position strip below nav and push hero down
+    function fixLayout() {
+      const nav = document.querySelector('nav');
+      const strip = document.querySelector('.strip');
+      const hero = document.querySelector('.hero');
+      if (!nav || !strip || !hero) return;
+      const navH = nav.getBoundingClientRect().height;
+      strip.style.top = navH + 'px';
+      const stripH = strip.getBoundingClientRect().height;
+      hero.style.paddingTop = (navH + stripH + 8) + 'px';
+    }
+    requestAnimationFrame(fixLayout);
+    setTimeout(fixLayout, 100);
+    setTimeout(fixLayout, 500);
+    window.addEventListener('load', fixLayout);
+    window.addEventListener('resize', fixLayout);
+  </script>
+
+  <!-- MARQUEE STRIP -->
+  <div class="strip" aria-hidden="true">
+    <div class="strip-inner">
+      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
+      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
+      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
+      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
+      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
+      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
+      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
+      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
+      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
+      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -1339,22 +1507,6 @@
     </div>
   </section>
 
-  <!-- MARQUEE STRIP -->
-  <div class="strip" aria-hidden="true">
-    <div class="strip-inner">
-      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
-      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
-      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
-      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
-      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
-      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
-      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
-      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
-      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
-      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
-    </div>
-  </div>
-
   <!-- PRODUCTS -->
   <section class="products" id="products">
     <!-- Fiber filter -->
@@ -1471,8 +1623,7 @@
               <line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Cusco Classic</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca</span>
@@ -1519,8 +1670,7 @@
               <line x1="279" y1="395" x2="279" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Machu Midnight</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca</span>
@@ -1583,8 +1733,7 @@
               <line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Puno Ivory</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca</span>
@@ -1638,8 +1787,7 @@
               <line x1="284" y1="395" x2="284" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Arequipa Spice</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca</span>
@@ -1684,8 +1832,7 @@
               <line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Titicaca Sage</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca</span>
@@ -1738,8 +1885,7 @@
               <line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Inca Slate</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -1761,8 +1907,7 @@
             <g stroke="#EDE3D2" stroke-width="2" fill="none" opacity="0.5"><polygon points="150,90 210,185 150,280 90,185"/><polygon points="150,120 190,185 150,250 110,185"/></g>
             <g stroke="#EDE3D2" stroke-width="1.2" opacity="0.7"><line x1="25" y1="395" x2="25" y2="415"/><line x1="55" y1="395" x2="55" y2="412"/><line x1="85" y1="395" x2="85" y2="416"/><line x1="115" y1="395" x2="115" y2="413"/><line x1="145" y1="395" x2="145" y2="415"/><line x1="175" y1="395" x2="175" y2="412"/><line x1="205" y1="395" x2="205" y2="415"/><line x1="235" y1="395" x2="235" y2="412"/><line x1="265" y1="395" x2="265" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Vilcanota Rust</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -1782,8 +1927,7 @@
             <rect x="0" y="165" width="300" height="70" fill="#A89070" opacity="0.3"/>
             <g stroke="#A89070" stroke-width="1.5" opacity="0.8"><line x1="25" y1="395" x2="25" y2="417"/><line x1="55" y1="395" x2="55" y2="414"/><line x1="85" y1="395" x2="85" y2="418"/><line x1="115" y1="395" x2="115" y2="415"/><line x1="145" y1="395" x2="145" y2="417"/><line x1="175" y1="395" x2="175" y2="414"/><line x1="205" y1="395" x2="205" y2="417"/><line x1="235" y1="395" x2="235" y2="414"/><line x1="265" y1="395" x2="265" y2="416"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Nazca Oat</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -1804,8 +1948,7 @@
             <g stroke="#EDE3D2" stroke-width="1.5" fill="none" opacity="0.35"><polyline points="60,320 60,240 90,240 90,200 120,200 120,160 150,160 150,130 180,130 180,160 210,160 210,200 240,200 240,240 270,240 270,320"/></g>
             <g stroke="#C4A882" stroke-width="1.5" opacity="0.7"><line x1="25" y1="395" x2="25" y2="416"/><line x1="55" y1="395" x2="55" y2="413"/><line x1="85" y1="395" x2="85" y2="417"/><line x1="115" y1="395" x2="115" y2="414"/><line x1="145" y1="395" x2="145" y2="416"/><line x1="175" y1="395" x2="175" y2="413"/><line x1="205" y1="395" x2="205" y2="416"/><line x1="235" y1="395" x2="235" y2="413"/><line x1="265" y1="395" x2="265" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Andes Storm</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -1827,8 +1970,7 @@
             <line x1="150" y1="130" x2="150" y2="240" stroke="#7A8F72" stroke-width="1.5" opacity="0.5"/>
             <g stroke="#8FA888" stroke-width="1.2" opacity="0.8"><line x1="25" y1="395" x2="25" y2="414"/><line x1="55" y1="395" x2="55" y2="411"/><line x1="85" y1="395" x2="85" y2="415"/><line x1="115" y1="395" x2="115" y2="412"/><line x1="145" y1="395" x2="145" y2="414"/><line x1="175" y1="395" x2="175" y2="411"/><line x1="205" y1="395" x2="205" y2="415"/><line x1="235" y1="395" x2="235" y2="412"/><line x1="265" y1="395" x2="265" y2="414"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Pampa Sage</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -1849,8 +1991,7 @@
             <rect x="0" y="220" width="300" height="25" fill="#A89070" opacity="0.2"/>
             <g stroke="#A89070" stroke-width="1.5" opacity="0.8"><line x1="25" y1="395" x2="25" y2="415"/><line x1="55" y1="395" x2="55" y2="412"/><line x1="85" y1="395" x2="85" y2="415"/><line x1="115" y1="395" x2="115" y2="412"/><line x1="145" y1="395" x2="145" y2="415"/><line x1="175" y1="395" x2="175" y2="412"/><line x1="205" y1="395" x2="205" y2="415"/><line x1="235" y1="395" x2="235" y2="412"/><line x1="265" y1="395" x2="265" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Sierra Oat</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -1870,8 +2011,7 @@
             <g stroke="#EDE3D2" stroke-width="1.5" fill="none" opacity="0.4"><path d="M0,160 Q75,140 150,160 Q225,180 300,160"/><path d="M0,190 Q75,170 150,190 Q225,210 300,190"/><path d="M0,220 Q75,200 150,220 Q225,240 300,220"/></g>
             <g stroke="#7A98A8" stroke-width="1.5" opacity="0.8"><line x1="25" y1="395" x2="25" y2="415"/><line x1="55" y1="395" x2="55" y2="412"/><line x1="85" y1="395" x2="85" y2="415"/><line x1="115" y1="395" x2="115" y2="412"/><line x1="145" y1="395" x2="145" y2="415"/><line x1="175" y1="395" x2="175" y2="412"/><line x1="205" y1="395" x2="205" y2="415"/><line x1="235" y1="395" x2="235" y2="412"/><line x1="265" y1="395" x2="265" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Coastal Blue</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -1957,8 +2097,7 @@
               <line x1="20" y1="395" x2="20" y2="415"/><line x1="30" y1="395" x2="30" y2="412"/><line x1="40" y1="395" x2="40" y2="416"/><line x1="50" y1="395" x2="50" y2="413"/><line x1="60" y1="395" x2="60" y2="415"/><line x1="70" y1="395" x2="70" y2="412"/><line x1="80" y1="395" x2="80" y2="414"/><line x1="90" y1="395" x2="90" y2="411"/><line x1="100" y1="395" x2="100" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="120" y1="395" x2="120" y2="416"/><line x1="130" y1="395" x2="130" y2="413"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="150" y1="395" x2="150" y2="411"/><line x1="160" y1="395" x2="160" y2="414"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="180" y1="395" x2="180" y2="415"/><line x1="190" y1="395" x2="190" y2="413"/><line x1="200" y1="395" x2="200" y2="416"/><line x1="210" y1="395" x2="210" y2="411"/><line x1="220" y1="395" x2="220" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="240" y1="395" x2="240" y2="414"/><line x1="250" y1="395" x2="250" y2="415"/><line x1="260" y1="395" x2="260" y2="412"/><line x1="270" y1="395" x2="270" y2="414"/><line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — Queen</button>
+                  </div><button class="product-add" type="button">Add to Bag — Queen</button>
         <h3 class="product-name">Cusco Classic — Queen</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca · 90×108"</span>
@@ -2000,8 +2139,7 @@
               <line x1="20" y1="395" x2="20" y2="415"/><line x1="30" y1="395" x2="30" y2="412"/><line x1="40" y1="395" x2="40" y2="416"/><line x1="50" y1="395" x2="50" y2="413"/><line x1="60" y1="395" x2="60" y2="415"/><line x1="70" y1="395" x2="70" y2="412"/><line x1="80" y1="395" x2="80" y2="414"/><line x1="90" y1="395" x2="90" y2="411"/><line x1="100" y1="395" x2="100" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="120" y1="395" x2="120" y2="416"/><line x1="130" y1="395" x2="130" y2="413"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="150" y1="395" x2="150" y2="411"/><line x1="160" y1="395" x2="160" y2="414"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="180" y1="395" x2="180" y2="415"/><line x1="190" y1="395" x2="190" y2="413"/><line x1="200" y1="395" x2="200" y2="416"/><line x1="210" y1="395" x2="210" y2="411"/><line x1="220" y1="395" x2="220" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="240" y1="395" x2="240" y2="414"/><line x1="250" y1="395" x2="250" y2="415"/><line x1="260" y1="395" x2="260" y2="412"/><line x1="270" y1="395" x2="270" y2="414"/><line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — King</button>
+                  </div><button class="product-add" type="button">Add to Bag — King</button>
         <h3 class="product-name">Cusco Classic — King</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca · 108×108"</span>
@@ -2041,8 +2179,7 @@
               <line x1="20" y1="395" x2="20" y2="415"/><line x1="30" y1="395" x2="30" y2="412"/><line x1="40" y1="395" x2="40" y2="416"/><line x1="50" y1="395" x2="50" y2="413"/><line x1="60" y1="395" x2="60" y2="415"/><line x1="70" y1="395" x2="70" y2="412"/><line x1="80" y1="395" x2="80" y2="414"/><line x1="90" y1="395" x2="90" y2="411"/><line x1="100" y1="395" x2="100" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="120" y1="395" x2="120" y2="416"/><line x1="130" y1="395" x2="130" y2="413"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="150" y1="395" x2="150" y2="411"/><line x1="160" y1="395" x2="160" y2="414"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="180" y1="395" x2="180" y2="415"/><line x1="190" y1="395" x2="190" y2="413"/><line x1="200" y1="395" x2="200" y2="416"/><line x1="210" y1="395" x2="210" y2="411"/><line x1="220" y1="395" x2="220" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="240" y1="395" x2="240" y2="414"/><line x1="250" y1="395" x2="250" y2="415"/><line x1="260" y1="395" x2="260" y2="412"/><line x1="270" y1="395" x2="270" y2="414"/><line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — Queen</button>
+                  </div><button class="product-add" type="button">Add to Bag — Queen</button>
         <h3 class="product-name">Machu Midnight — Queen</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca · 90×108"</span>
@@ -2075,8 +2212,7 @@
               <line x1="20" y1="395" x2="20" y2="415"/><line x1="30" y1="395" x2="30" y2="412"/><line x1="40" y1="395" x2="40" y2="416"/><line x1="50" y1="395" x2="50" y2="413"/><line x1="60" y1="395" x2="60" y2="415"/><line x1="70" y1="395" x2="70" y2="412"/><line x1="80" y1="395" x2="80" y2="414"/><line x1="90" y1="395" x2="90" y2="411"/><line x1="100" y1="395" x2="100" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="120" y1="395" x2="120" y2="416"/><line x1="130" y1="395" x2="130" y2="413"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="150" y1="395" x2="150" y2="411"/><line x1="160" y1="395" x2="160" y2="414"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="180" y1="395" x2="180" y2="415"/><line x1="190" y1="395" x2="190" y2="413"/><line x1="200" y1="395" x2="200" y2="416"/><line x1="210" y1="395" x2="210" y2="411"/><line x1="220" y1="395" x2="220" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="240" y1="395" x2="240" y2="414"/><line x1="250" y1="395" x2="250" y2="415"/><line x1="260" y1="395" x2="260" y2="412"/><line x1="270" y1="395" x2="270" y2="414"/><line x1="280" y1="395" x2="280" y2="411"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — King</button>
+                  </div><button class="product-add" type="button">Add to Bag — King</button>
         <h3 class="product-name">Titicaca Sage — King</h3>
         <div class="product-meta">
           <span class="product-material">100% Baby Alpaca · 108×108"</span>
@@ -2096,8 +2232,7 @@
             <g stroke="#5A4A35" stroke-width="1.1" fill="none" opacity="0.6"><polygon points="60,80 90,110 60,140 30,110" fill="#EDE3D2" opacity="0.2"/><polygon points="120,80 150,110 120,140 90,110" fill="#EDE3D2" opacity="0.2"/><polygon points="180,80 210,110 180,140 150,110" fill="#EDE3D2" opacity="0.2"/><polygon points="240,80 270,110 240,140 210,110" fill="#EDE3D2" opacity="0.2"/><polygon points="60,155 90,185 60,215 30,185" fill="#C4A882" opacity="0.3"/><polygon points="120,155 150,185 120,215 90,185" fill="#C4A882" opacity="0.3"/><polygon points="180,155 210,185 180,215 150,185" fill="#C4A882" opacity="0.3"/><polygon points="240,155 270,185 240,215 210,185" fill="#C4A882" opacity="0.3"/><rect x="15" y="25" width="270" height="350" opacity="0.25"/></g>
             <g stroke="#A07850" stroke-width="1" opacity="0.8"><line x1="20" y1="395" x2="20" y2="415"/><line x1="50" y1="395" x2="50" y2="412"/><line x1="80" y1="395" x2="80" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="200" y1="395" x2="200" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="260" y1="395" x2="260" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — Queen</button>
+                  </div><button class="product-add" type="button">Add to Bag — Queen</button>
         <h3 class="product-name">Cusco Classic — Queen</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2117,8 +2252,7 @@
             <g stroke="#5A4A35" stroke-width="1.1" fill="none" opacity="0.6"><polygon points="40,70 65,100 40,130 15,100" fill="#EDE3D2" opacity="0.2"/><polygon points="90,70 115,100 90,130 65,100" fill="#EDE3D2" opacity="0.2"/><polygon points="140,70 165,100 140,130 115,100" fill="#EDE3D2" opacity="0.2"/><polygon points="190,70 215,100 190,130 165,100" fill="#EDE3D2" opacity="0.2"/><polygon points="240,70 265,100 240,130 215,100" fill="#EDE3D2" opacity="0.2"/><polygon points="40,145 65,175 40,205 15,175" fill="#C4A882" opacity="0.3"/><polygon points="140,145 165,175 140,205 115,175" fill="#C4A882" opacity="0.3"/><polygon points="240,145 265,175 240,205 215,175" fill="#C4A882" opacity="0.3"/><rect x="10" y="25" width="280" height="355" opacity="0.2"/></g>
             <g stroke="#A07850" stroke-width="1" opacity="0.8"><line x1="20" y1="395" x2="20" y2="415"/><line x1="50" y1="395" x2="50" y2="412"/><line x1="80" y1="395" x2="80" y2="415"/><line x1="110" y1="395" x2="110" y2="412"/><line x1="140" y1="395" x2="140" y2="415"/><line x1="170" y1="395" x2="170" y2="412"/><line x1="200" y1="395" x2="200" y2="415"/><line x1="230" y1="395" x2="230" y2="412"/><line x1="260" y1="395" x2="260" y2="415"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — King</button>
+                  </div><button class="product-add" type="button">Add to Bag — King</button>
         <h3 class="product-name">Cusco Classic — King</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2140,8 +2274,7 @@
             <g fill="#7A8F72" opacity="0.25"><ellipse cx="80" cy="180" rx="25" ry="12" transform="rotate(-30 80 180)"/><ellipse cx="150" cy="160" rx="28" ry="14" transform="rotate(20 150 160)"/><ellipse cx="220" cy="180" rx="25" ry="12" transform="rotate(-20 220 180)"/></g>
             <g stroke="#8FA888" stroke-width="1.2" opacity="0.8"><line x1="20" y1="395" x2="20" y2="414"/><line x1="55" y1="395" x2="55" y2="411"/><line x1="90" y1="395" x2="90" y2="415"/><line x1="125" y1="395" x2="125" y2="412"/><line x1="160" y1="395" x2="160" y2="414"/><line x1="195" y1="395" x2="195" y2="411"/><line x1="230" y1="395" x2="230" y2="415"/><line x1="265" y1="395" x2="265" y2="412"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — Queen</button>
+                  </div><button class="product-add" type="button">Add to Bag — Queen</button>
         <h3 class="product-name">Pampa Sage — Queen</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2162,8 +2295,7 @@
             <rect x="0" y="155" width="300" height="20" fill="#A89070" opacity="0.2"/>
             <g stroke="#A89070" stroke-width="1.5" opacity="0.8"><line x1="20" y1="395" x2="20" y2="415"/><line x1="55" y1="395" x2="55" y2="412"/><line x1="90" y1="395" x2="90" y2="415"/><line x1="125" y1="395" x2="125" y2="412"/><line x1="160" y1="395" x2="160" y2="415"/><line x1="195" y1="395" x2="195" y2="412"/><line x1="230" y1="395" x2="230" y2="415"/><line x1="265" y1="395" x2="265" y2="412"/></g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag — King</button>
+                  </div><button class="product-add" type="button">Add to Bag — King</button>
         <h3 class="product-name">Sierra Oat — King</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2277,8 +2409,7 @@
             <circle cx="157" cy="88" r="6" fill="#C4A882" opacity="0.5"/>
             <circle cx="148" cy="102" r="5" fill="#C4A882" opacity="0.6"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Cusco Beanie</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2316,8 +2447,7 @@
             <path d="M72,365 Q65,375 62,390" stroke="#C4A882" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <path d="M228,365 Q235,375 238,390" stroke="#C4A882" stroke-width="2.5" fill="none" stroke-linecap="round"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Altiplano Chullo</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2352,8 +2482,7 @@
               <line x1="96" y1="230" x2="204" y2="230"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Puno Wide-Brim</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2375,8 +2504,7 @@
             <circle cx="150" cy="95" r="20" fill="#6B5B47" opacity="0.8"/>
             <circle cx="150" cy="95" r="14" fill="#8B7B6B"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Cusco Beanie</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2397,8 +2525,7 @@
             <path d="M72,365 Q65,375 62,390" stroke="#C4A882" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <path d="M228,365 Q235,375 238,390" stroke="#C4A882" stroke-width="2.5" fill="none" stroke-linecap="round"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Altiplano Chullo</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2418,8 +2545,7 @@
             <path d="M120,145 Q150,130 180,145" stroke="#C4A882" stroke-width="1.5" fill="none" opacity="0.5"/>
             <rect x="95" y="240" width="110" height="14" fill="#6B5B47" opacity="0.75"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Puno Wide-Brim</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2440,8 +2566,7 @@
             <circle cx="150" cy="95" r="20" fill="#7A8F72" opacity="0.8"/>
             <circle cx="150" cy="95" r="14" fill="#B8C4B0"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Cusco Beanie</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2462,8 +2587,7 @@
             <path d="M72,365 Q65,375 62,390" stroke="#7A8F72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
             <path d="M228,365 Q235,375 238,390" stroke="#7A8F72" stroke-width="2.5" fill="none" stroke-linecap="round"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Altiplano Chullo</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2483,8 +2607,7 @@
             <path d="M120,145 Q150,130 180,145" stroke="#C4D4BC" stroke-width="1.5" fill="none" opacity="0.5"/>
             <rect x="95" y="240" width="110" height="14" fill="#7A8F72" opacity="0.75"/>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Puno Wide-Brim</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2600,8 +2723,7 @@
               </g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Andean Mittens</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2660,8 +2782,7 @@
               </g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Wrist Warmers</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2719,8 +2840,7 @@
               </g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Inca Full Gloves</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-baby">Baby Alpaca</span>
@@ -2748,8 +2868,7 @@
               <rect x="5" y="270" width="70" height="55" rx="3" fill="#7A6A55" opacity="0.6"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Andean Mittens</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2774,8 +2893,7 @@
               <g stroke="#C4A882" stroke-width="1.1" opacity="0.5"><line x1="20" y1="250" x2="20" y2="300"/><line x1="34" y1="250" x2="34" y2="300"/><line x1="48" y1="250" x2="48" y2="300"/><line x1="62" y1="250" x2="62" y2="300"/><line x1="76" y1="250" x2="76" y2="300"/></g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Wrist Warmers</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2801,8 +2919,7 @@
               <g stroke="#C4A882" stroke-width="1.2" opacity="0.55"><line x1="22" y1="258" x2="22" y2="313"/><line x1="36" y1="258" x2="36" y2="313"/><line x1="50" y1="258" x2="50" y2="313"/><line x1="64" y1="258" x2="64" y2="313"/><line x1="78" y1="258" x2="78" y2="313"/></g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Inca Full Gloves</h3>
         <div class="product-meta">
           <span class="fiber-tag fiber-tag-alpaca">100% Alpaca</span>
@@ -2829,8 +2946,7 @@
               <rect x="5" y="270" width="70" height="55" rx="3" fill="#7A8F72" opacity="0.6"/>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Andean Mittens</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2855,8 +2971,7 @@
               <g stroke="#5A7A5A" stroke-width="1.1" opacity="0.5"><line x1="20" y1="250" x2="20" y2="300"/><line x1="34" y1="250" x2="34" y2="300"/><line x1="48" y1="250" x2="48" y2="300"/><line x1="62" y1="250" x2="62" y2="300"/><line x1="76" y1="250" x2="76" y2="300"/></g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Wrist Warmers</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -2882,8 +2997,7 @@
               <g stroke="#C4D4BC" stroke-width="1.2" opacity="0.55"><line x1="22" y1="258" x2="22" y2="313"/><line x1="36" y1="258" x2="36" y2="313"/><line x1="50" y1="258" x2="50" y2="313"/><line x1="64" y1="258" x2="64" y2="313"/><line x1="78" y1="258" x2="78" y2="313"/></g>
             </g>
           </svg>
-                  </div>
-<button class="product-add" type="button">Add to Bag</button>
+                  </div><button class="product-add" type="button">Add to Bag</button>
         <h3 class="product-name">Inca Full Gloves</h3>
         <div class="product-meta">
           <span class="fiber-tag" style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(122,143,114,0.15);color:var(--mid);border:1px solid var(--mid);">50/50 Blend</span>
@@ -3574,6 +3688,8 @@
       },
     ];
 
+    window.productsRef = products;
+
     // ── Modal elements ────────────────────────────────────────────────
     const overlay   = document.getElementById('modalOverlay');
     const modalClose = document.getElementById('modalClose');
@@ -3589,7 +3705,7 @@
 
     window.openModal = openModal;
     function openModal(productId, svgHtml) {
-      const allP = [...products, ...(window.extraProducts || [])];
+      const allP = [...(window.productsRef || products), ...(window.extraProducts || [])];
       const p = allP.find(x => x.id === productId);
       if (!p) return;
 
@@ -3758,7 +3874,7 @@
   .ap-filter-btn.active,.ap-filter-btn:hover { background:var(--espresso);color:var(--fleece);border-color:var(--espresso); }
   .ap-card { cursor:pointer;transition:transform 0.25s; }
   .ap-card:hover { transform:translateY(-4px); }
-  .ap-card-img { aspect-ratio:3/4;background:var(--parchment);position:relative;overflow:hidden;margin-bottom:1rem; transition:box-shadow 0.25s; }
+  .ap-card-img { aspect-ratio:2/3;background:var(--parchment);position:relative;overflow:hidden;margin-bottom:1rem; transition:box-shadow 0.25s; }
   .ap-card:hover .ap-card-img { box-shadow:0 12px 32px rgba(44,24,16,0.12); }
   .ap-card-img svg { width:100%;height:100%;position:absolute;top:0;left:0; }
   .ap-card-badge { position:absolute;top:0.8rem;left:0.8rem;background:var(--espresso);color:var(--fleece);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.25rem 0.6rem;z-index:2; }
@@ -4129,6 +4245,22 @@
       const btn2 = document.querySelector('.btn-secondary');
       if (btn2) btn2.textContent = tr.hero_cta2;
 
+      // Stat labels
+      const statLabels = document.querySelectorAll('.stat-label');
+      const statKeys = ['stat_artisans', 'stat_patterns', 'stat_warm'];
+      statLabels.forEach((el, i) => { if (tr[statKeys[i]]) el.textContent = tr[statKeys[i]]; });
+
+      // Shop dropdown trigger button text
+      const shopDropBtn = document.getElementById('shopDropBtn');
+      if (shopDropBtn) {
+        const svg = shopDropBtn.querySelector('svg');
+        shopDropBtn.textContent = l === 'es' ? 'Tienda ' : 'Shop ';
+        if (svg) shopDropBtn.appendChild(svg);
+      }
+
+      // Wishlist panel re-render if open
+      if (window.renderWishlistPanel) window.renderWishlistPanel();
+
       // Lang toggle
       const langBtn = document.getElementById('langBtn');
       if (langBtn) langBtn.textContent = l === 'en' ? 'ES' : 'EN';
@@ -4290,7 +4422,107 @@
   <div class="checkout-overlay" id="checkoutOverlay">
     <div style="min-height:100vh;display:flex;flex-direction:column;">
       <div class="checkout-header">
-        <span class="checkout-logo">The Golden <span>Alpaca</span></span>
+        <a href="#" onclick="event.preventDefault();closeCheckout&&closeCheckout();window.scrollTo({top:0,behavior:'smooth'});" style="display:inline-flex;align-items:center;text-decoration:none;cursor:pointer;" title="Back to home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" style="height:52px;width:auto;"><style>
+    .gm { fill: #D4A843; }
+    .gl { fill: #F0C84A; }
+    .gd { fill: #A8782A; }
+    .sk { fill: #E8B840; }
+  </style>
+
+  <!-- Background (transparent) -->
+
+  <!-- TEXT -->
+  <text x="16" y="68" font-family="Georgia, 'Times New Roman', serif" font-size="22"
+        font-weight="400" fill="#C4A882" letter-spacing="6">THE</text>
+
+  <text x="14" y="118" font-family="Georgia, 'Times New Roman', serif" font-size="58"
+        font-weight="400" fill="#2C1810" letter-spacing="1">Golden</text>
+
+  <text x="14" y="154" font-family="Georgia, 'Times New Roman', serif" font-size="46"
+        font-weight="400" fill="#C4A882" letter-spacing="3">Alpaca</text>
+
+  <!-- DIVIDER -->
+  <line x1="310" y1="20" x2="310" y2="150" stroke="#C4A882" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- ALPACA ILLUSTRATION — positioned right of divider -->
+  <g transform="translate(318, -30) scale(0.88)">
+
+    <!-- Shadow -->
+    <ellipse cx="92" cy="228" rx="42" ry="5" fill="#2C1810" opacity="0.08"/>
+
+    <!-- Tail -->
+    <path d="M118,148 Q132,140 134,150 Q134,160 122,158" class="gm" opacity="0.9"/>
+
+    <!-- Body -->
+    <path d="M52,178 Q52,148 65,138 Q85,128 110,133 Q130,138 132,153 Q134,168 120,178 Q100,186 70,183 Z" class="gm"/>
+    <path d="M68,143 Q88,133 110,138 Q125,142 128,153" fill="none" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <ellipse cx="88" cy="148" rx="20" ry="10" class="gl" opacity="0.25"/>
+    <path d="M62,160 Q78,152 98,156" fill="none" stroke="#F5D98B" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <path d="M70,170 Q90,163 114,168" fill="none" stroke="#F5D98B" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Sparkles -->
+    <line x1="80" y1="139" x2="80" y2="135" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="78" y1="137" x2="82" y2="137" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="78.3" y1="135.3" x2="81.7" y2="138.7" stroke="#F5D98B" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="81.7" y1="135.3" x2="78.3" y2="138.7" stroke="#F5D98B" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="110" y1="131" x2="110" y2="127" stroke="#F7E098" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="108" y1="129" x2="112" y2="129" stroke="#F7E098" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="108.3" y1="127.3" x2="111.7" y2="130.7" stroke="#F7E098" stroke-width="0.6" stroke-linecap="round"/>
+    <line x1="111.7" y1="127.3" x2="108.3" y2="130.7" stroke="#F7E098" stroke-width="0.6" stroke-linecap="round"/>
+    <line x1="94" y1="127" x2="94" y2="124" stroke="#F5D98B" stroke-width="1" stroke-linecap="round"/>
+    <line x1="92.5" y1="125.5" x2="95.5" y2="125.5" stroke="#F5D98B" stroke-width="1" stroke-linecap="round"/>
+
+    <!-- Neck -->
+    <path d="M54,153 Q48,126 52,104 Q54,94 60,92 Q67,91 69,102 Q72,116 68,143 Z" class="gm"/>
+    <path d="M55,148 Q50,124 54,105 Q56,97 61,96" fill="none" stroke="#F0C84A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Head -->
+    <ellipse cx="61" cy="80" rx="17" ry="15" class="gm"/>
+    <ellipse cx="59" cy="66" rx="9" ry="7" class="gl" opacity="0.8"/>
+
+    <!-- Left ear -->
+    <path d="M50,72 Q46,54 50,48 Q53,44 57,50 Q59,58 56,71 Z" class="gm"/>
+    <path d="M51,70 Q48,56 51,51 Q53,48 56,52 Q57,59 55,69" fill="#E8B840" opacity="0.5"/>
+    <path d="M50,49 Q48,45 51,44 Q53,46 51,49" class="gl" opacity="0.7"/>
+
+    <!-- Right ear -->
+    <path d="M66,70 Q68,52 71,48 Q74,45 75,52 Q75,60 71,70 Z" class="gm"/>
+    <path d="M67,69 Q69,54 71,51 Q73,49 74,54 Q74,60 71,69" fill="#E8B840" opacity="0.5"/>
+    <path d="M71,49 Q73,45 75,47 Q74,50 72,50" class="gl" opacity="0.7"/>
+
+    <!-- Muzzle -->
+    <path d="M46,84 Q44,76 48,73 Q54,71 61,73 Q64,74 64,80 Q60,88 50,88 Z" fill="#E8B840"/>
+    <ellipse cx="47" cy="83" rx="1.8" ry="1.2" fill="#8A5A18" opacity="0.6"/>
+    <ellipse cx="53" cy="84" rx="1.8" ry="1.2" fill="#8A5A18" opacity="0.6"/>
+    <path d="M45,87 Q49,90 54,87" fill="none" stroke="#8A5A18" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Eye -->
+    <ellipse cx="64" cy="76" rx="5" ry="4.5" fill="#0E0604"/>
+    <ellipse cx="64" cy="76" rx="3.2" ry="2.9" fill="#2A1206"/>
+    <circle cx="66" cy="74" r="1.9" fill="white"/>
+    <circle cx="66.5" cy="73.5" r="0.7" fill="#F7E098" opacity="0.9"/>
+    <circle cx="62.5" cy="77.5" r="0.7" fill="white" opacity="0.35"/>
+    <path d="M60,73 Q62,70 65,72" fill="none" stroke="#0E0604" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Legs -->
+    <path d="M58,180 L54,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M58,180 L54,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M70,182 L68,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M70,182 L68,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M104,184 L106,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M104,184 L106,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M118,180 L122,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M118,180 L122,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+    <!-- Hooves -->
+    <ellipse cx="54" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="68" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="106" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="122" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+
+  </g>
+
+    </svg></a>
         <div class="checkout-steps">
           <span class="checkout-step" id="coStep1Ind">1. Review</span>
           <span style="opacity:0.4;">›</span>
@@ -4453,8 +4685,7 @@
           <text x="150" y="190" text-anchor="middle" fill="#C0392B" font-family="sans-serif" font-size="13" opacity="0.5" letter-spacing="2">TEST</text>
           <text x="150" y="212" text-anchor="middle" fill="#C0392B" font-family="sans-serif" font-size="11" opacity="0.4">$0.50</text>
         </svg>
-              </div>
-<button class="product-add" type="button">Add to Bag</button>
+              </div><button class="product-add" type="button">Add to Bag</button>
       <h3 class="product-name">Test Product</h3>
       <div class="product-meta">
         <span style="font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.18rem 0.55rem;background:rgba(192,57,43,0.1);color:#C0392B;border:1px solid #C0392B;">Test Only</span>
@@ -4478,7 +4709,7 @@
     }
 
     window.addToCart = function({id, name, price, size, colour, colourHex, svgHtml}) {
-      const key = id + '|' + (size||'') + '|' + (colour||'');
+      const key = (id + '|' + (size||'') + '|' + (colour||'')).replace(/"/g, 'in').replace(/'/g, '');
       const ex = cart.find(i => i.key === key);
       if (ex) ex.qty++;
       else cart.push({key, id, name, price: price||0, size, colour, colourHex, svgHtml, qty:1});
@@ -4514,7 +4745,9 @@
         return;
       }
       footer.style.display = 'block';
-      el.innerHTML = cart.map(item => `
+      el.innerHTML = cart.map(item => {
+        const safeKey = item.key.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        return `
         <div class="cart-item">
           <div class="cart-item-thumb">${stripSvg(item.svgHtml||'')}</div>
           <div>
@@ -4522,14 +4755,15 @@
             <div class="cart-item-meta">${item.size||''} · ${item.colour||''}</div>
             <div class="cart-item-price">$${item.price}</div>
             <div class="cart-qty">
-              <button class="qty-btn" data-key="${item.key}" data-d="-1">−</button>
+              <button class="qty-btn" data-key="${safeKey}" data-d="-1">−</button>
               <span class="qty-num">${item.qty}</span>
-              <button class="qty-btn" data-key="${item.key}" data-d="1">+</button>
+              <button class="qty-btn" data-key="${safeKey}" data-d="1">+</button>
             </div>
-            <button class="cart-item-remove" data-key="${item.key}">Remove</button>
+            <button class="cart-item-remove" data-key="${safeKey}">Remove</button>
           </div>
           <span class="cart-item-line-price">$${(item.price*item.qty).toFixed(2).replace(/\.00$/, '')}</span>
-        </div>`).join('');
+        </div>`;
+      }).join('');
 
       const total = cartTotal();
       document.getElementById('cartSubtotal').textContent = '$' + fmt(total);
@@ -4629,6 +4863,7 @@
       document.getElementById('checkoutOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
+    window.closeCheckout = closeCheckout;
 
     document.getElementById('cartCheckoutBtn').addEventListener('click', () => { closeCartDrawer(); openCheckout(); });
     document.getElementById('checkoutCloseBtn').addEventListener('click', closeCheckout);
@@ -4947,7 +5182,9 @@
   .wishlist-toast { position:fixed;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--espresso);color:var(--fleece);padding:0.75rem 1.5rem;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:0.06em;opacity:0;transition:opacity 0.3s,transform 0.3s;z-index:900;pointer-events:none;white-space:nowrap; }
   .wishlist-toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
   /* Nav badge */
-  .nav-wishlist-btn { background:none;border:1px solid var(--camel);color:var(--mid);padding:0.55rem 0.9rem;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:0.1em;cursor:pointer;transition:background 0.2s,color 0.2s;position:relative; }
+  .nav-wishlist-btn { background:#c0392b;border:1px solid #c0392b;color:var(--fleece);padding:0.55rem 0.9rem;font-family:'Inter',sans-serif;font-size:0.78rem;letter-spacing:0.1em;cursor:pointer;transition:background 0.2s,color 0.2s;position:relative; }
+  .nav-wishlist-btn:hover { background:#a93226;color:var(--fleece);border-color:#a93226; }
+  .nav-wishlist-btn .heart { font-size:1.3rem;line-height:1;vertical-align:middle;color:#fff; }
   .nav-wishlist-btn:hover { background:var(--espresso);color:var(--fleece);border-color:var(--espresso); }
   .wishlist-nav-count { display:none;position:absolute;top:-6px;right:-6px;background:var(--camel);color:var(--espresso);font-size:0.6rem;width:16px;height:16px;border-radius:50%;align-items:center;justify-content:center;font-weight:600; }
   .wishlist-nav-count.visible { display:flex; }
@@ -5062,7 +5299,7 @@
     if (navActions) {
       const wBtn = document.createElement('button');
       wBtn.className = 'nav-wishlist-btn';
-      wBtn.innerHTML = '♡ <span id="wishlistNavCount" class="wishlist-nav-count">0</span>';
+      wBtn.innerHTML = '<span class="heart">♡</span> <span id="wishlistNavCount" class="wishlist-nav-count">0</span>';
       wBtn.title = 'Wishlist';
       wBtn.setAttribute('aria-label', 'Open wishlist');
       wBtn.addEventListener('click', openWishlistDrawer);
