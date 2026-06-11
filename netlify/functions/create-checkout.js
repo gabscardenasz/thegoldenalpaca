@@ -1,17 +1,27 @@
 // Netlify Serverless Function — creates a Stripe Checkout session
-// SETUP:
-//   1. In Netlify dashboard → Site Settings → Environment Variables
-//   2. Add variable: STRIPE_SECRET_KEY = sk_live_YOUR_SECRET_KEY
-//   3. Never put your secret key in any file — only in Netlify environment variables
-
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// IMPORTANT: Add STRIPE_SECRET_KEY in Netlify → Site configuration → Environment variables
 
 exports.handler = async (event) => {
+  // Only allow POST
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
+  // Check secret key exists
+  if (!process.env.STRIPE_SECRET_KEY) {
+    console.error('STRIPE_SECRET_KEY not set in environment variables');
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: 'Stripe secret key not configured' })
+    };
+  }
+
   try {
+    // Load Stripe inside the handler (Netlify bundles it from root package.json)
+    const Stripe = require('stripe');
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
     const {
       lineItems,
       customerEmail,
@@ -21,25 +31,34 @@ exports.handler = async (event) => {
       cancelUrl,
     } = JSON.parse(event.body);
 
-    const session = await stripe.checkout.sessions.create({
+    const sessionParams = {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
       customer_email: customerEmail,
       success_url: successUrl,
       cancel_url: cancelUrl,
-      shipping_address_collection: shippingMethod !== 'pickup' ? {
-        allowed_countries: ['US', 'CA', 'GB', 'AU', 'ES', 'MX', 'AR', 'CO', 'PE'],
-      } : undefined,
       metadata: {
         customer_name: customerName,
         shipping_method: shippingMethod,
       },
-    });
+    };
+
+    // Only add shipping collection if not in-store pickup
+    if (shippingMethod !== 'pickup') {
+      sessionParams.shipping_address_collection = {
+        allowed_countries: ['US', 'CA', 'GB', 'AU', 'ES', 'MX', 'AR', 'CO', 'PE'],
+      };
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
       body: JSON.stringify({ sessionId: session.id }),
     };
 
@@ -47,6 +66,7 @@ exports.handler = async (event) => {
     console.error('Stripe error:', err.message);
     return {
       statusCode: 500,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       body: JSON.stringify({ error: err.message }),
     };
   }
