@@ -4648,7 +4648,7 @@
     // ── Stripe Checkout ────────────────────────────────────────────────
     // SETUP: Replace YOUR_STRIPE_PUBLISHABLE_KEY below with your pk_live_ key
     // Open this file in Notepad, find YOUR_STRIPE_PUBLISHABLE_KEY and replace it
-    const STRIPE_KEY = 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb';
+    const STRIPE_KEY = 'YOUR_STRIPE_PUBLISHABLE_KEY';
     // Stripe is loaded from js.stripe.com/v3 in the <head>
 
     document.getElementById('coToPayment').addEventListener('click', () => {
@@ -4671,7 +4671,7 @@
 
       // ── STRIPE PAYMENT ────────────────────────────────────────────────
       // Uses Stripe Payment Links — no backend required
-      if (STRIPE_KEY !== 'YOUR_STRIPE_PUBLISHABLE_KEY') {
+      if (STRIPE_KEY !== 'pk_live_51Th01hQanNj2XdeTNn4cSLM4t41DOsHZWgyKvzETRV6BXavHCBfIsyBrAWcZW1x09dZMDT4BX78CoGWhI2IyoFlB0082RtjlOb') {
         const btn = document.getElementById('coPlaceOrder');
         btn.textContent = 'Redirecting to payment…';
         btn.disabled = true;
@@ -4735,18 +4735,22 @@
         } catch (err) {
           console.error('Stripe redirect failed:', err.message);
           const btn2 = document.getElementById('coPlaceOrder');
-          btn2.textContent = 'Place Order — ' + document.getElementById('coFinalTotal').textContent;
-          btn2.disabled = false;
-
+          if (btn2) {
+            btn2.textContent = 'Place Order — ' + fmt(total);
+            btn2.disabled = false;
+          }
           // Show helpful error with direct contact fallback
+          const existing = document.getElementById('stripeErrBox');
+          if (existing) existing.remove();
           const errBox = document.createElement('div');
+          errBox.id = 'stripeErrBox';
           errBox.style.cssText = 'background:#fff3cd;border:1px solid #ffc107;padding:1rem;margin-top:1rem;font-size:0.82rem;color:#856404;line-height:1.6;';
-          errBox.innerHTML = `<strong>Payment redirect failed.</strong><br>
-            Error: ${err.message}<br><br>
-            Please contact us directly to complete your order:<br>
-            📧 <a href="mailto:gabs.cardenasz@gmail.com?subject=Order from thegoldenalpaca.com&body=Items: ${cart.map(i=>i.name+'x'+i.qty).join(', ')}%0ATotal: $${fmt(total)}%0AName: ${first} ${last}%0AEmail: ${email}" style="color:#856404;">gabs.cardenasz@gmail.com</a><br>
-            📱 <a href="https://wa.me/16283637110" target="_blank" style="color:#856404;">WhatsApp us</a>`;
-          document.getElementById('coStep3').appendChild(errBox);
+          errBox.innerHTML = `<strong>Payment error — please contact us to complete your order:</strong><br><br>
+            📧 <a href="mailto:gabs.cardenasz@gmail.com?subject=Order - The Golden Alpaca&body=Items: ${encodeURIComponent(cart.map(i=>i.name+' x'+i.qty).join(', '))}%0ATotal: $${fmt(total)}%0AName: ${encodeURIComponent(first+' '+last)}%0AEmail: ${encodeURIComponent(email)}" style="color:#856404;font-weight:bold;">gabs.cardenasz@gmail.com</a><br>
+            📱 <a href="https://wa.me/16283637110" target="_blank" style="color:#856404;font-weight:bold;">WhatsApp +1 628 363 7110</a><br><br>
+            <small>Error: ${err.message}</small>`;
+          const step3 = document.getElementById('coStep3');
+          if (step3) step3.appendChild(errBox);
         }
         return;
       }
