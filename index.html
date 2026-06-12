@@ -5500,6 +5500,11 @@
 
           const giftNote = document.getElementById('coGift').value.trim();
 
+          // Save cart to sessionStorage BEFORE Stripe redirect (JS memory will be lost)
+          sessionStorage.setItem('tga_order_snapshot', JSON.stringify(cart));
+          sessionStorage.setItem('tga_order_gift', giftNote);
+          sessionStorage.setItem('tga_order_shipping', JSON.stringify(shipping));
+
           // Try Netlify function first, fall back to demo if unavailable
           const resp = await Promise.race([
             fetch('/.netlify/functions/create-checkout', {
@@ -5875,8 +5880,8 @@
   </script>
 
   <!-- ORDER SUCCESS OVERLAY -->
-  <div id="orderSuccessOverlay" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(44,24,16,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem;">
-    <div style="background:var(--fleece);max-width:520px;width:100%;padding:3rem 2.5rem;text-align:center;position:relative;">
+  <div id="orderSuccessOverlay" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(44,24,16,0.7);backdrop-filter:blur(6px);align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto;">
+    <div style="background:var(--fleece);max-width:520px;width:100%;padding:2.5rem 2rem;text-align:center;position:relative;margin:auto;">
       <div style="width:64px;height:64px;background:var(--espresso);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
         <svg viewBox="0 0 24 24" style="width:32px;height:32px;stroke:#F7F0E6;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
@@ -5927,16 +5932,32 @@
         if (overlay) {
           overlay.style.display = 'flex';
           document.body.style.overflow = 'hidden';
-          // Save cart snapshot BEFORE clearing so download can use it
-          window.orderSnapshot = window.cartRef ? window.cartRef.map(i => Object.assign({}, i)) : [];
-          window.orderSnapshotShipping = (window.cartRef || []).reduce((s,i) => s + parseFloat(i.price||0) * (i.qty||1), 0) >= 150 ? 0 : 18;
-          window.orderGiftNote = params.get('gift') || '';
-          // Clear cart after snapshot
+
+          // Restore cart snapshot from sessionStorage (survives Stripe redirect)
+          try {
+            const saved = sessionStorage.getItem('tga_order_snapshot');
+            window.orderSnapshot = saved ? JSON.parse(saved) : (window.cartRef ? window.cartRef.map(i => Object.assign({},i)) : []);
+            const savedShipping = sessionStorage.getItem('tga_order_shipping');
+            window.orderSnapshotShipping = savedShipping !== null ? JSON.parse(savedShipping) : 18;
+            window.orderGiftNote = sessionStorage.getItem('tga_order_gift') || params.get('gift') || '';
+            // Clean up sessionStorage
+            sessionStorage.removeItem('tga_order_snapshot');
+            sessionStorage.removeItem('tga_order_gift');
+            sessionStorage.removeItem('tga_order_shipping');
+          } catch(e) {
+            window.orderSnapshot = [];
+            window.orderSnapshotShipping = 18;
+            window.orderGiftNote = params.get('gift') || '';
+          }
+
+          // Clear cart
           if (window.cartRef) window.cartRef.length = 0;
           const cartBtn = document.getElementById('navCartBtn');
           if (cartBtn) cartBtn.textContent = 'Bag (0)';
+          const apCartBtn = document.getElementById('apCartBtn');
+          if (apCartBtn) apCartBtn.textContent = 'Bag (0)';
 
-          // Show gift note in success screen if present
+          // Show gift note if present
           if (window.orderGiftNote) {
             const giftEl = document.getElementById('successGiftNote');
             const giftBox = document.getElementById('successGiftNoteBox');
