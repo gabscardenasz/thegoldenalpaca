@@ -909,9 +909,10 @@
       background: rgba(44, 24, 16, 0.55);
       backdrop-filter: blur(4px);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1rem;
+      overflow-y: auto;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -1283,7 +1284,7 @@
       </li>
       <li class="nav-dropdown">
         <button class="nav-link-btn" id="goodsDropBtn">
-          Alpaca Goods <svg viewBox="0 0 12 8" style="width:10px;height:7px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;vertical-align:middle;margin-left:2px;"><polyline points="1,1 6,7 11,1"/></svg>
+          <span data-i18n="nav_goods">Alpaca Goods</span> <svg viewBox="0 0 12 8" style="width:10px;height:7px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;vertical-align:middle;margin-left:2px;"><polyline points="1,1 6,7 11,1"/></svg>
         </button>
         <div class="nav-dropdown-menu" id="goodsDropMenu">
           <button class="nav-dropdown-item" onclick="scrollToSection('products')">
@@ -1317,7 +1318,12 @@
       <li><button class="nav-link-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="nav_contact">Contact Us</button></li>
     </ul>
     <div style="display:flex;align-items:center;gap:0.6rem;margin-left:auto;">
-      <button id="langBtn" class="nav-action-btn nav-desktop-only">ES</button>
+      <button id="langBtn" class="nav-action-btn" style="display:flex;align-items:center;gap:0.4rem;letter-spacing:0.08em;">
+        <span id="langFlag" style="display:inline-flex;width:18px;height:13px;border-radius:2px;overflow:hidden;flex-shrink:0;">
+          <svg viewBox="0 0 3 2" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg>
+        </span>
+        <span id="langBtnLabel">ES</span>
+      </button>
       <button class="nav-cart" id="navCartBtn">Bag (0)</button>
       <button id="hamburgerBtn" aria-label="Menu" style="display:none;background:none;border:1px solid var(--camel);padding:0.45rem 0.6rem;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:4px;">
         <span style="display:block;width:18px;height:2px;background:var(--espresso);transition:all 0.25s;"></span>
@@ -1335,17 +1341,22 @@
     </div>
     <!-- Menu links centered -->
     <div style="display:flex;flex-direction:column;align-items:center;gap:0.6rem;padding:1.5rem 2rem 3rem;">
-      <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:0.4rem;">Shop</p>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;background:var(--espresso);color:var(--fleece);border:none;" onclick="closeMobileMenu();setTimeout(()=>openAllProducts('all'),150)">View All Products</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('products')">Throws &amp; Sofa Blankets</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('bed-collection')">Bed Blankets (Queen &amp; King)</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('hats')">Hats</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('gloves')">Gloves</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('scarves')">Scarves</button>
+      <p style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:0.4rem;" data-i18n="nav_shop">Shop</p>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();setTimeout(()=>openAllProducts('all'),150)" data-i18n="dd_all">View All Products</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('products')" data-i18n="dd_throws">Throws &amp; Sofa Blankets</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('bed-collection')" data-i18n="dd_bed">Bed Blankets (Queen &amp; King)</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('hats')" data-i18n="dd_hats">Hats</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('gloves')" data-i18n="dd_gloves">Gloves</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('scarves')" data-i18n="dd_scarves">Scarves</button>
       <div style="width:60px;height:1px;background:var(--light-camel);margin:0.6rem 0;"></div>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('story')">Our Story</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('care')">Care Guide</button>
-      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('contact')">Contact Us</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('story')" data-i18n="nav_story">Our Story</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('care')" data-i18n="nav_care">Care Guide</button>
+      <button class="nav-link-btn" style="font-size:1.1rem;padding:0.8rem 2rem;" onclick="closeMobileMenu();scrollToSection('contact')" data-i18n="nav_contact">Contact Us</button>
+      <div style="width:60px;height:1px;background:var(--light-camel);margin:0.6rem 0;"></div>
+      <button class="nav-action-btn" id="mobileLangBtn" style="font-size:0.85rem;padding:0.6rem 1.5rem;display:flex;align-items:center;gap:0.4rem;letter-spacing:0.08em;" onclick="document.getElementById('langBtn').click();">
+        <span id="mobileLangFlag" style="display:inline-flex;width:18px;height:13px;border-radius:2px;overflow:hidden;flex-shrink:0;"><svg viewBox="0 0 3 2" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg></span>
+        <span id="mobileLangLabel">ES</span>
+      </button>
     </div>
   </div>
 
@@ -1403,16 +1414,16 @@
   <!-- MARQUEE STRIP -->
   <div class="strip" aria-hidden="true">
     <div class="strip-inner">
-      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
-      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
-      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
-      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
-      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
-      <span class="strip-item">Free shipping over $150<span class="strip-dot"></span></span>
-      <span class="strip-item">Baby alpaca fiber<span class="strip-dot"></span></span>
-      <span class="strip-item">Fair trade certified<span class="strip-dot"></span></span>
-      <span class="strip-item">Handwoven in Peru<span class="strip-dot"></span></span>
-      <span class="strip-item">60-day returns<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_shipping">Free shipping over $150<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_fiber">Baby alpaca fiber<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_fair">Fair trade certified<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_handwoven">Handwoven in Peru<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_returns">60-day returns<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_shipping">Free shipping over $150<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_fiber">Baby alpaca fiber<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_fair">Fair trade certified<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_handwoven">Handwoven in Peru<span class="strip-dot"></span></span>
+      <span class="strip-item" data-i18n="strip_returns">60-day returns<span class="strip-dot"></span></span>
     </div>
   </div>
 
@@ -1555,7 +1566,7 @@
 
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Living Room · Sofa</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;" data-i18n="eyebrow_throws">Living Room · Sofa</p>
         <h2 class="section-title" data-i18n="section_collection">Throws &amp;<br/><em>Blankets</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -1563,52 +1574,52 @@
 
     <!-- Full Size Guide -->
     <div style="margin-bottom:3.5rem;">
-      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;">Size Guide — All Blankets</p>
+      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;" data-i18n="sg_blankets_title">Size Guide — All Blankets</p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
           <thead>
             <tr style="border-bottom:2px solid var(--camel);">
-              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Size</th>
-              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Inches (W × L)</th>
-              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Centimetres (W × L)</th>
-              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Best For</th>
-              <th style="text-align:left;padding:0.7rem 0 0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Weight</th>
+              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_size">Size</th>
+              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_inches">Inches (W × L)</th>
+              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_cm">Centimetres (W × L)</th>
+              <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_best_for">Best For</th>
+              <th style="text-align:left;padding:0.7rem 0 0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_weight">Weight</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">Throw</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_throw">Throw</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">50 × 70 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">127 × 178 cm</td>
-              <td style="padding:0.85rem 1rem;color:var(--mid);">Sofa, armchair, travel</td>
+              <td style="padding:0.85rem 1rem;color:var(--mid);" data-i18n="sg_throw_use">Sofa, armchair, travel</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">~900 g / 2 lb</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);background:rgba(196,168,130,0.05);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">Twin</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_twin">Twin</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">60 × 90 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">152 × 229 cm</td>
-              <td style="padding:0.85rem 1rem;color:var(--mid);">Single bed, kids</td>
+              <td style="padding:0.85rem 1rem;color:var(--mid);" data-i18n="sg_twin_use">Single bed, kids</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">~1,400 g / 3.1 lb</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">Full / Double</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_full">Full / Double</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">80 × 90 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">203 × 229 cm</td>
-              <td style="padding:0.85rem 1rem;color:var(--mid);">Double bed, generous drape</td>
+              <td style="padding:0.85rem 1rem;color:var(--mid);" data-i18n="sg_full_use">Double bed, generous drape</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">~1,900 g / 4.2 lb</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);background:rgba(196,168,130,0.05);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">Queen</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_queen">Queen</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">90 × 108 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">228 × 274 cm</td>
-              <td style="padding:0.85rem 1rem;color:var(--mid);">Queen bed, full coverage</td>
+              <td style="padding:0.85rem 1rem;color:var(--mid);" data-i18n="sg_queen_use">Queen bed, full coverage</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">~2,500 g / 5.5 lb</td>
             </tr>
             <tr>
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">King</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_king">King</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">108 × 108 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">274 × 274 cm</td>
-              <td style="padding:0.85rem 1rem;color:var(--mid);">King bed, luxurious drape</td>
+              <td style="padding:0.85rem 1rem;color:var(--mid);" data-i18n="sg_king_use">King bed, luxurious drape</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">~3,000 g / 6.6 lb</td>
             </tr>
           </tbody>
@@ -2073,7 +2084,7 @@
   <section class="products" id="bed-collection" style="background: var(--parchment);">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Bedroom · Full Size</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;" data-i18n="eyebrow_bed">Bedroom · Full Size</p>
         <h2 class="section-title" data-i18n="section_bed">Queen &amp; King<br/><em>Bed Blankets</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -2082,19 +2093,19 @@
     <!-- Size guide strip -->
     <div style="display:flex;gap:2rem;margin-bottom:3rem;padding:1.4rem 2rem;background:var(--white);border-left:2px solid var(--camel);">
       <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--camel);">Queen</span>
+        <span style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--camel);" data-i18n="sg_queen">Queen</span>
         <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);">90 × 108 in</span>
         <span style="font-size:0.75rem;color:var(--mid);">228 × 274 cm</span>
       </div>
       <div style="width:1px;background:var(--light-camel);"></div>
       <div style="display:flex;flex-direction:column;gap:0.3rem;">
-        <span style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--camel);">King</span>
+        <span style="font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--camel);" data-i18n="sg_king">King</span>
         <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);">108 × 108 in</span>
         <span style="font-size:0.75rem;color:var(--mid);">274 × 274 cm</span>
       </div>
       <div style="width:1px;background:var(--light-camel);"></div>
       <div style="display:flex;flex-direction:column;gap:0.3rem;justify-content:center;">
-        <span style="font-size:0.78rem;color:var(--mid);line-height:1.6;">Each bed blanket is woven in two panels and hand-joined,<br/>requiring up to 3× more fiber and 40+ hours of loom time.</span>
+        <span style="font-size:0.78rem;color:var(--mid);line-height:1.6;" data-i18n="sg_bed_note">Each bed blanket is woven in two panels and hand-joined,<br/>requiring up to 3× more fiber and 40+ hours of loom time.</span>
       </div>
     </div>
 
@@ -2367,7 +2378,7 @@
   <section class="products" id="hats">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories · Head</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;" data-i18n="eyebrow_hats">Accessories · Head</p>
         <h2 class="section-title" data-i18n="section_hats">Alpaca<br/><em>Hats</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -2375,12 +2386,12 @@
 
     <!-- Hat size guide -->
     <div style="margin-bottom:3rem;">
-      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;">Size Guide — Hats</p>
+      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;" data-i18n="sg_hats_title">Size Guide — Hats</p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
           <thead>
             <tr style="border-bottom:2px solid var(--camel);">
-              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Size</th>
+              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_size">Size</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Head Circ. (in)</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Head Circ. (cm)</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Hat Height (in)</th>
@@ -2389,21 +2400,21 @@
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">S / Child</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_s_child">S / Child</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">19 – 20.5 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">48 – 52 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">7 in</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">18 cm</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);background:rgba(196,168,130,0.05);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">M / Adult S–M</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_m_adult">M / Adult S–M</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">21 – 22 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">53 – 56 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">8.5 in</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">22 cm</td>
             </tr>
             <tr>
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">L / Adult L–XL</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_l_adult">L / Adult L–XL</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">22.5 – 24 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">57 – 61 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">8.5 in</td>
@@ -2674,7 +2685,7 @@
   <section class="products" id="gloves" style="background:var(--parchment);">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories · Hands</p>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;" data-i18n="eyebrow_gloves">Accessories · Hands</p>
         <h2 class="section-title" data-i18n="section_gloves">Alpaca<br/><em>Gloves</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
@@ -2682,12 +2693,12 @@
 
     <!-- Glove size guide -->
     <div style="margin-bottom:3rem;">
-      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;">Size Guide — Gloves</p>
+      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;" data-i18n="sg_gloves_title">Size Guide — Gloves</p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
           <thead>
             <tr style="border-bottom:2px solid var(--camel);">
-              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Size</th>
+              <th style="text-align:left;padding:0.7rem 1rem 0.7rem 0;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_size">Size</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Hand Circ. (in)</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Hand Circ. (cm)</th>
               <th style="text-align:left;padding:0.7rem 1rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Hand Length (in)</th>
@@ -2696,28 +2707,28 @@
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">XS / Child</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_xs_child">XS / Child</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">5 – 6 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">13 – 15 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">5.5 in</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">14 cm</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);background:rgba(196,168,130,0.05);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">S / Women's</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_s_womens">S / Women's</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">6.5 – 7 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">16.5 – 18 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">6.5 in</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">16.5 cm</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">M / Men's S</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_m_mens">M / Men's S</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">7.5 – 8 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">19 – 20 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">7 in</td>
               <td style="padding:0.85rem 0 0.85rem 1rem;color:var(--mid);">18 cm</td>
             </tr>
             <tr style="background:rgba(196,168,130,0.05);">
-              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);">L / Men's M–L</td>
+              <td style="padding:0.85rem 1rem 0.85rem 0;font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);" data-i18n="sg_l_mens">L / Men's M–L</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">8.5 – 9.5 in</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">21.5 – 24 cm</td>
               <td style="padding:0.85rem 1rem;color:var(--mid);">7.5 in</td>
@@ -3066,43 +3077,43 @@
   <section class="products" id="scarves">
     <div class="section-header">
       <div>
-        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Accessories</p>
-        <h2 class="section-title">Alpaca<br/><em>Scarves</em></h2>
+        <p style="font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;" data-i18n="eyebrow_scarves">Accessories</p>
+        <h2 class="section-title" data-i18n="section_scarves">Alpaca<br/><em>Scarves</em></h2>
       </div>
       <a href="#" onclick="event.preventDefault()" class="section-link">View all</a>
     </div>
 
     <!-- Scarf size guide -->
     <div style="margin-bottom:3rem;">
-      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;">Size Guide — Scarves</p>
+      <p style="font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1.2rem;" data-i18n="sg_scarves_title">Size Guide — Scarves</p>
       <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.82rem;">
           <thead>
             <tr style="border-bottom:2px solid var(--camel);">
-              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Style</th>
-              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Width</th>
-              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Length</th>
-              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;">Best for</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_style">Style</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_width">Width</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_length">Length</th>
+              <th style="text-align:left;padding:0.5rem 0.75rem;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--camel);font-weight:400;" data-i18n="sg_best_for">Best for</th>
             </tr>
           </thead>
           <tbody>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.5rem 0.75rem;">Classic Wrap</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_classic_wrap">Classic Wrap</td>
               <td style="padding:0.5rem 0.75rem;">12 in / 30 cm</td>
               <td style="padding:0.5rem 0.75rem;">72 in / 183 cm</td>
-              <td style="padding:0.5rem 0.75rem;">Everyday wear</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_everyday">Everyday wear</td>
             </tr>
             <tr style="border-bottom:1px solid var(--light-camel);">
-              <td style="padding:0.5rem 0.75rem;">Infinity Loop</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_infinity_loop">Infinity Loop</td>
               <td style="padding:0.5rem 0.75rem;">14 in / 36 cm</td>
               <td style="padding:0.5rem 0.75rem;">60 in / 152 cm (loop)</td>
-              <td style="padding:0.5rem 0.75rem;">Casual, travel</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_casual">Casual, travel</td>
             </tr>
             <tr>
-              <td style="padding:0.5rem 0.75rem;">Shawl Wrap</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_shawl_wrap">Shawl Wrap</td>
               <td style="padding:0.5rem 0.75rem;">28 in / 71 cm</td>
               <td style="padding:0.5rem 0.75rem;">80 in / 203 cm</td>
-              <td style="padding:0.5rem 0.75rem;">Evenings, layering</td>
+              <td style="padding:0.5rem 0.75rem;" data-i18n="sg_evenings">Evenings, layering</td>
             </tr>
           </tbody>
         </table>
@@ -3383,9 +3394,9 @@
   <!-- CARE GUIDE SECTION -->
   <section id="care" style="background:var(--espresso);padding:5rem 3rem;">
     <div style="max-width:1000px;margin:0 auto;">
-      <p style="font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1rem;">Care Guide</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:300;color:var(--fleece);line-height:1.15;margin-bottom:1rem;">How to care for your <em style="font-style:italic;color:var(--camel);">alpaca</em></h2>
-      <p style="font-size:0.88rem;color:rgba(247,240,230,0.55);line-height:1.8;max-width:540px;margin-bottom:3.5rem;">Alpaca fiber is naturally resilient and low-maintenance. With the right care your blanket, hat or gloves will last decades and grow softer with each wash.</p>
+      <p style="font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:1rem;" data-i18n="care_eyebrow">Care Guide</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3vw,3rem);font-weight:300;color:var(--fleece);line-height:1.15;margin-bottom:1rem;" data-i18n="care_title">How to care for your <em style="font-style:italic;color:var(--camel);">alpaca</em></h2>
+      <p style="font-size:0.88rem;color:rgba(247,240,230,0.55);line-height:1.8;max-width:540px;margin-bottom:3.5rem;" data-i18n="care_body">Alpaca fiber is naturally resilient and low-maintenance. With the right care your blanket, hat or gloves will last decades and grow softer with each wash.</p>
 
       <style>
         #care-grid {
@@ -3726,13 +3737,13 @@
 
         <!-- Size selector -->
         <div class="modal-options" id="modalSizeBlock">
-          <span class="modal-option-label">Size</span>
+          <span class="modal-option-label" data-i18n="modal_size">Size</span>
           <div class="modal-size-btns" id="modalSizeBtns"></div>
         </div>
 
         <!-- Colour selector -->
         <div class="modal-options" id="modalColourBlock" style="margin-bottom:1.6rem;">
-          <span class="modal-option-label">Colour</span>
+          <span class="modal-option-label" data-i18n="modal_colour">Colour</span>
           <div class="modal-color-btns" id="modalColourBtns"></div>
         </div>
 
@@ -3741,23 +3752,23 @@
 
         <!-- CTA -->
         <div class="modal-cta">
-          <button class="modal-add-btn">Add to Bag</button>
-          <button class="modal-wishlist">Save to Wishlist</button>
+          <button class="modal-add-btn" data-i18n="add_to_bag">Add to Bag</button>
+          <button class="modal-wishlist" data-i18n="modal_wishlist">Save to Wishlist</button>
         </div>
 
         <!-- Trust signals -->
         <div class="modal-trust">
           <span class="trust-item">
             <svg viewBox="0 0 14 14"><path d="M7 1l1.5 4h4l-3.3 2.4 1.3 4L7 9 3.5 11.4l1.3-4L1.5 5h4z" stroke-width="1"/></svg>
-            Free shipping over $150
+            <span data-i18n="trust_shipping">Free shipping over $150</span>
           </span>
           <span class="trust-item">
             <svg viewBox="0 0 14 14"><polyline points="2,7 5,10 12,3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            60-day returns
+            <span data-i18n="trust_returns">60-day returns</span>
           </span>
           <span class="trust-item">
             <svg viewBox="0 0 14 14"><rect x="2" y="6" width="10" height="7" rx="1" stroke-width="1.2"/><path d="M5 6V4a2 2 0 014 0v2" stroke-width="1.2"/></svg>
-            Secure checkout
+            <span data-i18n="trust_secure">Secure checkout</span>
           </span>
         </div>
       </div>
@@ -3775,6 +3786,7 @@
         name: 'Cusco Classic',
         price: '$248',
         desc: 'The blanket that started it all. Woven on a traditional floor loom in Cusco by master weaver Doña Carmen Quispe, the Cusco Classic features an intersecting diamond motif drawn from pre-Inca textile tradition. Feather-light yet three times warmer than wool — it drapes beautifully over a sofa or at the foot of a bed.',
+        desc_es: 'La manta que lo inició todo. Tejida en telar tradicional en Cusco por la maestra tejedora Doña Carmen Quispe. Liviana como una pluma pero tres veces más cálida que la lana — cae hermosa sobre un sofá o al pie de una cama.',
         sizes: ['Throw 50×70"', 'Twin 60×90"', 'Full 80×90"'],
         colours: ['#D4B896', '#8B7B6B', '#E8D5B7', '#2C1810'],
         colourNames: ['Camel', 'Ash', 'Ivory', 'Espresso'],
@@ -3794,6 +3806,7 @@
         name: 'Machu Midnight',
         price: '$268',
         desc: 'Deep shadow tones inspired by the terraced mountains at dusk. The Machu Midnight is woven with an alternating stripe base and floating diamond motifs in pale ecru — a striking contrast that looks as striking on a king bed as draped across a reading chair.',
+        desc_es: 'Tonos profundos inspirados en las montañas escalonadas al atardecer. Tejida con base de rayas alternas y motivos de diamantes flotantes en écru pálido — un contraste impactante.',
         sizes: ['Throw 50×70"', 'Twin 60×90"', 'Full 80×90"'],
         colours: ['#8B7B6B', '#3D3530', '#6B5B47'],
         colourNames: ['Slate', 'Midnight', 'Earth'],
@@ -3813,6 +3826,7 @@
         name: 'Puno Ivory',
         price: '$228',
         desc: 'Stripped back to the natural colour of undyed baby alpaca, the Puno Ivory lets the fiber speak for itself. A delicate herringbone weave catches the light in two directions, giving this understated piece an almost iridescent quality in natural light.',
+        desc_es: 'Reducida al color natural de la alpaca bebé sin teñir, la Puno Ivory deja que la fibra hable por sí sola. Un tejido de espiga delicado captura la luz en dos direcciones.',
         sizes: ['Throw 50×70"', 'Twin 60×90"', 'Full 80×90"'],
         colours: ['#E8D5B7', '#EDE3D2', '#D4B896'],
         colourNames: ['Ivory', 'Cream', 'Sand'],
@@ -3831,6 +3845,7 @@
         eyebrow: 'Throws — 100% Baby Alpaca',
         name: 'Arequipa Spice',
         price: '$258',
+        desc_es: 'Inspirada en la arcilla volcánica y los mercados de especias de Arequipa. Tonos terracota profundos que se intensifican con el lavado.',
         desc: 'Inspired by the volcanic clay and spice markets of Arequipa, this deep terracotta-brown throw features cross and nested-diamond motifs traditional to the Colca Canyon weavers. Rich, warm tones that deepen with washing.',
         sizes: ['Throw 50×70"', 'Twin 60×90"', 'Full 80×90"'],
         colours: ['#9E7B5A', '#8B6040', '#C4A882'],
@@ -3850,6 +3865,7 @@
         eyebrow: 'Throws — 100% Baby Alpaca',
         name: 'Titicaca Sage',
         price: '$278',
+        desc_es: 'Edición limitada teñida con pigmentos vegetales de los totorales del Lago Titicaca. Solo 80 mantas tejidas por temporada.',
         desc: 'A limited-run colourway dyed with plant-based pigments from the reed marshes of Lake Titicaca. The sage green shifts subtly toward olive in candlelight. Only 80 blankets woven per season — each carries a hand-stitched number tag.',
         sizes: ['Throw 50×70"', 'Twin 60×90"'],
         colours: ['#7A9E8A', '#5E8A74', '#8BAE9A'],
@@ -3871,6 +3887,7 @@
         eyebrow: 'Throws — 100% Baby Alpaca',
         name: 'Inca Slate',
         price: '$248',
+        desc_es: 'El colorido más moderno de la colección — un azul-gris frío inspirado en el granito andino. Una cuadrícula de tartán añade estructura.',
         desc: 'The most modern colourway in the collection — a cool blue-grey inspired by Andean granite. A bold plaid grid adds structure to an otherwise minimal piece. Pairs effortlessly with natural linen and oak furniture.',
         sizes: ['Throw 50×70"', 'Twin 60×90"', 'Full 80×90"'],
         colours: ['#4A5568', '#6B7A8D', '#2C3E50'],
@@ -3891,6 +3908,7 @@
         eyebrow: 'Bed Collection — 100% Baby Alpaca',
         name: 'Cusco Classic — Queen',
         price: '$498',
+        desc_es: 'El Cusco Classic en proporciones de cama queen. Tejida en dos paneles combinados y unida a mano a lo largo del centro con una costura invisible.',
         desc: 'The Cusco Classic scaled up to queen-bed proportions. Woven in two matched panels by the same artisan and hand-joined along the centre using an invisible seam. The diamond pattern is recalibrated at queen scale so the motif repeat feels intentional at the larger size.',
         sizes: ['Queen 90×108"'],
         colours: ['#D4B896', '#8B7B6B', '#E8D5B7', '#2C1810'],
@@ -3911,6 +3929,7 @@
         eyebrow: 'Bed Collection — 100% Baby Alpaca',
         name: 'Cusco Classic — King',
         price: '$598',
+        desc_es: 'Nuestra pieza más amplia. El King Cusco Classic cubre generosamente cualquier armazón king, requiriendo más de 3 kg de fibra de alpaca bebé por manta.',
         desc: 'Our most expansive piece. The King Cusco Classic drapes generously over any king or super-king frame, with enough length to tuck at the foot. Woven in two panels hand-joined at centre, requiring over 3 kg of raw baby alpaca fiber per blanket.',
         sizes: ['King 108×108"'],
         colours: ['#D4B896', '#8B7B6B', '#E8D5B7', '#2C1810'],
@@ -3931,6 +3950,7 @@
         eyebrow: 'Bed Collection — 100% Baby Alpaca',
         name: 'Machu Midnight — Queen',
         price: '$538',
+        desc_es: 'Los dramáticos tonos oscuros de Machu Midnight en escala de cama queen. El medallón ampliado mantiene los detalles nítidos.',
         desc: 'The dramatic dark tones of Machu Midnight in a queen-bed scale. The medallion motif is enlarged proportionally so the ecru detailing remains crisp at full width. A statement piece for a dark-toned bedroom.',
         sizes: ['Queen 90×108"'],
         colours: ['#3D3530', '#8B7B6B', '#6B5B47'],
@@ -3951,6 +3971,7 @@
         eyebrow: 'Bed Collection — 100% Baby Alpaca',
         name: 'Titicaca Sage — King',
         price: '$648',
+        desc_es: 'La pieza más exclusiva de la colección. Limitada a 40 mantas king por temporada, cada una teñida con plantas y numerada.',
         desc: 'The rarest piece in the collection. Limited to 40 king-size blankets per season, each plant-dyed and numbered. The step-repeat pattern is hand-drawn onto the warp before weaving, meaning no two blankets are precisely identical.',
         sizes: ['King 108×108"'],
         colours: ['#5E8A74', '#7A9E8A', '#8BAE9A'],
@@ -3973,6 +3994,7 @@
         eyebrow: 'Hats — 100% Baby Alpaca',
         name: 'Cusco Beanie',
         price: '$68',
+        desc_es: 'Un gorro holgado con cuerpo de patrón de diamantes y puño acanalado. El pompón de alpaca sobredimensionado es de fibra sin teñir. Cálido hasta −20°C.',
         desc: 'A generous, slouchy beanie with a diamond-pattern body and ribbed cuff. The oversized alpaca pom-pom is made from raw undyed fiber. Warm to −20°C without the bulk of a wool hat.',
         sizes: ['S / Child', 'M / Adult S–M', 'L / Adult L–XL'],
         colours: ['#D4B896', '#8B7B6B', '#3D3530', '#5E8A74'],
@@ -3992,6 +4014,7 @@
         eyebrow: 'Hats — 100% Baby Alpaca',
         name: 'Altiplano Chullo',
         price: '$78',
+        desc_es: 'El chullo es el gorro tradicional de los Andes, con orejeras y cordones trenzados. El motivo combina perfectamente con las mantas Titicaca.',
         desc: 'The chullo is the traditional hat of the Andes, with ear flaps and twisted cord ties. Our version is woven with the same step-repeat motif as the Titicaca blankets, making it a perfect matching accessory. The ear flaps fold up and secure with a hidden snap when not needed.',
         sizes: ['S / Child', 'M / Adult S–M', 'L / Adult L–XL'],
         colours: ['#8B7B6B', '#3D3530', '#9E7B5A', '#5E8A74'],
@@ -4011,6 +4034,7 @@
         eyebrow: 'Hats — 100% Baby Alpaca',
         name: 'Puno Wide-Brim',
         price: '$92',
+        desc_es: 'Sombrero de ala ancha estructurado en fieltro de alpaca bebé comprimido. La banda de grosgrain camel es desmontable. Aplastable y empaquetable.',
         desc: 'A structured wide-brim hat in deeply compressed baby alpaca felt. The camel grosgrain band is detachable, letting you swap it for a custom ribbon. Crushable and packable — it recovers its shape when gently steamed.',
         sizes: ['S / Adult S', 'M / Adult M', 'L / Adult L'],
         colours: ['#3D3530', '#8B7B6B', '#C4A882'],
@@ -4031,6 +4055,7 @@
         eyebrow: 'Gloves — 100% Baby Alpaca',
         name: 'Andean Mittens',
         price: '$58',
+        desc_es: 'Manoplas clásicas con patrón de diamantes en cada palma y puño acanalado. La alpaca bebé mantiene el calor hasta −15°C.',
         desc: 'Classic mittens with a diamond pattern on each palm and a ribbed cuff that grips without restricting circulation. Baby alpaca traps heat with a third of the bulk of wool — your hands stay warm down to −15°C.',
         sizes: ['XS / Child', 'S / Women\'s', 'M / Men\'s S', 'L / Men\'s M–L'],
         colours: ['#D4B896', '#C4A882', '#3D3530', '#5E8A74'],
@@ -4050,6 +4075,7 @@
         eyebrow: 'Gloves — 100% Baby Alpaca',
         name: 'Wrist Warmers',
         price: '$48',
+        desc_es: 'Calentadores sin dedos para trabajar, escribir o viajar. Un agujero para el pulgar los mantiene en su lugar. El puño largo cubre el antebrazo.',
         desc: 'Fingerless wrist warmers for working, typing or travelling. A thumb hole keeps them secure while leaving your fingers free. The longer cuff extends up the forearm for extra coverage. Sold as a pair.',
         sizes: ['XS / Child', 'S / Women\'s', 'M / Men\'s S', 'L / Men\'s M–L'],
         colours: ['#8B7B6B', '#C4A882', '#3D3530', '#9E7B5A'],
@@ -4069,6 +4095,7 @@
         eyebrow: 'Gloves — 100% Baby Alpaca',
         name: 'Inca Full Gloves',
         price: '$74',
+        desc_es: 'Guantes completamente articulados con dedos individuales y puño profundo. Cada par tarda 6 horas en tejerse en máquina manual. Limitado a dos coloridos por temporada.',
         desc: 'Fully articulated gloves with individual fingers, a camel-coloured knuckle bar, and a long deep cuff. The most technically demanding piece in our accessories range — each pair takes 6 hours to knit on a manual machine. Limited to two colourways per season.',
         sizes: ['XS / Child', 'S / Women\'s', 'M / Men\'s S', 'L / Men\'s M–L'],
         colours: ['#3D3530', '#4A5568', '#C4A882'],
@@ -4125,17 +4152,27 @@
       }
 
       // Text
-      modalEyebrow.textContent = p.eyebrow;
+      const isEs = window.currentLang === 'es';
+      modalEyebrow.textContent = (isEs && p.eyebrow_es) ? p.eyebrow_es : p.eyebrow;
       modalTitle.textContent   = p.name;
       modalPrice.textContent   = p.price;
-      modalDesc.textContent    = p.desc;
+      modalDesc.textContent    = (isEs && p.desc_es) ? p.desc_es : p.desc;
 
       // Sizes
       modalSizeBtns.innerHTML = '';
+      const sizeEs = {
+        'Throw 50×70"': 'Manta 50×70"', 'Twin 60×90"': 'Individual 60×90"', 'Full 80×90"': 'Doble 80×90"',
+        'Queen 90×108"': 'Queen 90×108"', 'King 108×108"': 'King 108×108"',
+        'Classic Wrap 72in': 'Bufanda Clásica 72 pulg', 'Infinity Loop': 'Bucle Infinito', 'Shawl Wrap 80in': 'Chal 80 pulg',
+        'S / Child': 'S / Niño', 'M / Adult S–M': 'M / Adulto S–M', 'L / Adult L–XL': 'L / Adulto L–XL',
+        'S / Adult S': 'S / Adulto S', 'M / Adult M': 'M / Adulto M', 'L / Adult L': 'L / Adulto L',
+        'XS / Child': 'XS / Niño', "S / Women's": 'S / Mujer', "M / Men's S": 'M / Hombre S', "L / Men's M–L": 'L / Hombre M–L',
+        'XS': 'XS', 'S': 'S', 'M': 'M', 'L': 'L', 'One Size': 'Talla Única',
+      };
       p.sizes.forEach((s, i) => {
         const btn = document.createElement('button');
         btn.className = 'size-btn' + (i === 0 ? ' active' : '');
-        btn.textContent = s;
+        btn.textContent = (isEs && sizeEs[s]) ? sizeEs[s] : s;
         btn.addEventListener('click', () => {
           modalSizeBtns.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
@@ -4158,15 +4195,69 @@
         modalColourBtns.appendChild(btn);
       });
 
-      // Specs
-      modalSpecs.innerHTML = p.specs.map(([k, v]) => `
-        <div class="spec-row">
-          <span class="spec-key">${k}</span>
-          <span class="spec-val">${v}</span>
-        </div>`).join('');
+      // Specs — translate keys/values dynamically
+      const keyEs = {
+        'Fiber':'Fibra','Dimensions':'Dimensiones','Weight':'Peso','Micron count':'Conteo de micras',
+        'Origin':'Origen','Care':'Cuidado','Dye':'Tinte','Edition':'Edición',
+        'Construction':'Construcción','Loom time':'Tiempo de telar','Make time':'Tiempo de confección',
+        'Hat height':'Altura del gorro','Brim width':'Ancho del ala','Crown height':'Altura de la copa',
+        'Ear flap length':'Largo de orejera','Tie length':'Largo del cordón',
+        'Hand circ. M':'Circ. mano M','Head circ. M':'Circ. cabeza M',
+        'Cuff length':'Largo del puño','Style':'Estilo','Microns':'Micras',
+      };
+      const valEs = {
+        '100% Baby Alpaca':'100% Alpaca Bebé',
+        '100% Alpaca (standard)':'100% Alpaca estándar',
+        '50% Alpaca, 50% Cotton':'50% Alpaca, 50% Algodón',
+        '100% Baby Alpaca felt':'Fieltro 100% Alpaca Bebé',
+        '100% Alpaca felt':'Fieltro 100% Alpaca',
+        'Hand wash cold, lay flat to dry':'Lavar a mano en frío, secar en plano',
+        'Hand wash cold, lay flat':'Lavar a mano en frío, secar en plano',
+        'Hand wash cold, reshape & dry flat':'Lavar a mano en frío, dar forma y secar en plano',
+        'Machine wash gentle, cold':'Lavar a máquina suave en frío',
+        'Machine wash cold, reshape & dry flat':'Lavar a máquina en frío, dar forma y secar en plano',
+        'Machine wash cold, lay flat':'Lavar a máquina en frío, secar en plano',
+        'Machine wash cold':'Lavar a máquina en frío',
+        'Spot clean, steam to reshape':'Limpiar en seco, vapor para dar forma',
+        'Dry clean or hand wash cold':'Limpiar en seco o lavar a mano en frío',
+        'Dry clean only':'Solo limpieza en seco',
+        'Under 22 µm':'Menos de 22 µm',
+        'None — natural':'Ninguno — natural',
+        'Fingerless with thumb hole':'Sin dedos con agujero para el pulgar',
+        'Fully articulated fingers':'Dedos completamente articulados',
+        'Two panels, hand-joined':'Dos paneles, unidos a mano',
+        'Blocked & pressed':'Moldeado y prensado',
+        'Cusco, Peru':'Cusco, Perú','Puno, Peru':'Puno, Perú','Arequipa, Peru':'Arequipa, Perú',
+        'Limited — 80 per season':'Limitada — 80 por temporada',
+        'Limited — 40 per season':'Limitada — 40 por temporada',
+      };
+      modalSpecs.innerHTML = p.specs.map(([k, v]) => {
+        const kOut = isEs ? (keyEs[k] || k) : k;
+        const vOut = isEs ? (valEs[v] || v) : v;
+        return `<div class="spec-row"><span class="spec-key">${kOut}</span><span class="spec-val">${vOut}</span></div>`;
+      }).join('');
 
       overlay.classList.add('open');
       document.body.style.overflow = 'hidden';
+
+      // Re-apply language to modal static labels
+      if (isEs) {
+        document.querySelectorAll('#modalSizeBlock .modal-option-label').forEach(el => el.textContent = 'Talla');
+        document.querySelectorAll('#modalColourBlock .modal-option-label').forEach(el => el.textContent = 'Color');
+        const addBtn = document.querySelector('.modal-add-btn');
+        if (addBtn) addBtn.textContent = 'Añadir al Bolso';
+        document.querySelectorAll('[data-i18n="trust_shipping"]').forEach(el => el.innerHTML = 'Envío gratis sobre $150');
+        document.querySelectorAll('[data-i18n="trust_returns"]').forEach(el => el.innerHTML = 'Devoluciones en 60 días');
+        document.querySelectorAll('[data-i18n="trust_secure"]').forEach(el => el.innerHTML = 'Pago seguro');
+      } else {
+        document.querySelectorAll('#modalSizeBlock .modal-option-label').forEach(el => el.textContent = 'Size');
+        document.querySelectorAll('#modalColourBlock .modal-option-label').forEach(el => el.textContent = 'Colour');
+        const addBtn = document.querySelector('.modal-add-btn');
+        if (addBtn) addBtn.textContent = 'Add to Bag';
+        document.querySelectorAll('[data-i18n="trust_shipping"]').forEach(el => el.innerHTML = 'Free shipping over $150');
+        document.querySelectorAll('[data-i18n="trust_returns"]').forEach(el => el.innerHTML = '60-day returns');
+        document.querySelectorAll('[data-i18n="trust_secure"]').forEach(el => el.innerHTML = 'Secure checkout');
+      }
 
       // Wire modal Add to Bag button
       const modalAddBtn = document.querySelector('.modal-add-btn');
@@ -4197,7 +4288,7 @@
           if (existing) {
             // Already in wishlist — remove
             window.wishlist = window.wishlist.filter(w => w.id !== key);
-            wishBtn.textContent = '♡ Save to Wishlist';
+            wishBtn.textContent = '♡ ' + (window.currentLang === 'es' ? 'Guardar en Lista de Deseos' : 'Save to Wishlist');
             wishBtn.style.borderColor = 'var(--camel)';
             wishBtn.style.color = 'var(--mid)';
             showWishlistToast(p.name + ' removed from wishlist');
@@ -4212,7 +4303,7 @@
               svgHtml: svgHtml || '',
               badge: p.badge || ''
             });
-            wishBtn.textContent = '♥ Saved';
+            wishBtn.textContent = '♥ ' + (window.currentLang === 'es' ? 'Guardado' : 'Saved');
             wishBtn.style.borderColor = 'var(--camel)';
             wishBtn.style.color = 'var(--camel)';
             showWishlistToast(p.name + ' saved to wishlist');
@@ -4222,7 +4313,7 @@
         };
         // Set initial state
         const inWishlist = window.wishlist.some(w => w.id === p.id);
-        wishBtn.textContent = inWishlist ? '♥ Saved' : '♡ Save to Wishlist';
+        wishBtn.textContent = inWishlist ? ('♥ ' + (window.currentLang === 'es' ? 'Guardado' : 'Saved')) : ('♡ ' + (window.currentLang === 'es' ? 'Guardar en Lista de Deseos' : 'Save to Wishlist'));
         wishBtn.style.color = inWishlist ? 'var(--camel)' : 'var(--mid)';
       }
     }
@@ -4240,25 +4331,13 @@
     document.querySelectorAll('.product-card').forEach(card => {
       const id = card.dataset.id;
       if (!id) return;
-      // Make image area clickable (not just the "add" button)
-      const img = card.querySelector('.product-image');
-      if (img) {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', (e) => {
-          if (e.target.closest('.product-add')) return; // let add-to-bag be separate
-          const svgEl = img.querySelector('svg');
-          openModal(id, svgEl ? svgEl.outerHTML : '');
-        });
-      }
-      // Also clicking the product name
-      const nameEl = card.querySelector('.product-name');
-      if (nameEl) {
-        nameEl.style.cursor = 'pointer';
-        nameEl.addEventListener('click', () => {
-          const svgEl = card.querySelector('.product-image svg');
-          openModal(id, svgEl ? svgEl.outerHTML : '');
-        });
-      }
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        // Let Add to Bag button handle its own click
+        if (e.target.closest('.product-add')) return;
+        const svgEl = card.querySelector('.product-image svg');
+        openModal(id, svgEl ? svgEl.outerHTML : '');
+      });
     });
   })();
   </script>
@@ -4370,10 +4449,9 @@
       {id:'andean-mittens-alpaca',badge:'100% Alpaca',eyebrow:'Gloves — 100% Alpaca',name:'Andean Mittens',price:'$38',desc:'Classic mittens in standard alpaca. More durable and machine washable.',desc_es:'Manoplas clásicas en alpaca estándar. Más duraderas y lavables a máquina.',sizes:['XS','S','M','L'],colours:['#6B5B47','#8B7B6B','#3D3530'],colourNames:['Earth','Ash','Midnight'],specs:[['Fiber','100% Alpaca (standard)'],['Care','Machine wash cold, lay flat']]},
       {id:'wrist-warmers-alpaca',badge:'100% Alpaca',eyebrow:'Gloves — 100% Alpaca',name:'Wrist Warmers',price:'$32',desc:'Fingerless wrist warmers in standard alpaca. Structured, hardwearing, machine washable.',desc_es:'Calentadores sin dedos en alpaca estándar. Estructurados, resistentes, lavables a máquina.',sizes:['XS','S','M','L'],colours:['#6B5B47','#8B7B6B','#9E7B5A'],colourNames:['Earth','Ash','Spice'],specs:[['Fiber','100% Alpaca (standard)'],['Care','Machine wash cold, lay flat']]},
       {id:'inca-full-gloves-alpaca',badge:'100% Alpaca',eyebrow:'Gloves — 100% Alpaca',name:'Inca Full Gloves',price:'$52',desc:'Fully articulated gloves in standard alpaca. Robust for cold outdoor environments, machine washable.',desc_es:'Guantes articulados en alpaca estándar. Robustos para exteriores fríos, lavables a máquina.',sizes:['XS','S','M','L'],colours:['#5A4A35','#6B5B47','#8B7B6B'],colourNames:['Dark Earth','Earth','Ash'],specs:[['Fiber','100% Alpaca (standard)'],['Care','Machine wash cold, lay flat']]},
-      {id:'andean-mittens-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Andean Mittens',price:'$30',desc:'Mittens in 50/50 blend. Lightweight, breathable, machine washable. Great entry-level option.',desc_es:'Manoplas en mezcla 50/50. Ligeras, transpirables, lavables a máquina.',sizes:['XS','S','M','L'],colours:['#8FA888','#B8C4B0','#D4C4A8'],colourNames:['Sage','Mint','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
+      {id:'andean-mittens-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Andean Mittens',price:'$30',desc:'Mittens in 50/50 blend. Lightweight, breathable, machine washable.',desc_es:'Manoplas en mezcla 50/50. Ligeras, transpirables, lavables a máquina.',sizes:['XS','S','M','L'],colours:['#8FA888','#B8C4B0','#D4C4A8'],colourNames:['Sage','Mint','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
       {id:'wrist-warmers-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Wrist Warmers',price:'$26',desc:'Fingerless wrist warmers in 50/50 blend. Light, breathable, easy-care.',desc_es:'Calentadores sin dedos en mezcla 50/50. Ligeros, transpirables, fáciles de cuidar.',sizes:['XS','S','M','L'],colours:['#8FA888','#D4C4A8','#B8C4B0'],colourNames:['Sage','Oat','Mint'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
       {id:'inca-full-gloves-blend',badge:'50/50 Blend',eyebrow:'Gloves — 50% Alpaca, 50% Cotton',name:'Inca Full Gloves',price:'$42',desc:'Fully articulated gloves in 50/50 blend. Most affordable full-finger option, machine washable.',desc_es:'Guantes articulados en mezcla 50/50. La opción de dedo completo más accesible, lavable a máquina.',sizes:['XS','S','M','L'],colours:['#8FA888','#7A8F72','#D4C4A8'],colourNames:['Sage','Forest','Oat'],specs:[['Fiber','50% Alpaca, 50% Cotton'],['Care','Machine wash cold, lay flat']]},
-      // Scarves
       {id:'cusco-scarf',badge:'Bestseller',eyebrow:'Scarves — 100% Baby Alpaca',name:'Cusco Classic Scarf',price:'$118',desc:'A timeless double-strand scarf woven on a traditional floor loom in Cusco. Features the signature diamond motif in fine baby alpaca — feather-light and three times warmer than wool. Finished with hand-knotted fringe.',desc_es:'Bufanda clásica de doble hilo tejida en telar tradicional en Cusco. Motivo de diamante en alpaca bebé fina.',sizes:['Classic Wrap 72in'],colours:['#D4B896','#8B7B6B','#E8D5B7','#2C1810'],colourNames:['Camel','Ash','Ivory','Espresso'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','12 × 72 in / 30 × 183 cm'],['Micron count','Under 22 µm'],['Care','Hand wash cold, lay flat']]},
       {id:'andes-infinity-scarf',badge:'New',eyebrow:'Scarves — 100% Baby Alpaca',name:'Andes Infinity Loop',price:'$98',desc:'A seamlessly joined infinity loop in baby alpaca. No ends to tuck — just slip over your head and adjust. Woven with a subtle Andean stripe running the length of the loop.',desc_es:'Bucle infinito de alpaca bebé sin costuras. Solo deslízalo sobre la cabeza y ajusta.',sizes:['Infinity Loop'],colours:['#8B7B6B','#6B5B47','#C4A882'],colourNames:['Ash','Earth','Camel'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','14 × 60 in loop / 36 × 152 cm'],['Care','Hand wash cold, lay flat']]},
       {id:'titicaca-shawl',badge:'New',eyebrow:'Scarves — 100% Baby Alpaca',name:'Titicaca Shawl Wrap',price:'$158',desc:'A generous shawl-width wrap inspired by the vast sky over Lake Titicaca. Versatile as a shawl, wrap, or light blanket. Herringbone weave with hand-knotted fringe on both ends.',desc_es:'Un chal amplio inspirado en el cielo sobre el Lago Titicaca. Versátil como chal, wrap o manta ligera.',sizes:['Shawl Wrap 80in'],colours:['#D4B896','#C4A882','#8B7B6B'],colourNames:['Camel','Gold','Ash'],specs:[['Fiber','100% Baby Alpaca'],['Dimensions','28 × 80 in / 71 × 203 cm'],['Care','Hand wash cold, lay flat']]},
@@ -4506,7 +4584,17 @@
         hero_cta: 'Shop Blankets', hero_cta2: 'Our craft',
         stat_artisans: 'Artisan families', stat_patterns: 'Andean patterns', stat_warm: 'Warmer than wool',
         nav_shop: 'Shop', nav_bed: 'Bed Collection', nav_story: 'Our Story', nav_care: 'Care Guide', nav_about: 'About',
-        dd_throws: 'Throws & Blankets', dd_bed: 'Bed Collection', dd_hats: 'Hats', dd_gloves: 'Gloves', dd_all: 'View all products',
+        dd_throws: 'Throws & Sofa Blankets', dd_bed: 'Bed Blankets (Queen & King)', dd_hats: 'Hats', dd_gloves: 'Gloves', dd_scarves: 'Scarves', dd_all: 'View all products',
+        nav_goods: 'Alpaca Goods',
+        section_scarves: 'Alpaca<br/><em>Scarves</em>',
+        eyebrow_throws: 'Living Room · Sofa',
+        eyebrow_bed: 'Bedroom · Full Size',
+        eyebrow_hats: 'Accessories · Head',
+        eyebrow_gloves: 'Accessories · Hands',
+        eyebrow_scarves: 'Accessories',
+        care_title: 'How to care for your <em style="font-style:italic;color:var(--camel);">alpaca</em>',
+        care_eyebrow: 'Care Guide',
+        care_body: 'Alpaca fiber is naturally resilient and low-maintenance. With the right care your blanket, hat or gloves will last decades and grow softer with each wash.',
         bag: 'Bag',
         section_collection: 'The<br/><em>Collection</em>',
         section_bed: 'Queen &amp; King<br/><em>Blankets</em>',
@@ -4534,6 +4622,21 @@
         contact_name: 'Name', contact_email_label: 'Email', contact_subject: 'Subject', contact_message: 'Message',
         contact_send: 'Send Message',
         contact_success: "Thank you! We'll be in touch within one business day.",
+        // Size guides
+        sg_blankets_title: 'Size Guide — All Blankets', sg_hats_title: 'Size Guide — Hats', sg_gloves_title: 'Size Guide — Gloves', sg_scarves_title: 'Size Guide — Scarves',
+        sg_size: 'Size', sg_inches: 'Inches (W × L)', sg_cm: 'Centimetres (W × L)', sg_best_for: 'Best For', sg_weight: 'Weight',
+        sg_throw: 'Throw', sg_twin: 'Twin', sg_full: 'Full / Double', sg_queen: 'Queen', sg_king: 'King',
+        sg_throw_use: 'Sofa, armchair, travel', sg_twin_use: 'Single bed, kids', sg_full_use: 'Double bed, generous drape', sg_queen_use: 'Queen bed, full coverage', sg_king_use: 'King bed, luxurious drape',
+        sg_head_circ: 'Head Circ.', sg_hat_size: 'Hat Size', sg_hand_circ: 'Hand Circ.', sg_glove_size: 'Glove Size',
+        sg_style: 'Style', sg_width: 'Width', sg_length: 'Length',
+        sg_classic_wrap: 'Classic Wrap', sg_infinity_loop: 'Infinity Loop', sg_shawl_wrap: 'Shawl Wrap',
+        sg_everyday: 'Everyday wear', sg_casual: 'Casual, travel', sg_evenings: 'Evenings, layering',
+        modal_size: 'Size', modal_colour: 'Colour', modal_wishlist: 'Save to Wishlist',
+        trust_shipping: 'Free shipping over $150', trust_returns: '60-day returns', trust_secure: 'Secure checkout',
+        strip_shipping: 'Free shipping over $150', strip_fiber: 'Baby alpaca fiber', strip_fair: 'Fair trade certified', strip_handwoven: 'Handwoven in Peru', strip_returns: '60-day returns',
+        sg_s_child: 'S / Child', sg_m_adult: 'M / Adult S–M', sg_l_adult: 'L / Adult L–XL',
+        sg_xs_child: 'XS / Child', sg_s_womens: "S / Women's", sg_m_mens: "M / Men's S", sg_l_mens: "L / Men's M–L",
+        sg_bed_note: 'Each bed blanket is woven in two panels and hand-joined,<br/>requiring up to 3× more fiber and 40+ hours of loom time.',
       },
       es: {
         hero_eyebrow: 'Tejido a mano en los Andes · Alpaca Bebé &amp; 100% Alpaca',
@@ -4542,7 +4645,17 @@
         hero_cta: 'Ver Mantas', hero_cta2: 'Nuestra artesanía',
         stat_artisans: 'Familias artesanas', stat_patterns: 'Diseños andinos', stat_warm: 'Más cálida que la lana',
         nav_shop: 'Tienda', nav_bed: 'Cama', nav_story: 'Nuestra Historia', nav_care: 'Guía de Cuidado', nav_about: 'Nosotros',
-        dd_throws: 'Mantas y Throws', dd_bed: 'Colección Cama', dd_hats: 'Gorros', dd_gloves: 'Guantes', dd_all: 'Ver todos los productos',
+        dd_throws: 'Mantas y Sofá', dd_bed: 'Mantas de Cama (Queen y King)', dd_hats: 'Gorros', dd_gloves: 'Guantes', dd_scarves: 'Bufandas', dd_all: 'Ver todos los productos',
+        nav_goods: 'Productos de Alpaca',
+        section_scarves: 'Alpaca<br/><em>Bufandas</em>',
+        eyebrow_throws: 'Sala de Estar · Sofá',
+        eyebrow_bed: 'Dormitorio · Tamaño Completo',
+        eyebrow_hats: 'Accesorios · Cabeza',
+        eyebrow_gloves: 'Accesorios · Manos',
+        eyebrow_scarves: 'Accesorios',
+        care_title: 'Cómo cuidar tu <em style="font-style:italic;color:var(--camel);">alpaca</em>',
+        care_eyebrow: 'Guía de Cuidado',
+        care_body: 'La fibra de alpaca es naturalmente resistente y de bajo mantenimiento. Con el cuidado adecuado, tu manta, gorro o guantes durarán décadas y se volverán más suaves con cada lavado.',
         bag: 'Bolso',
         section_collection: 'La<br/><em>Colección</em>',
         section_bed: 'Queen &amp; King<br/><em>Mantas</em>',
@@ -4570,6 +4683,21 @@
         contact_name: 'Nombre', contact_email_label: 'Correo', contact_subject: 'Asunto', contact_message: 'Mensaje',
         contact_send: 'Enviar Mensaje',
         contact_success: '¡Gracias! Te responderemos en un día hábil.',
+        // Guías de tallas
+        sg_blankets_title: 'Guía de Tallas — Todas las Mantas', sg_hats_title: 'Guía de Tallas — Gorros', sg_gloves_title: 'Guía de Tallas — Guantes', sg_scarves_title: 'Guía de Tallas — Bufandas',
+        sg_size: 'Talla', sg_inches: 'Pulgadas (An × La)', sg_cm: 'Centímetros (An × La)', sg_best_for: 'Ideal Para', sg_weight: 'Peso',
+        sg_throw: 'Manta Sofá', sg_twin: 'Individual', sg_full: 'Doble', sg_queen: 'Queen', sg_king: 'King',
+        sg_throw_use: 'Sofá, sillón, viaje', sg_twin_use: 'Cama individual, niños', sg_full_use: 'Cama doble, caída generosa', sg_queen_use: 'Cama queen, cobertura total', sg_king_use: 'Cama king, caída lujosa',
+        sg_head_circ: 'Circ. Cabeza', sg_hat_size: 'Talla Gorro', sg_hand_circ: 'Circ. Mano', sg_glove_size: 'Talla Guante',
+        sg_style: 'Estilo', sg_width: 'Ancho', sg_length: 'Largo',
+        sg_classic_wrap: 'Bufanda Clásica', sg_infinity_loop: 'Bucle Infinito', sg_shawl_wrap: 'Chal',
+        sg_everyday: 'Uso diario', sg_casual: 'Casual, viaje', sg_evenings: 'Noches, capas',
+        modal_size: 'Talla', modal_colour: 'Color', modal_wishlist: 'Guardar en Lista de Deseos',
+        trust_shipping: 'Envío gratis sobre $150', trust_returns: 'Devoluciones en 60 días', trust_secure: 'Pago seguro',
+        strip_shipping: 'Envío gratis sobre $150', strip_fiber: 'Fibra de alpaca bebé', strip_fair: 'Comercio justo certificado', strip_handwoven: 'Tejido a mano en Perú', strip_returns: 'Devoluciones en 60 días',
+        sg_s_child: 'S / Niño', sg_m_adult: 'M / Adulto S–M', sg_l_adult: 'L / Adulto L–XL',
+        sg_xs_child: 'XS / Niño', sg_s_womens: 'S / Mujer', sg_m_mens: 'M / Hombre S', sg_l_mens: 'L / Hombre M–L',
+        sg_bed_note: 'Cada manta de cama se teje en dos paneles y se une a mano,<br/>requiriendo hasta 3× más fibra y más de 40 horas en el telar.',
       }
     };
 
@@ -4601,7 +4729,7 @@
         { en:'Care Guide',es:'Guía de Cuidado' },
         { en:'Contact Us',es:'Contáctanos' },
       ];
-      document.querySelectorAll('.nav-link-btn:not(#shopDropBtn)').forEach((btn, i) => {
+      document.querySelectorAll('.nav-link-btn:not(#shopDropBtn):not(#goodsDropBtn)').forEach((btn, i) => {
         if (navBtnLabels[i]) btn.textContent = navBtnLabels[i][l];
       });
 
@@ -4681,11 +4809,32 @@
 
       // Lang toggle
       const langBtn = document.getElementById('langBtn');
-      if (langBtn) langBtn.textContent = l === 'en' ? 'ES' : 'EN';
+      if (langBtn) {
+        const flagEl = langBtn.querySelector('#langFlag');
+        const labelEl = langBtn.querySelector('#langBtnLabel');
+        if (l === 'en') {
+          // Show Spanish flag — switch TO Spanish
+          if (flagEl) flagEl.innerHTML = '<svg viewBox="0 0 3 2" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg>';
+          if (labelEl) labelEl.textContent = 'ES';
+        } else {
+          // Show UK flag — switch TO English
+          if (flagEl) flagEl.innerHTML = '<svg viewBox="0 0 19 10" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="19" height="10" fill="#B22234"/><rect y="0.77" width="19" height="0.77" fill="#fff"/><rect y="1.54" width="19" height="0.77" fill="#B22234"/><rect y="2.31" width="19" height="0.77" fill="#fff"/><rect y="3.08" width="19" height="0.77" fill="#B22234"/><rect y="3.85" width="19" height="0.77" fill="#fff"/><rect y="4.62" width="19" height="0.77" fill="#B22234"/><rect y="5.38" width="19" height="0.77" fill="#fff"/><rect y="6.15" width="19" height="0.77" fill="#B22234"/><rect y="6.92" width="19" height="0.77" fill="#fff"/><rect y="7.69" width="19" height="0.77" fill="#B22234"/><rect y="8.46" width="19" height="0.77" fill="#fff"/><rect y="9.23" width="19" height="0.77" fill="#B22234"/><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg>';
+          if (labelEl) labelEl.textContent = 'EN';
+        }
+      }
     }
 
     document.getElementById('langBtn').addEventListener('click', () => {
       applyLang(lang === 'en' ? 'es' : 'en');
+      const mobFlag = document.getElementById('mobileLangFlag');
+      const mobLabel = document.getElementById('mobileLangLabel');
+      if (lang === 'es') {
+        if (mobFlag) mobFlag.innerHTML = '<svg viewBox="0 0 19 10" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="19" height="10" fill="#B22234"/><rect y="0.77" width="19" height="0.77" fill="#fff"/><rect y="1.54" width="19" height="0.77" fill="#B22234"/><rect y="2.31" width="19" height="0.77" fill="#fff"/><rect y="3.08" width="19" height="0.77" fill="#B22234"/><rect y="3.85" width="19" height="0.77" fill="#fff"/><rect y="4.62" width="19" height="0.77" fill="#B22234"/><rect y="5.38" width="19" height="0.77" fill="#fff"/><rect y="6.15" width="19" height="0.77" fill="#B22234"/><rect y="6.92" width="19" height="0.77" fill="#fff"/><rect y="7.69" width="19" height="0.77" fill="#B22234"/><rect y="8.46" width="19" height="0.77" fill="#fff"/><rect y="9.23" width="19" height="0.77" fill="#B22234"/><rect width="7.6" height="5.38" fill="#3C3B6E"/></svg>';
+        if (mobLabel) mobLabel.textContent = 'EN';
+      } else {
+        if (mobFlag) mobFlag.innerHTML = '<svg viewBox="0 0 3 2" width="18" height="13" xmlns="http://www.w3.org/2000/svg"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg>';
+        if (mobLabel) mobLabel.textContent = 'ES';
+      }
     });
 
     // Dropdowns work via CSS :hover — no JS needed
