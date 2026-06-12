@@ -5917,7 +5917,10 @@
         if (overlay) {
           overlay.style.display = 'flex';
           document.body.style.overflow = 'hidden';
-          // Clear cart after successful order
+          // Save cart snapshot BEFORE clearing so download can use it
+          window.orderSnapshot = window.cartRef ? window.cartRef.map(i => Object.assign({}, i)) : [];
+          window.orderSnapshotShipping = (window.cartRef || []).reduce((s,i) => s + i.price * i.qty, 0) >= 150 ? 0 : 18;
+          // Clear cart after snapshot
           if (window.cartRef) window.cartRef.length = 0;
           const cartBtn = document.getElementById('navCartBtn');
           if (cartBtn) cartBtn.textContent = 'Bag (0)';
@@ -5926,24 +5929,26 @@
     })();
 
     function downloadOrder() {
-      const cart = window.cartRef || [];
+      const cart = (window.orderSnapshot && window.orderSnapshot.length > 0) ? window.orderSnapshot : (window.cartRef || []);
       const orderNum = 'TGA-' + Date.now().toString(36).toUpperCase();
       const date = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
-      const fmt = n => Number.isInteger(n) ? n.toFixed(0) : n.toFixed(2);
-      const subtotal = cart.reduce((s,i) => s + i.price * i.qty, 0);
-      const shipping = subtotal >= 150 ? 0 : 18;
+      const fmt = n => parseFloat(n) ? parseFloat(n).toFixed(2).replace(/\.00$/,'') : '0.00';
+      const subtotal = cart.reduce((s,i) => s + parseFloat(i.price||0) * (i.qty||1), 0);
+      const shipping = window.orderSnapshotShipping !== undefined ? window.orderSnapshotShipping : (subtotal >= 150 ? 0 : 18);
       const total = subtotal + shipping;
+
+      const logoSvg = document.querySelector('.nav-logo svg') ? document.querySelector('.nav-logo svg').outerHTML : '';
 
       const rows = cart.length > 0
         ? cart.map(i => `
           <tr>
             <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;">${i.name}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;color:#8B7355;">${i.size || '—'} · ${i.colour || '—'}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:center;">${i.qty}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;color:#8B7355;">${i.size||'—'} · ${i.colour||'—'}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:center;">${i.qty||1}</td>
             <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:right;">$${fmt(i.price)}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:right;">$${fmt(i.price*i.qty)}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:right;">$${fmt(parseFloat(i.price||0)*(i.qty||1))}</td>
           </tr>`).join('')
-        : `<tr><td colspan="5" style="padding:16px 8px;color:#8B7355;text-align:center;">Order details confirmed via Stripe</td></tr>`;
+        : `<tr><td colspan="5" style="padding:16px 8px;color:#8B7355;text-align:center;font-style:italic;">Order details confirmed via Stripe — check your Stripe dashboard for full item list</td></tr>`;
 
       const html = `<!DOCTYPE html>
 <html>
@@ -5955,8 +5960,8 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:#fff; color:#2C1810; padding:48px; max-width:720px; margin:0 auto; }
     .header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:40px; padding-bottom:24px; border-bottom:2px solid #C4A882; }
-    .logo { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; letter-spacing:0.04em; }
-    .logo span { color:#C4A882; }
+    .logo { height: 60px; }
+    .logo svg { height: 60px; width: auto; }
     .order-meta { text-align:right; font-size:12px; color:#8B7355; line-height:1.8; }
     .order-meta strong { color:#2C1810; font-size:14px; display:block; margin-bottom:4px; }
     h2 { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:300; margin-bottom:20px; color:#2C1810; }
@@ -5985,7 +5990,7 @@
 </head>
 <body>
   <div class="header">
-    <div class="logo">The <span>Golden</span> Alpaca</div>
+    <div class="logo">${logoSvg || 'The <span style="color:#C4A882">Golden</span> Alpaca'}</div>
     <div class="order-meta">
       <strong>Order Confirmation</strong>
       Order #${orderNum}<br/>
