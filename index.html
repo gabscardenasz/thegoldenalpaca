@@ -5498,6 +5498,8 @@
             });
           }
 
+          const giftNote = document.getElementById('coGift').value.trim();
+
           // Try Netlify function first, fall back to demo if unavailable
           const resp = await Promise.race([
             fetch('/.netlify/functions/create-checkout', {
@@ -5508,7 +5510,9 @@
                 customerEmail: email,
                 customerName: `${first} ${last}`,
                 shippingMethod: method,
-                successUrl: window.location.origin + '/?order=success',
+                giftNote: giftNote || '',
+                metadata: { gift_note: giftNote || '', customer_name: `${first} ${last}`, shipping_method: method },
+                successUrl: window.location.origin + '/?order=success&gift=' + encodeURIComponent(giftNote),
                 cancelUrl: window.location.origin + '/',
               }),
             }),
@@ -5879,7 +5883,13 @@
       <p style="font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--camel);margin-bottom:0.6rem;">Payment confirmed</p>
       <h2 style="font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:300;color:var(--espresso);margin-bottom:1rem;">Thank you for your order!</h2>
       <p style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:0.5rem;">Your payment was successful and your order is confirmed.</p>
-      <p style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:2rem;">A confirmation email has been sent to you by Stripe. Your handwoven alpaca piece will be carefully prepared and shipped within 3–5 business days.</p>
+      <p style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:1rem;">A confirmation email has been sent to you by Stripe. Your handwoven alpaca piece will be carefully prepared and shipped within 3–5 business days.</p>
+
+      <!-- Gift note display -->
+      <div id="successGiftNoteBox" style="display:none;background:var(--parchment);border-left:3px solid var(--camel);padding:1rem 1.2rem;margin-bottom:1.5rem;text-align:left;">
+        <p style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--camel);margin-bottom:0.4rem;">🎁 Gift Note Included</p>
+        <p id="successGiftNote" style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--espresso);font-style:italic;line-height:1.6;"></p>
+      </div>
 
       <div style="background:var(--parchment);padding:1.2rem;margin-bottom:2rem;text-align:left;">
         <p style="font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--camel);margin-bottom:0.8rem;">What happens next</p>
@@ -5919,11 +5929,20 @@
           document.body.style.overflow = 'hidden';
           // Save cart snapshot BEFORE clearing so download can use it
           window.orderSnapshot = window.cartRef ? window.cartRef.map(i => Object.assign({}, i)) : [];
-          window.orderSnapshotShipping = (window.cartRef || []).reduce((s,i) => s + i.price * i.qty, 0) >= 150 ? 0 : 18;
+          window.orderSnapshotShipping = (window.cartRef || []).reduce((s,i) => s + parseFloat(i.price||0) * (i.qty||1), 0) >= 150 ? 0 : 18;
+          window.orderGiftNote = params.get('gift') || '';
           // Clear cart after snapshot
           if (window.cartRef) window.cartRef.length = 0;
           const cartBtn = document.getElementById('navCartBtn');
           if (cartBtn) cartBtn.textContent = 'Bag (0)';
+
+          // Show gift note in success screen if present
+          if (window.orderGiftNote) {
+            const giftEl = document.getElementById('successGiftNote');
+            const giftBox = document.getElementById('successGiftNoteBox');
+            if (giftEl) giftEl.textContent = '"' + window.orderGiftNote + '"';
+            if (giftBox) giftBox.style.display = 'block';
+          }
         }
       }
     })();
@@ -5949,6 +5968,13 @@
             <td style="padding:10px 8px;border-bottom:1px solid #e8d9c8;text-align:right;">$${fmt(parseFloat(i.price||0)*(i.qty||1))}</td>
           </tr>`).join('')
         : `<tr><td colspan="5" style="padding:16px 8px;color:#8B7355;text-align:center;font-style:italic;">Order details confirmed via Stripe — check your Stripe dashboard for full item list</td></tr>`;
+
+      const giftNote = window.orderGiftNote || '';
+      const giftSection = giftNote ? `
+  <div style="background:#F7F0E6;border-left:3px solid #C4A882;padding:16px 20px;margin-bottom:24px;">
+    <p style="font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C4A882;margin-bottom:8px;">🎁 Gift Note</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:#2C1810;line-height:1.6;">"${giftNote}"</p>
+  </div>` : '';
 
       const html = `<!DOCTYPE html>
 <html>
@@ -6012,6 +6038,7 @@
     </div>
   </div>
 
+  ${giftSection}
   <h2>Order Summary</h2>
   <table>
     <thead>
