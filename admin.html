@@ -487,11 +487,26 @@ async function loadData() {
   }
 }
 
-function saveData() {
+function saveLocalCache() {
   // Local cache stays in sync immediately for fast re-renders.
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(products)); } catch(e) {
     console.warn('Storage full — photos may not persist locally');
   }
+}
+
+// Push just ONE row to Supabase. This is what saveProduct() uses, so editing
+// or adding a single product can never accidentally resurrect a row that was
+// deleted elsewhere (directly in Supabase, or from another open tab).
+function upsertOne(product) {
+  saveLocalCache();
+  sb.from('inventory').upsert([toRow(product)]).then(({ error }) => {
+    if (error) console.warn('Supabase save failed', error);
+  });
+}
+
+function saveData() {
+  // Local cache stays in sync immediately for fast re-renders.
+  saveLocalCache();
   // Push the full current state to Supabase in the background.
   sb.from('inventory').upsert(products.map(toRow)).then(({ error }) => {
     if (error) console.warn('Supabase save failed', error);
@@ -576,7 +591,7 @@ function chStock(id, d) {
   if (d === -1 && p.stock <= 0) return;
   if (d === -1) { p.stock--; p.sold = (p.sold||0) + 1; }
   else { p.stock++; }
-  saveData();
+  upsertOne(p);
   render();
   renderSales();
   renderPhotos();
@@ -731,11 +746,12 @@ function saveProduct() {
   if (editingId) {
     const idx = products.findIndex(x => x.id === editingId);
     products[idx] = { ...products[idx], ...data };
+    upsertOne(products[idx]);
   } else {
     data.id = 'p_' + Date.now();
     products.push(data);
+    upsertOne(data);
   }
-  saveData();
   closeModal();
   render();
   renderSales();
@@ -746,7 +762,7 @@ function deleteProduct() {
   if (!confirm('Delete "' + products.find(x=>x.id===editingId)?.name + '"?')) return;
   const idToDelete = editingId;
   products = products.filter(x => x.id !== idToDelete);
-  saveData();
+  saveLocalCache();
   deleteFromSupabase(idToDelete);
   closeModal();
   render();
