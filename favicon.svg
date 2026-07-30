@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <style>
+    .gm { fill: #D4A843; }
+    .gl { fill: #F0C84A; }
+    .gd { fill: #A8782A; }
+    .sk { fill: #E8B840; }
+  </style>
+
+  <!-- Background -->
+  <circle cx="100" cy="100" r="100" fill="#F7F0E6"/>
+
+  <!-- Alpaca illustration, recentered from the nav logo group -->
+  <g transform="translate(24,-20) scale(1.05)">
+
+    <!-- Shadow -->
+    <ellipse cx="92" cy="228" rx="42" ry="5" fill="#2C1810" opacity="0.08"/>
+
+    <!-- Tail -->
+    <path d="M118,148 Q132,140 134,150 Q134,160 122,158" class="gm" opacity="0.9"/>
+
+    <!-- Body -->
+    <path d="M52,178 Q52,148 65,138 Q85,128 110,133 Q130,138 132,153 Q134,168 120,178 Q100,186 70,183 Z" class="gm"/>
+    <path d="M68,143 Q88,133 110,138 Q125,142 128,153" fill="none" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <ellipse cx="88" cy="148" rx="20" ry="10" class="gl" opacity="0.25"/>
+    <path d="M62,160 Q78,152 98,156" fill="none" stroke="#F5D98B" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+    <path d="M70,170 Q90,163 114,168" fill="none" stroke="#F5D98B" stroke-width="0.8" stroke-linecap="round" opacity="0.4"/>
+
+    <!-- Sparkles -->
+    <line x1="80" y1="139" x2="80" y2="135" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="78" y1="137" x2="82" y2="137" stroke="#F5D98B" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="78.3" y1="135.3" x2="81.7" y2="138.7" stroke="#F5D98B" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="81.7" y1="135.3" x2="78.3" y2="138.7" stroke="#F5D98B" stroke-width="0.7" stroke-linecap="round"/>
+    <line x1="110" y1="131" x2="110" y2="127" stroke="#F7E098" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="108" y1="129" x2="112" y2="129" stroke="#F7E098" stroke-width="1.3" stroke-linecap="round"/>
+    <line x1="108.3" y1="127.3" x2="111.7" y2="130.7" stroke="#F7E098" stroke-width="0.6" stroke-linecap="round"/>
+    <line x1="111.7" y1="127.3" x2="108.3" y2="130.7" stroke="#F7E098" stroke-width="0.6" stroke-linecap="round"/>
+    <line x1="94" y1="127" x2="94" y2="124" stroke="#F5D98B" stroke-width="1" stroke-linecap="round"/>
+    <line x1="92.5" y1="125.5" x2="95.5" y2="125.5" stroke="#F5D98B" stroke-width="1" stroke-linecap="round"/>
+
+    <!-- Neck -->
+    <path d="M54,153 Q48,126 52,104 Q54,94 60,92 Q67,91 69,102 Q72,116 68,143 Z" class="gm"/>
+    <path d="M55,148 Q50,124 54,105 Q56,97 61,96" fill="none" stroke="#F0C84A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Head -->
+    <ellipse cx="61" cy="80" rx="17" ry="15" class="gm"/>
+    <ellipse cx="59" cy="66" rx="9" ry="7" class="gl" opacity="0.8"/>
+
+    <!-- Left ear -->
+    <path d="M50,72 Q46,54 50,48 Q53,44 57,50 Q59,58 56,71 Z" class="gm"/>
+    <path d="M51,70 Q48,56 51,51 Q53,48 56,52 Q57,59 55,69" fill="#E8B840" opacity="0.5"/>
+    <path d="M50,49 Q48,45 51,44 Q53,46 51,49" class="gl" opacity="0.7"/>
+
+    <!-- Right ear -->
+    <path d="M66,70 Q68,52 71,48 Q74,45 75,52 Q75,60 71,70 Z" class="gm"/>
+    <path d="M67,69 Q69,54 71,51 Q73,49 74,54 Q74,60 71,69" fill="#E8B840" opacity="0.5"/>
+    <path d="M71,49 Q73,45 75,47 Q74,50 72,50" class="gl" opacity="0.7"/>
+
+    <!-- Muzzle -->
+    <path d="M46,84 Q44,76 48,73 Q54,71 61,73 Q64,74 64,80 Q60,88 50,88 Z" fill="#E8B840"/>
+    <ellipse cx="47" cy="83" rx="1.8" ry="1.2" fill="#8A5A18" opacity="0.6"/>
+    <ellipse cx="53" cy="84" rx="1.8" ry="1.2" fill="#8A5A18" opacity="0.6"/>
+    <path d="M45,87 Q49,90 54,87" fill="none" stroke="#8A5A18" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+
+    <!-- Eye -->
+    <ellipse cx="64" cy="76" rx="5" ry="4.5" fill="#0E0604"/>
+    <ellipse cx="64" cy="76" rx="3.2" ry="2.9" fill="#2A1206"/>
+    <circle cx="66" cy="74" r="1.9" fill="white"/>
+    <circle cx="66.5" cy="73.5" r="0.7" fill="#F7E098" opacity="0.9"/>
+    <circle cx="62.5" cy="77.5" r="0.7" fill="white" opacity="0.35"/>
+    <path d="M60,73 Q62,70 65,72" fill="none" stroke="#0E0604" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Legs -->
+    <path d="M58,180 L54,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M58,180 L54,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M70,182 L68,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M70,182 L68,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M104,184 L106,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M104,184 L106,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+    <path d="M118,180 L122,225" stroke="#A8782A" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M118,180 L122,225" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+    <!-- Hooves -->
+    <ellipse cx="54" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="68" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="106" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+    <ellipse cx="122" cy="226" rx="5" ry="2.5" fill="#1A0A04"/>
+
+  </g>
+</svg>
